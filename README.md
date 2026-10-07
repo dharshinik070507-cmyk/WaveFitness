@@ -1,76 +1,102 @@
-# WAVE FITNESS UNISEX (GYM) - Design System & Web Application
+# 🏋️ WAVE FITNESS UNISEX (GYM)
 
-> **Brand Tagline:** *"Ride the Wave to Wellness"*  
-> **Poster Location:** Tambaram Camp Road CH-73  
-> **Google Maps Coordinates:** `12.9230144, 80.1429674` (Plus Code: `W4FV+65`)  
-> **Verified Phone / WhatsApp:** `+91 73973 98749`  
+> **"Ride the Wave to Wellness"**  
+> Official web application for WAVE FITNESS UNISEX (GYM) located in Tambaram East (Camp Road Junction), Chennai.
 
----
-
-## 🎨 Design System Architecture (Gritty Gym Poster Aesthetic)
-
-The Wave Fitness website is built on a **hard-edged, flat color, gym poster design system**. It avoids soft rounded-2xl cards, decorative gradients, glassmorphism, or AI template tropes in favor of heavy scale contrast, hairline borders, and authentic photography.
-
-### 1. Color Tokens & WCAG 2.1 AA Contrast Ratios
-
-| Token Name | Hex Code | Purpose & Usage Rule | Contrast Ratio | WCAG 2.1 AA Status |
-| :--- | :--- | :--- | :--- | :--- |
-| `--bg` | `#0b0b0c` | Page Background Base | Base | Base |
-| `--surface-1` | `#121214` | Card & Panel Surfaces | **16.1:1** on `--text` | Pass AAA |
-| `--surface-2` | `#1a1a1d` | Form Inputs & Hover States | Structural Surface | Pass |
-| `--line` | `#2a2a2e` | 1px Hairline Structural Dividers | Structural Line | Pass |
-| `--text` | `#f5f5f3` | Primary Warm Off-White Text | **17.8:1** on `--bg` | Pass AAA |
-| `--text-muted` | `#a1a1a6` | Secondary Metadata & Descriptions | **7.4:1** on `--bg` | Pass AAA |
-| `--text-dim` | `#6b6b72` | Index Numbers (01/02) & Decorative Tags | **3.6:1** | Pass (Meta/Decorative) |
-| `--red` | `#E10600` | **ACTION ONLY:** Primary Buttons & Headlines | **5.2:1** (White text on Red) | Pass AA |
-| `--red-text` | `#FF5A52` | Small Red Text & Links (<18px bold) | **5.8:1** on `--bg` | Pass AA Small Text |
-| `--blue` | `#1E88D6` | Logo Details, Secondary Links, Focus Ring | **4.8:1** on `--bg` | Pass AA |
+[![Next.js 14](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-purple?logo=framer)](https://www.framer.com/motion/)
 
 ---
 
-### 🚨 The "Red Only For Action" Rule
+## 📌 Verified Business Details
 
-- **Red (`#E10600`) is reserved strictly for primary conversion actions** (e.g. *"Claim Free Trial"*, main display headlines, price numerals, and red underline bars).
-- Red occupies at most **5–8%** of any viewport.
-- There is **only ONE primary red button per screen section**.
-- **Small Red Text Constraint:** `#E10600` on `#0b0b0c` is ~4.1:1 (passes AA for large text >24px, but fails 4.5:1 for small text). Therefore, all small red text or links use `--red-text: #FF5A52` (which yields **5.8:1** contrast).
-
----
-
-### 📌 DOs and DON'Ts Checklist
-
-#### DO:
-- ✅ **Hard Edges:** Use 0px radius (`var(--radius-0)`) for cards, images, and section wrappers.
-- ✅ **Hairline Borders:** Separate panels and sections with 1px `--line` rules (`#2a2a2e`).
-- ✅ **Extreme Scale Contrast:** Pair large condensed display headlines with small, quiet, wide-tracked labels.
-- ✅ **Static Film Grain & Scrim Overlays:** Use linear dark overlays for text legibility over gym photography.
-- ✅ **Tamil First-Class Support:** Ensure Tamil headings use `1.5` line-height and no uppercase transforms.
-
-#### DON'T:
-- ❌ **NO Rounded-2xl Cards:** Never use soft `rounded-2xl` or `rounded-3xl` corners.
-- ❌ **NO Glassmorphism or Blur Glows:** Never use backdrop blurs or glowing drop shadows.
-- ❌ **NO Decorative Gradients:** Never use purple-to-pink or multi-color gradient text.
-- ❌ **NO Emoji Icons in Headings:** Use square-capped 1.5px stroke Lucide vector icons only.
-- ❌ **NO Overuse of Red:** Never turn secondary buttons or large background blocks red.
+- **Gym Name:** WAVE FITNESS UNISEX (GYM)
+- **Short Brand:** WAVE FITNESS
+- **Address:** No.2, Bharathi, Lenin Complex, School St, Camp Road Junction, Selaiyur, Tambaram East, Chennai, Tamil Nadu 600073
+- **Google Plus Code:** `W4FV+65 Tambaram, Tamil Nadu`
+- **Coordinates:** `12.9230144, 80.1429674`
+- **Phone / WhatsApp:** `+91 73973 98749`
+- **Google Rating:** 4.9★ from 365+ Verified Reviews
+- **Operating Hours:** Opens daily from 6:00 AM
+- **Promotional Pricing:** ₹999/month (~₹33/day) | ₹2,499 3-Month Quarterly Pass (~₹28/day, saves ₹498)
 
 ---
 
-### 🎨 Retheming in One Place
+## ✨ Features
 
-All design system tokens are defined in **`src/styles/tokens.css`**:
-```css
-:root {
-  --bg: #0b0b0c;
-  --surface-1: #121214;
-  --red: #E10600;      /* Sampled from WF logo underline */
-  --blue: #1E88D6;     /* Sampled from WF logo circular emblem */
-}
+- **Gritty Gym Poster Aesthetic:** Hard edges (`0px radius`), dark base (`#0b0b0c`), hairline borders (`#2a2a2e`), action-only red (`#E10600`), flat color, and static film-grain texture.
+- **Motion System:** Hardware-accelerated Framer Motion reveals (`translateY` + `opacity`), masked text entrance, 250vh scroll-linked workout split, and 55s infinite marquee loops.
+- **Bilingual (Tamil / English):** First-class Tamil support via `Anek Tamil` with scoped font scaling and zero layout jumps.
+- **Lead Generation API (`/api/lead`):** Server-side Zod validation for Indian 10-digit mobile numbers, honeypot spam protection, and WhatsApp lead links.
+- **Single Content Source (`gymData.ts`):** All business facts, pricing, timings, reviews, and FAQs are managed in one centralized data file.
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+- Node.js 18.x or later
+- npm or yarn / pnpm
+
+### Installation
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/dharshinik070507-cmyk/WaveFitness.git
+cd WaveFitness
+
+# 2. Install dependencies
+npm install
+
+# 3. Run development server
+npm run dev
 ```
-Updating these values rethemes the entire site instantly!
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+
+### Build & Production Server
+
+```bash
+# Build production bundle
+npm run build
+
+# Start production server
+npm run start
+```
 
 ---
 
-### 🛠️ Development & Styleguide
+## 🗺️ Project Structure
 
-- **Dev Server:** `npm run dev` (Runs on `http://localhost:3000`)
-- **Interactive Styleguide:** Visit `http://localhost:3000/styleguide` to view all color swatches, contrast ratios, component states, and Tamil/English toggles.
+```text
+├── src/
+│   ├── app/                # Next.js 14 App Router pages & API routes
+│   │   ├── api/lead/       # Zod-validated lead generation route
+│   │   ├── tools/bmi/      # BMI Calculator tool page
+│   │   ├── blog/           # Local SEO fitness guide articles
+│   │   ├── layout.tsx      # Root layout with self-hosted fonts
+│   │   └── page.tsx        # 16-section conversion home page
+│   ├── components/         # Modular UI & section components
+│   │   ├── Hero.tsx        # Masked entrance & background text ticker
+│   │   ├── WeekStrip.tsx   # Desktop 250vh sticky scroll split & mobile snap
+│   │   ├── ProgramsRow.tsx # 55s infinite marquee program loop
+│   │   └── ...             # TrustStrip, BenefitStrip, NaturalStrength, etc.
+│   ├── content/
+│   │   └── gymData.ts      # Single source of truth for all business content
+│   ├── context/
+│   │   ├── LanguageContext.tsx  # Tamil / English language provider
+│   │   └── TrialContext.tsx     # Trial modal state manager
+│   ├── lib/
+│   │   └── motion.ts       # Shared Framer Motion configs & variants
+│   └── styles/
+│       └── tokens.css      # Design system CSS custom properties
+└── README.md
+```
+
+---
+
+## 📄 License & Attribution
+
+Designed and developed for **WAVE FITNESS UNISEX (GYM)**, Tambaram East, Chennai.
