@@ -1,0 +1,63 @@
+/* WAVE FITNESS DESIGN SYSTEM TOKENS
+ * Gritty Gym Poster Aesthetic: Dark, Disciplined, Hard-Edged, Flat Colors
+ */
+
+:root {
+  /* Surface Tokens (Dark Theme Only) */
+  --bg: #0b0b0c;
+  --surface-1: #121214;
+  --surface-2: #1a1a1d;
+  --surface-3: #232327;
+  --line: #2a2a2e;
+
+  /* Text Tokens */
+  --text: #f5f5f3;         /* Warm off-white, 17.8:1 on --bg */
+  --text-muted: #a1a1a6;   /* Secondary text, 7.4:1 on --bg */
+  --text-dim: #6b6b72;     /* Decorative/meta only, 3.6:1 */
+
+  /* Brand Colors (Sampled from WF Logo) */
+  --red: #E10600;          /* Action only: buttons, large headlines, underline bar */
+  --red-hover: #F01A12;
+  --red-press: #B80500;
+  --red-text: #FF5A52;     /* Small red text & links (<18px bold / <24px reg), 5.8:1 on --bg */
+  --blue: #1E88D6;         /* Logo emblem details, secondary links, focus rings */
+
+  /* Form Feedback Tokens */
+  --success: #2FBF71;
+  --warning: #F2B33D;
+  --error: #FF6B6B;
+
+  /* Spacing Scale (4px Base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-11: 192px;
+
+  /* Hard-Edged Radius Tokens (No Soft Rounded-2xl Cards) */
+  --radius-0: 0px;        /* Default for cards, sections, photo frames */
+  --radius-1: 2px;        /* Buttons, inputs */
+  --radius-2: 4px;        /* Badges & tags */
+
+  /* Elevation (Hard Offset Shadow for Featured Cards Only) */
+  --shadow-hard: 6px 6px 0px #000000;
+
+  /* Motion Tokens */
+  --dur-hover: 120ms;
+  --dur-ui: 240ms;
+  --dur-reveal: 480ms;
+  --ease-ui: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Z-Index Scale */
+  --z-base: 0;
+  --z-header: 40;
+  --z-bar: 50;
+  --z-modal: 60;
+  --z-toast: 70;
+}
