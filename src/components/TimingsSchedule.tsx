@@ -1,96 +1,145 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { gymData } from "@/content/gymData";
-import { Clock, Sun, Calendar, CheckCircle2, AlertCircle } from "lucide-react";
+import { useTrial } from "@/context/TrialContext";
+import { Clock, Sun, Calendar, Dumbbell, AlertCircle, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui";
+import { fadeInUpVariants, staggerContainerVariants, defaultViewport } from "@/lib/motion";
 
-export const TimingsSchedule: React.FC = () => {
+interface TimingsScheduleProps {
+  onOpenTrial?: () => void;
+}
+
+export const TimingsSchedule: React.FC<TimingsScheduleProps> = ({ onOpenTrial }) => {
+  const { openTrialModal } = useTrial();
+
+  const handleClaimTrial = () => {
+    if (onOpenTrial) {
+      onOpenTrial();
+    } else {
+      openTrialModal("Timing Inquiry");
+    }
+  };
+
   return (
-    <section className="py-16 bg-brand-dark relative border-b border-brand-border">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-bg border-b border-line">
+      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,4vw,3rem)]">
         
-        {/* Header */}
-        <div className="text-center mb-10">
-          <span className="font-wordmark text-xs font-bold uppercase tracking-poster text-brand-red mb-1 block">
-            VERIFIED SCHEDULE
+        {/* Section Header */}
+        <motion.div
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="text-left max-w-3xl mb-12"
+        >
+          <span className="font-wordmark text-xs font-bold uppercase tracking-poster text-red block mb-2">
+            05 / GYM TIMINGS & SLOTS
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-black text-white uppercase">
-            Official Operating Hours
+          <h2 className="font-display text-h2 font-black text-text uppercase leading-none">
+            TRAIN ON YOUR SCHEDULE
           </h2>
-          <p className="text-slate-400 text-xs mt-1">
-            Verified directly from Google Maps & Gym Management
+          <p className="font-body text-body text-text-muted mt-3">
+            Opens sharp at 6:00 AM daily for early morning lifters, students, and working professionals in Camp Road.
           </p>
-        </div>
+        </motion.div>
 
         {/* Timings Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.div
+          variants={staggerContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
           
           {/* Weekday Schedule */}
-          <div className="p-6 rounded-3xl bg-brand-card border border-brand-red/40 relative">
-            <div className="w-10 h-10 rounded-xl bg-brand-red/10 text-brand-red border border-brand-red/30 flex items-center justify-center mb-4">
-              <Sun className="w-5 h-5" />
+          <motion.div variants={fadeInUpVariants} className="p-6 bg-surface-1 border border-line rounded-r-0">
+            <div className="w-10 h-10 bg-surface-2 border border-line text-red flex items-center justify-center mb-4">
+              <Sun className="w-5 h-5 text-red" />
             </div>
-            <span className="font-wordmark text-[10px] font-bold text-emerald-400 uppercase tracking-poster block flex items-center gap-1">
-              <CheckCircle2 className="w-3 h-3" /> VERIFIED GOOGLE MAPS
+            <span className="font-wordmark text-[10px] font-bold text-red-text uppercase tracking-poster block">
+              CONFIRMED GOOGLE MAPS TIMING
             </span>
-            <h3 className="font-display text-2xl font-bold text-white uppercase mt-1">
+            <h3 className="font-display text-2xl font-bold text-text uppercase mt-1">
               Monday – Friday
             </h3>
-            <div className="text-2xl font-black text-brand-red mt-2 font-display">
+            <div className="text-2xl font-black text-red mt-2 font-display">
               6:00 AM – 9:30 PM
             </div>
-            <p className="font-body text-xs text-slate-400 mt-2">
-              Doors open sharp at 6 AM every weekday morning for early workouts.
+            <p className="font-body text-xs text-text-muted mt-2">
+              Opens sharp at 6 AM every morning for early workouts before office & college.
             </p>
-          </div>
+          </motion.div>
 
           {/* Saturday Schedule */}
-          <div className="p-6 rounded-3xl bg-brand-card border border-brand-border">
-            <div className="w-10 h-10 rounded-xl bg-brand-dark text-cyan-400 border border-brand-border flex items-center justify-center mb-4">
-              <Clock className="w-5 h-5" />
+          <motion.div variants={fadeInUpVariants} className="p-6 bg-surface-1 border border-line rounded-r-0">
+            <div className="w-10 h-10 bg-surface-2 border border-line text-blue flex items-center justify-center mb-4">
+              <Clock className="w-5 h-5 text-blue" />
             </div>
-            <span className="font-wordmark text-[10px] font-bold text-emerald-400 uppercase tracking-poster block flex items-center gap-1">
-              <CheckCircle2 className="w-3 h-3" /> VERIFIED GOOGLE MAPS
+            <span className="font-wordmark text-[10px] font-bold text-red-text uppercase tracking-poster block">
+              WEEKEND HEAVY SESSION
             </span>
-            <h3 className="font-display text-2xl font-bold text-white uppercase mt-1">
+            <h3 className="font-display text-2xl font-bold text-text uppercase mt-1">
               Saturday
             </h3>
-            <div className="text-2xl font-black text-white mt-2 font-display">
+            <div className="text-2xl font-black text-text mt-2 font-display">
               6:30 AM – 9:30 PM
             </div>
-            <p className="font-body text-xs text-slate-400 mt-2">
-              Full day weekend gym floor & heavy weight training sessions.
+            <p className="font-body text-xs text-text-muted mt-2">
+              Full day weekend gym floor access for heavy strength & cardio circuits.
             </p>
-          </div>
+          </motion.div>
 
-          {/* Sunday Schedule */}
-          <div className="p-6 rounded-3xl bg-brand-card border border-brand-border">
-            <div className="w-10 h-10 rounded-xl bg-brand-dark text-amber-400 border border-brand-border flex items-center justify-center mb-4">
+          {/* Sunday & Ladies Slot Placeholders */}
+          <motion.div variants={fadeInUpVariants} className="p-6 bg-surface-1 border border-line rounded-r-0">
+            <div className="w-10 h-10 bg-surface-2 border border-line text-text flex items-center justify-center mb-4">
               <Calendar className="w-5 h-5" />
             </div>
-            <span className="font-wordmark text-[10px] font-bold text-emerald-400 uppercase tracking-poster block flex items-center gap-1">
-              <CheckCircle2 className="w-3 h-3" /> VERIFIED GOOGLE MAPS
+            <span className="font-wordmark text-[10px] font-bold text-text-dim uppercase tracking-poster block">
+              SUNDAY & LADIES SLOTS
             </span>
-            <h3 className="font-display text-2xl font-bold text-white uppercase mt-1">
-              Sunday
+            <h3 className="font-display text-2xl font-bold text-text uppercase mt-1">
+              Sunday & Ladies Only
             </h3>
-            <div className="text-2xl font-black text-amber-400 mt-2 font-display">
-              5:00 AM – 9:00 PM
+            <div className="text-xl font-bold text-text mt-2 font-display">
+              5:00 AM – 9:00 PM <span className="text-xs text-text-dim">[PLACEHOLDER]</span>
             </div>
-            <p className="font-body text-xs text-slate-400 mt-2">
-              Special early morning Sunday opening at 5:00 AM!
+            <p className="font-body text-xs text-text-muted mt-2">
+              Sunday timings & exclusive ladies-only hours are flagged for client confirmation.
             </p>
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
         {/* Holiday Banner Notice */}
-        <div className="mt-8 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-3 font-body text-xs text-amber-300">
-          <AlertCircle className="w-5 h-5 shrink-0 text-amber-400" />
+        <motion.div
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="mt-8 p-4 bg-surface-1 border border-line flex items-center gap-3 font-body text-xs text-text-muted"
+        >
+          <AlertCircle className="w-5 h-5 shrink-0 text-red" />
           <span>
-            <strong>Festival Notice:</strong> On major public holidays (Pongal, Diwali, Tamil New Year), morning-only slots may apply. Check WhatsApp for live announcements.
+            <strong>Festival Notice:</strong> On major public holidays (Pongal, Diwali, Tamil New Year), special morning slots apply.
           </span>
-        </div>
+        </motion.div>
+
+        {/* Standard Single CTA per Section */}
+        <motion.div
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="mt-8"
+        >
+          <Button variant="primary" size="md" onClick={handleClaimTrial}>
+            <Dumbbell className="w-4 h-4 mr-2" /> Claim Free Trial
+          </Button>
+        </motion.div>
 
       </div>
     </section>

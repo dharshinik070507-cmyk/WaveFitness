@@ -1,9 +1,12 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { gymData } from "@/content/gymData";
-import { Award, CheckCircle2, Dumbbell, AlertTriangle } from "lucide-react";
 import { useTrial } from "@/context/TrialContext";
+import { Award, CheckCircle2, Dumbbell, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui";
+import { fadeInUpVariants, staggerContainerVariants, defaultViewport } from "@/lib/motion";
 
 interface TrainersSectionProps {
   onOpenTrialWithTrainer?: (trainerName: string) => void;
@@ -19,69 +22,83 @@ export const TrainersSection: React.FC<TrainersSectionProps> = ({ onOpenTrialWit
       openTrialModal(undefined, { trainer: trainerName });
     }
   };
+
   return (
-    <section id="trainers" className="py-20 bg-brand-dark relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="coaches" className="py-20 bg-bg border-b border-line relative">
+      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,4vw,3rem)]">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-red mb-2 block">
-            Meet The Coaches
+        <motion.div
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="text-left max-w-3xl mb-12"
+        >
+          <span className="font-wordmark text-xs font-bold uppercase tracking-poster text-red block mb-2">
+            07 / MEET THE COACHES
           </span>
-          <h2 className="font-display text-3xl sm:text-5xl font-black text-white uppercase">
-            Personal Attention On Every Set
+          <h2 className="font-display text-h2 font-black text-text uppercase leading-none">
+            PERSONAL ATTENTION ON EVERY SET
           </h2>
-          <p className="mt-3 text-slate-400 text-sm">
-            At Wave Fitness Tambaram, trainers don&apos;t just sit behind desks — they actively correct your form, motivate your sets, and keep you safe.
+          <p className="font-body text-body text-text-muted mt-3">
+            At Wave Fitness Tambaram, trainers don&apos;t sit behind desks — they actively watch your form, correct postures, and keep you disciplined.
           </p>
-        </div>
+        </motion.div>
 
         {/* Trainers Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <motion.div
+          variants={staggerContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
           {gymData.trainers.map((t) => (
-            <div
+            <motion.div
               key={t.id}
-              className="rounded-3xl bg-brand-card border border-brand-border overflow-hidden hover:border-brand-red/50 transition-all group flex flex-col justify-between"
+              variants={fadeInUpVariants}
+              className="bg-surface-1 border border-line rounded-r-0 overflow-hidden flex flex-col justify-between"
             >
               <div>
                 {/* Photo & Badge */}
-                <div className="h-72 relative bg-slate-900 overflow-hidden">
+                <div className="h-72 relative bg-surface-2 overflow-hidden border-b border-line">
                   <img
                     src={t.photoUrl}
                     alt={t.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+                    className="w-full h-full object-cover opacity-90"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-card via-transparent to-transparent"></div>
-                  <span className="absolute bottom-4 left-4 z-10 px-3 py-1 bg-brand-red/90 backdrop-blur-md text-white font-extrabold text-[10px] uppercase tracking-wider rounded-md flex items-center gap-1">
-                    <Award className="w-3.5 h-3.5" /> Verified in Reviews
+                  <div className="photo-scrim" />
+                  <span className="absolute bottom-4 left-4 z-10 px-3 py-1 bg-red text-text font-wordmark font-bold text-[10px] uppercase tracking-poster rounded-r-0 flex items-center gap-1">
+                    <Award className="w-3.5 h-3.5" /> Verified Coach in Member Reviews
                   </span>
                 </div>
 
                 {/* Info Content */}
                 <div className="p-6">
-                  <span className="text-[11px] font-bold text-brand-red uppercase tracking-wider block">
+                  <span className="font-wordmark text-xs font-bold text-red uppercase tracking-poster block">
                     {t.nickname}
                   </span>
-                  <h3 className="font-display text-2xl font-bold text-white uppercase mt-0.5">
+                  <h3 className="font-display text-2xl font-bold text-text uppercase mt-0.5">
                     {t.name}
                   </h3>
-                  <p className="text-xs text-brand-muted font-semibold mt-1">
+                  <p className="font-body text-xs text-text-muted font-semibold mt-1">
                     {t.role}
                   </p>
 
-                  <div className="mt-4 p-3 rounded-xl bg-brand-dark/80 border border-brand-border text-xs text-slate-300 italic">
+                  <div className="mt-4 p-3 bg-surface-2 border border-line font-body text-xs text-text-muted italic">
                     &ldquo;{t.quote}&rdquo;
                   </div>
 
                   <div className="mt-4 space-y-2">
-                    <span className="text-[11px] font-bold text-white uppercase block">Key Focus Areas:</span>
+                    <span className="font-wordmark text-[11px] font-bold text-text uppercase block tracking-poster">Key Focus Areas:</span>
                     <div className="flex flex-wrap gap-1.5">
                       {t.specialties.map((spec, i) => (
                         <span
                           key={i}
-                          className="px-2.5 py-1 rounded-md bg-brand-dark border border-brand-border text-slate-300 text-[10px] font-semibold flex items-center gap-1"
+                          className="px-2.5 py-1 bg-surface-2 border border-line text-text-muted font-body text-[10px] font-bold flex items-center gap-1"
                         >
-                          <CheckCircle2 className="w-3 h-3 text-brand-red" /> {spec}
+                          <CheckCircle2 className="w-3 h-3 text-red" /> {spec}
                         </span>
                       ))}
                     </div>
@@ -91,22 +108,30 @@ export const TrainersSection: React.FC<TrainersSectionProps> = ({ onOpenTrialWit
 
               {/* Action Button */}
               <div className="p-6 pt-0">
-                <button
+                <Button
+                  variant="primary"
+                  size="md"
                   onClick={() => handleTrainerClick(t.nickname)}
-                  className="w-full py-3.5 bg-brand-red hover:bg-brand-red-hover text-white font-black uppercase text-xs rounded-xl shadow-lg shadow-brand-red/20 transition-all flex items-center justify-center gap-2"
+                  className="w-full"
                 >
-                  <Dumbbell className="w-4 h-4" /> Train with {t.nickname.split('/')[0]}
-                </button>
+                  <Dumbbell className="w-4 h-4 mr-2" /> Train with {t.nickname.split('/')[0]}
+                </Button>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Verification Note (Rule requirement: Never invent credentials) */}
-        <div className="mt-10 max-w-2xl mx-auto p-4 rounded-2xl bg-brand-card/60 border border-brand-border text-center text-xs text-slate-400">
-          <AlertTriangle className="w-4 h-4 text-amber-400 inline-block mr-1.5" />
-          <strong className="text-slate-200">Client Note:</strong> Trainer full names, official photo portraits, certifications, and years of experience are stored for client confirmation before publication.
-        </div>
+        {/* Verification Note (Never invent credentials) */}
+        <motion.div
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="mt-8 p-4 bg-surface-1 border border-line text-xs text-text-muted"
+        >
+          <AlertCircle className="w-4 h-4 text-text inline-block mr-1.5" />
+          <strong className="text-text">Client Confirmation Note:</strong> Trainer full names, official photo portraits, certifications, and experience are kept in gymData for client confirmation before publication.
+        </motion.div>
 
       </div>
     </section>

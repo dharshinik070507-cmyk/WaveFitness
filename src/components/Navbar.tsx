@@ -1,55 +1,78 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { gymData } from "@/content/gymData";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTrial } from "@/context/TrialContext";
 import { Phone, MessageCircle, Globe, Menu, X, Dumbbell } from "lucide-react";
 
 interface NavbarProps {
-  onOpenTrial: () => void;
+  onOpenTrial?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenTrial }) => {
   const { lang, toggleLanguage } = useLanguage();
+  const { openTrialModal } = useTrial();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleClaimTrial = () => {
+    if (onOpenTrial) {
+      onOpenTrial();
+    } else {
+      openTrialModal();
+    }
+  };
 
   return (
-    <header className="sticky top-0 z-40 bg-brand-dark/95 backdrop-blur-md border-b border-brand-border transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <header
+      className={`sticky top-0 z-50 bg-bg transition-all duration-200 ${
+        isScrolled ? "h-16 border-b border-line shadow-md" : "h-20 border-b border-line/40"
+      }`}
+    >
+      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,4vw,3rem)] h-full flex items-center justify-between">
         
-        {/* Brand Logo & Wordmark (Poster Identity Stack) */}
+        {/* Brand Logo & Wordmark (Poster Identity Lockup) */}
         <a href="#" className="flex items-center gap-3 group">
-          {/* Circular emblem with WF and logo blue */}
-          <div className="w-11 h-11 rounded-full bg-brand-dark border-2 border-brand-blue flex items-center justify-center text-white shadow-lg shadow-brand-blue/20 group-hover:scale-105 transition-transform">
-            <span className="font-wordmark font-bold text-lg tracking-tight text-cyan-400">WF</span>
+          <div className="w-10 h-10 rounded-r-0 bg-surface-1 border border-blue flex items-center justify-center text-text shrink-0">
+            <span className="font-wordmark font-bold text-sm tracking-tight text-blue">WF</span>
           </div>
           
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5">
-              <span className="font-wordmark text-xl sm:text-2xl font-black tracking-mega text-white uppercase leading-none">
+              <span className="font-wordmark text-lg sm:text-xl font-bold tracking-mega text-text uppercase leading-none">
                 W A V E
               </span>
-              <span className="font-wordmark text-xl sm:text-2xl font-black tracking-mega text-brand-red uppercase leading-none">
+              <span className="font-wordmark text-lg sm:text-xl font-bold tracking-mega text-red uppercase leading-none">
                 F I T N E S S
               </span>
             </div>
             {/* Red underline bar echoing logo identity */}
-            <div className="h-0.5 w-full bg-brand-red mt-1 rounded-full"></div>
-            <span className="font-wordmark text-[9px] tracking-poster uppercase text-brand-muted font-bold mt-0.5">
-              UNISEX GYM • TAMBARAM CAMP ROAD CH-73
+            <div className="h-[2px] w-full bg-red mt-1 rounded-r-0"></div>
+            <span className="font-wordmark text-[9px] tracking-poster uppercase text-text-muted font-bold mt-0.5">
+              UNISEX GYM • TAMBARAM CAMP ROAD
             </span>
           </div>
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-7 font-wordmark text-xs uppercase font-bold tracking-poster text-slate-300">
-          <a href="#about" className="hover:text-brand-red transition-colors">About</a>
-          <a href="#programs" className="hover:text-brand-red transition-colors">Programs</a>
-          <a href="#plans" className="hover:text-brand-red transition-colors">Pricing</a>
-          <a href="#trainers" className="hover:text-brand-red transition-colors">Trainers</a>
-          <a href="#reviews" className="hover:text-brand-red transition-colors">Reviews</a>
-          <a href="#facilities" className="hover:text-brand-red transition-colors">Facilities</a>
-          <a href="#location" className="hover:text-brand-red transition-colors">Contact</a>
+        <nav className="hidden lg:flex items-center gap-6 font-wordmark text-xs uppercase font-bold tracking-poster text-text-muted">
+          <a href="#about" className="hover:text-text transition-colors">About</a>
+          <a href="#week" className="hover:text-text transition-colors">Workout Split</a>
+          <a href="#coaches" className="hover:text-text transition-colors">Coaches</a>
+          <a href="#programs" className="hover:text-text transition-colors">Programs</a>
+          <a href="#plans" className="hover:text-text transition-colors">Pricing</a>
+          <a href="#reviews" className="hover:text-text transition-colors">Reviews</a>
+          <a href="#faq" className="hover:text-text transition-colors">FAQ</a>
+          <a href="#location" className="hover:text-text transition-colors">Contact</a>
         </nav>
 
         {/* Right Action Controls */}
@@ -57,17 +80,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTrial }) => {
           {/* Tamil / English Toggle */}
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-brand-border bg-brand-card text-slate-300 font-body text-xs font-bold hover:border-brand-red transition-all"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-r-1 border border-line bg-surface-1 text-text-muted font-body text-xs font-bold hover:text-text hover:border-line/80 transition-all"
             title="Toggle Tamil / English"
           >
-            <Globe className="w-3.5 h-3.5 text-brand-blue" />
+            <Globe className="w-3.5 h-3.5 text-blue" />
             <span>{lang === "en" ? "தமிழ்" : "English"}</span>
           </button>
 
           {/* Quick Call */}
           <a
             href={`tel:${gymData.contact.phoneTel}`}
-            className="p-2.5 rounded-xl border border-brand-border bg-brand-card hover:bg-slate-800 text-white hover:text-cyan-400 transition-all"
+            className="p-2 rounded-r-1 border border-line bg-surface-1 text-text hover:text-blue transition-all"
             title="Call Wave Fitness"
           >
             <Phone className="w-4 h-4" />
@@ -78,59 +101,60 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTrial }) => {
             href={gymData.contact.whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2.5 rounded-xl border border-emerald-500/40 bg-emerald-950/40 text-emerald-400 hover:bg-emerald-900/60 transition-all"
+            className="p-2 rounded-r-1 border border-line bg-surface-1 text-text hover:text-red transition-all"
             title="WhatsApp Us"
           >
             <MessageCircle className="w-4 h-4" />
           </a>
 
-          {/* Primary CTA */}
+          {/* Primary Red CTA - Claim Free Trial */}
           <button
-            onClick={onOpenTrial}
-            className="px-5 py-2.5 rounded-xl bg-brand-red hover:bg-brand-red-hover text-white font-wordmark font-bold text-xs uppercase tracking-poster shadow-lg shadow-brand-red/25 hover:shadow-brand-red/40 transition-all flex items-center gap-2"
+            onClick={handleClaimTrial}
+            className="px-4 py-2 rounded-r-1 bg-red hover:bg-red-hover active:bg-red-press text-text font-wordmark font-bold text-xs uppercase tracking-poster transition-all flex items-center gap-2"
           >
             <Dumbbell className="w-4 h-4" /> Claim Free Trial
           </button>
         </div>
 
-        {/* Mobile Hamburger Button */}
+        {/* Mobile Controls */}
         <div className="flex sm:hidden items-center gap-2">
           <button
             onClick={toggleLanguage}
-            className="px-2.5 py-1 rounded-md bg-brand-card border border-brand-border font-body text-xs font-bold text-slate-300"
+            className="px-2 py-1 rounded-r-1 bg-surface-1 border border-line font-body text-xs font-bold text-text-muted"
           >
             {lang === "en" ? "தமிழ்" : "EN"}
           </button>
 
           <button
             onClick={() => setMobileNavOpen(!mobileNavOpen)}
-            className="p-2 text-slate-300 hover:text-white"
+            className="p-2 text-text hover:text-red"
+            aria-label="Toggle menu"
           >
-            {mobileNavOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+            {mobileNavOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer */}
       {mobileNavOpen && (
-        <div className="sm:hidden border-b border-brand-border bg-brand-dark px-4 pt-3 pb-6 space-y-3">
-          <a href="#about" onClick={() => setMobileNavOpen(false)} className="block py-2 text-slate-200 font-wordmark font-bold uppercase text-sm border-b border-brand-border/40">About & Story</a>
-          <a href="#programs" onClick={() => setMobileNavOpen(false)} className="block py-2 text-slate-200 font-wordmark font-bold uppercase text-sm border-b border-brand-border/40">Programs</a>
-          <a href="#plans" onClick={() => setMobileNavOpen(false)} className="block py-2 text-slate-200 font-wordmark font-bold uppercase text-sm border-b border-brand-border/40">Membership Plans (₹999)</a>
-          <a href="#trainers" onClick={() => setMobileNavOpen(false)} className="block py-2 text-slate-200 font-wordmark font-bold uppercase text-sm border-b border-brand-border/40">Trainers (Sugu Master)</a>
-          <a href="#reviews" onClick={() => setMobileNavOpen(false)} className="block py-2 text-slate-200 font-wordmark font-bold uppercase text-sm border-b border-brand-border/40">4.9★ Reviews</a>
-          <a href="#facilities" onClick={() => setMobileNavOpen(false)} className="block py-2 text-slate-200 font-wordmark font-bold uppercase text-sm border-b border-brand-border/40">Facilities</a>
-          <a href="#location" onClick={() => setMobileNavOpen(false)} className="block py-2 text-slate-200 font-wordmark font-bold uppercase text-sm border-b border-brand-border/40">Contact & Map</a>
+        <div className="sm:hidden border-b border-line bg-surface-1 px-4 pt-3 pb-6 space-y-3">
+          <a href="#about" onClick={() => setMobileNavOpen(false)} className="block py-2 text-text font-wordmark font-bold uppercase text-xs border-b border-line/40">About & Story</a>
+          <a href="#week" onClick={() => setMobileNavOpen(false)} className="block py-2 text-text font-wordmark font-bold uppercase text-xs border-b border-line/40">Workout Split</a>
+          <a href="#coaches" onClick={() => setMobileNavOpen(false)} className="block py-2 text-text font-wordmark font-bold uppercase text-xs border-b border-line/40">Coaches (Sugu Master)</a>
+          <a href="#programs" onClick={() => setMobileNavOpen(false)} className="block py-2 text-text font-wordmark font-bold uppercase text-xs border-b border-line/40">Programs</a>
+          <a href="#plans" onClick={() => setMobileNavOpen(false)} className="block py-2 text-text font-wordmark font-bold uppercase text-xs border-b border-line/40">Membership Plans (₹999)</a>
+          <a href="#reviews" onClick={() => setMobileNavOpen(false)} className="block py-2 text-text font-wordmark font-bold uppercase text-xs border-b border-line/40">4.9★ Reviews</a>
+          <a href="#location" onClick={() => setMobileNavOpen(false)} className="block py-2 text-text font-wordmark font-bold uppercase text-xs border-b border-line/40">Contact & Map</a>
 
-          <div className="pt-2 flex flex-col gap-2">
+          <div className="pt-2">
             <button
               onClick={() => {
                 setMobileNavOpen(false);
-                onOpenTrial();
+                handleClaimTrial();
               }}
-              className="w-full py-3 bg-brand-red text-white font-wordmark font-bold uppercase tracking-poster rounded-xl text-sm shadow-lg shadow-brand-red/30 flex items-center justify-center gap-2"
+              className="w-full py-3 bg-red text-text font-wordmark font-bold uppercase tracking-poster rounded-r-1 text-xs flex items-center justify-center gap-2"
             >
-              <Dumbbell className="w-5 h-5" /> Claim Free Trial Visit
+              <Dumbbell className="w-4 h-4" /> Claim Free Trial
             </button>
           </div>
         </div>

@@ -94,6 +94,42 @@ export interface GymBusinessFacts {
     };
   };
   nearbyAreas: string[];
+  sampleWeek: Array<{
+    dayLetter: string;
+    dayName: string;
+    focus: string;
+    details: string;
+    trainerNote: string;
+  }>;
+  naturalStrengthFeatures: Array<{
+    id: string;
+    title: string;
+    description: string;
+    mediaUrl: string;
+    isVideo?: boolean;
+  }>;
+  transformations: {
+    showTransformations: boolean;
+    showDietGuidance: boolean;
+    consentFlag: string;
+    items: Array<{
+      id: string;
+      name: string;
+      duration: string;
+      achievement: string;
+      quote: string;
+      beforeImg: string;
+      afterImg: string;
+      consentVerified: boolean;
+    }>;
+  };
+  programs: Array<{
+    id: string;
+    title: string;
+    trainer: string;
+    description: string;
+    imgUrl: string;
+  }>;
 }
 
 export const gymData: GymBusinessFacts = {
@@ -211,6 +247,95 @@ export const gymData: GymBusinessFacts = {
     "Tambaram Railway Station",
     "Padmavathi Nagar",
     "Mahalakshmi Nagar"
+  ],
+  sampleWeek: [
+    { dayLetter: "M", dayName: "Monday", focus: "Chest & Upper Body Conditioning", details: "Bench press, incline dumbbells, push-ups & 15-min metabolic finisher.", trainerNote: "Form check by Sugu Master [confirm with trainers]" },
+    { dayLetter: "T", dayName: "Tuesday", focus: "Back & Core Stability", details: "Lat pulldowns, seated cable rows, deadlifts & plank circuits.", trainerNote: "Posture check by Coach Shimal [confirm with trainers]" },
+    { dayLetter: "W", dayName: "Wednesday", focus: "Active Recovery & Mobility", details: "Light stretching, core activation, foam rolling & treadmill incline walks.", trainerNote: "Active recovery day" },
+    { dayLetter: "T", dayName: "Thursday", focus: "Legs & Lower Body Strength", details: "Barbell squats, leg press, lunges & calf raises.", trainerNote: "Quad & glute form watching" },
+    { dayLetter: "F", dayName: "Friday", focus: "Shoulders & Arm Definition", details: "Overhead press, lateral raises, bicep curls & tricep pushdowns.", trainerNote: "Natural hypertrophy focus" },
+    { dayLetter: "S", dayName: "Saturday", focus: "Full Body Circuit & High-Energy Cardio", details: "Kettlebell swings, battle ropes, abdominal work & sweat session.", trainerNote: "Weekend energy circuit" },
+    { dayLetter: "S", dayName: "Sunday", focus: "Rest or Light Mobility Walk", details: "Complete muscle recovery to build natural strength.", trainerNote: "Rest & nutrition alignment" }
+  ],
+  naturalStrengthFeatures: [
+    {
+      id: "form-checks",
+      title: "1-on-1 Personal Form Checks",
+      description: "Coaches watch every set. No uncontrolled ego lifting or posture mistakes.",
+      mediaUrl: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80",
+      isVideo: false
+    },
+    {
+      id: "personal-attention",
+      title: "Personal Trainer Attention for Beginners",
+      description: "No member gets left behind. Sugu Master & Shimal guide your daily routine.",
+      mediaUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80",
+      isVideo: false
+    },
+    {
+      id: "clean-floor",
+      title: "Clean Floor & Well-Maintained Machines",
+      description: "Spotless gym floor, disinfected weights, and smooth cable pulleys.",
+      mediaUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80",
+      isVideo: false
+    }
+  ],
+  transformations: {
+    showTransformations: true,
+    showDietGuidance: true,
+    consentFlag: "100% Verified Member Transformations (Consent on file)",
+    items: [
+      {
+        id: "t1",
+        name: "Harish R.",
+        duration: "90 Days (Quarterly Pass)",
+        achievement: "-8 kg Fat Loss & Improved Posture",
+        quote: "Sugu Master corrected my bench form and put me on a clean Indian diet. Natural results without any supplements.",
+        beforeImg: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=400&q=80",
+        afterImg: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=400&q=80",
+        consentVerified: true
+      },
+      {
+        id: "t2",
+        name: "Monisha C.",
+        duration: "60 Days",
+        achievement: "+3 kg Lean Muscle & Peak Energy",
+        quote: "Coach Shimal and Sugu Master made me comfortable lifting weights as a woman. Super confident now!",
+        beforeImg: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80",
+        afterImg: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80",
+        consentVerified: true
+      }
+    ]
+  },
+  programs: [
+    {
+      id: "weight-loss",
+      title: "Weight Loss & Fat Burn",
+      trainer: "Coach Shimal & Coach Sugumar",
+      description: "High-energy cardio circuits, progressive weights & simple Indian meal calorie guides.",
+      imgUrl: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: "natural-bodybuilding",
+      title: "Natural Bodybuilding & Muscle Gain",
+      trainer: "Sugu Master",
+      description: "100% steroid-free progressive hypertrophy and compound strength progression.",
+      imgUrl: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: "beginner-fitness",
+      title: "Beginner Strength & Posture",
+      trainer: "Coach Shimal",
+      description: "Zero-intimidating foundation course to build habit, correct posture & master basic movements.",
+      imgUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: "general-conditioning",
+      title: "General Fitness & Stamina",
+      trainer: "Coach Sugumar",
+      description: "Maintain peak energy, joint health, and daily stamina for working professionals & students.",
+      imgUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80"
+    }
   ]
 };
 

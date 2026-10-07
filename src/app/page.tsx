@@ -1,111 +1,75 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { PlanQuiz } from "@/components/PlanQuiz";
-import { ProgramsGrid } from "@/components/ProgramsGrid";
-import { PricingSection } from "@/components/PricingSection";
+import { TrustStrip } from "@/components/TrustStrip";
+import { BenefitStrip } from "@/components/BenefitStrip";
+import { WeekStrip } from "@/components/WeekStrip";
+import { TimingsSchedule } from "@/components/TimingsSchedule";
+import { NaturalStrength } from "@/components/NaturalStrength";
 import { TrainersSection } from "@/components/TrainersSection";
 import { NaturalTransformations } from "@/components/NaturalTransformations";
+import { ProgramsRow } from "@/components/ProgramsRow";
+import { PlanQuiz } from "@/components/PlanQuiz";
 import { ReviewsWall } from "@/components/ReviewsWall";
-import { FacilitiesSection } from "@/components/FacilitiesSection";
-import { TimingsSchedule } from "@/components/TimingsSchedule";
-import { BmiCalculator } from "@/components/BmiCalculator";
-import { SocialFeeds } from "@/components/SocialFeeds";
+import { PricingSection } from "@/components/PricingSection";
 import { FaqAccordion } from "@/components/FaqAccordion";
-import { BlogSection } from "@/components/BlogSection";
-import { LocationContact } from "@/components/LocationContact";
+import { FinalCtaBand } from "@/components/FinalCtaBand";
 import { Footer } from "@/components/Footer";
-import { FreeTrialModal } from "@/components/FreeTrialModal";
-import { StickyMobileBar } from "@/components/StickyMobileBar";
 
 export default function HomePage() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<string | undefined>(undefined);
-  const [quizData, setQuizData] = useState<any>(null);
-
-  const handleOpenTrial = () => {
-    setSelectedPlan(undefined);
-    setModalOpen(true);
-  };
-
-  const handleOpenTrialWithPlan = (planName: string) => {
-    setSelectedPlan(planName);
-    setModalOpen(true);
-  };
-
-  const handleOpenTrialWithTrainer = (trainerName: string) => {
-    setSelectedPlan(`Personal Training with ${trainerName}`);
-    setModalOpen(true);
-  };
-
-  const handleOpenTrialWithQuizData = (data: any) => {
-    setQuizData(data);
-    setSelectedPlan(data.recommendation);
-    setModalOpen(true);
-  };
-
   return (
-    <main className="min-h-screen bg-brand-dark">
-      {/* Sticky Header */}
-      <Navbar onOpenTrial={handleOpenTrial} />
+    <main className="min-h-screen bg-bg text-text">
+      {/* 0. AnnouncementBar and Sticky Header */}
+      <AnnouncementBar />
+      <Navbar />
 
-      {/* Hero Section */}
-      <Hero onOpenTrial={handleOpenTrial} />
+      {/* 1. Hero: Full-bleed photo, flat scrim, giant uppercase headline, background text ticker, left-aligned lockup */}
+      <Hero />
 
-      {/* Interactive Plan Quiz */}
-      <PlanQuiz onOpenTrialWithData={handleOpenTrialWithQuizData} />
+      {/* 2. TrustStrip: Google rating, YouTube, Instagram real numbers from gymData */}
+      <TrustStrip />
 
-      {/* Programs Grid */}
-      <ProgramsGrid onOpenTrial={handleOpenTrial} />
+      {/* 3. BenefitStrip: 4 columns (Personal attention / Clean equipment / Friendly unisex / Fees that make sense ₹999) */}
+      <BenefitStrip />
 
-      {/* Pricing & Memberships */}
-      <PricingSection onOpenTrialWithPlan={handleOpenTrialWithPlan} />
+      {/* 4. WeekStrip: Desktop sticky 250vh scroll-linked week split, mobile touch scroll-snap */}
+      <WeekStrip />
 
-      {/* Certified Trainers */}
-      <TrainersSection onOpenTrialWithTrainer={handleOpenTrialWithTrainer} />
-
-      {/* Natural Transformations */}
-      <NaturalTransformations onOpenTrial={handleOpenTrial} />
-
-      {/* Seed Google Reviews Wall */}
-      <ReviewsWall />
-
-      {/* Gym Floor Facilities */}
-      <FacilitiesSection />
-
-      {/* Timings & Schedule */}
+      {/* 5. Timings: "Train on your schedule", verified 6 AM opening */}
       <TimingsSchedule />
 
-      {/* Health Calculator */}
-      <BmiCalculator />
+      {/* 6. NaturalStrength: 3 feature panels (Form checks / Personal attention / Clean floor) with media */}
+      <NaturalStrength />
 
-      {/* YouTube & Instagram Social Feeds */}
-      <SocialFeeds />
+      {/* 7. Coaches: Sugumar & Shimal portraits, specs, quotes */}
+      <TrainersSection />
 
-      {/* FAQ Accordion */}
+      {/* 8. Progress: Natural transformations with consent flags & diet guidance */}
+      <NaturalTransformations />
+
+      {/* 9. ProgramsRow: Desktop 55s infinite marquee loop, mobile touch scroll-snap */}
+      <ProgramsRow />
+
+      {/* 10. PlanQuiz Teaser: "Find the perfect plan for you" */}
+      <PlanQuiz />
+
+      {/* 11. Reviews: Top row quotes, full review cards below, Google review link */}
+      <ReviewsWall />
+
+      {/* 12. Plans: ₹999 monthly, ₹2,499 quarterly (Most Popular), free trial pass line */}
+      <PricingSection />
+
+      {/* 13. FAQ: Accordion, first 6 visible, Show All toggle */}
       <FaqAccordion />
 
-      {/* Local SEO Blog Articles */}
-      <BlogSection />
+      {/* 14. FinalCtaBand: "Join Team Wave", ONLY centered section, map/address block */}
+      <FinalCtaBand />
 
-      {/* Contact & Map Location */}
-      <LocationContact />
-
-      {/* Footer */}
+      {/* 15. Footer: Logo, page links, programs, QR code, legal links, sticky mobile action bar */}
       <Footer />
-
-      {/* Sticky Mobile Bottom Bar */}
-      <StickyMobileBar onOpenTrial={handleOpenTrial} />
-
-      {/* Free Trial Modal */}
-      <FreeTrialModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        prefilledPlan={selectedPlan}
-        prefilledQuizData={quizData}
-      />
     </main>
   );
 }
