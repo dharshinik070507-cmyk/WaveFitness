@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { fontsClassString } from "./fonts";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { TrialProvider } from "@/context/TrialContext";
 import { JsonLdSchema } from "@/components/JsonLdSchema";
+import { gymData } from "@/content/gymData";
 
 export const metadata: Metadata = {
-  title: "Wave Fitness Unisex Gym Tambaram | Monthly ₹999 | 100% Natural",
-  description:
-    "Tambaram's premier unisex gym on Camp Road CH-73. Personal trainer attention from Sugu Master & Coach Shimal. Clean, friendly, steroid-free natural body transformation.",
+  title: `${gymData.name} | Monthly ₹${gymData.pricing.monthly.amount} | 100% Natural`,
+  description: `${gymData.positioning} Personal trainer attention from Sugu Master & Coach Shimal on Camp Road CH-73.`,
   keywords: [
     "gym in Tambaram",
     "unisex gym Tambaram East",
@@ -17,12 +19,12 @@ export const metadata: Metadata = {
     "natural bodybuilding Chennai",
     "gym for women Tambaram"
   ],
-  authors: [{ name: "Wave Fitness Unisex Gym" }],
+  authors: [{ name: gymData.name }],
   openGraph: {
-    title: "Wave Fitness Unisex Gym Tambaram East",
-    description: "Ride the Wave to Wellness. Monthly membership ₹999/mo. Clean, friendly unisex gym on Camp Road CH-73.",
+    title: `${gymData.name} Tambaram East`,
+    description: `Ride the Wave to Wellness. Monthly pass ₹${gymData.pricing.monthly.amount}/mo. Clean, friendly unisex gym on Camp Road CH-73.`,
     url: "https://wavefitnesstambaram.in",
-    siteName: "Wave Fitness Unisex Gym",
+    siteName: gymData.name,
     locale: "en_IN",
     type: "website",
   },
@@ -38,11 +40,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="antialiased bg-brand-dark text-slate-100 font-sans">
+    <html lang="en" data-lang="en" className={fontsClassString}>
+      <body className="antialiased bg-bg text-text font-body selection:bg-red selection:text-white">
         <LanguageProvider>
-          <JsonLdSchema />
-          {children}
+          <TrialProvider>
+            <JsonLdSchema />
+            {children}
+          </TrialProvider>
         </LanguageProvider>
       </body>
     </html>

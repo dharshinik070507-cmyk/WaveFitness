@@ -26,11 +26,18 @@
     }
   }
 
-  /* Text Wrap & Micro-Typography Rules */
-  h1, h2, h3, h4, h5, h6 {
+  /* Micro-Typography & Archivo Width Stretch Axis Rules */
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-display);
+    font-stretch: 72%;
     text-wrap: balance;
     font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  .font-wordmark, .wordmark, .eyebrow {
     font-family: var(--font-display);
+    font-stretch: 125%;
+    font-weight: 700;
   }
 
   p {
@@ -46,29 +53,32 @@
   }
 }
 
-/* TAMIL TYPOGRAPHY RULES */
+/* SCOPED TAMIL TYPOGRAPHY RULES */
 :lang(ta), [data-lang="ta"] {
-  font-family: var(--font-tamil) !important;
+  font-family: var(--font-tamil), var(--font-tamil-fallback), sans-serif;
 }
 
-:lang(ta) h1, :lang(ta) h2, :lang(ta) h3, :lang(ta) h4, [data-lang="ta"] h1, [data-lang="ta"] h2, [data-lang="ta"] h3 {
-  font-family: var(--font-tamil) !important;
-  text-transform: none !important;
-  letter-spacing: normal !important;
-  line-height: 1.5 !important;
-  font-size: 88% !important;
+:lang(ta) h1, :lang(ta) h2, :lang(ta) h3, :lang(ta) h4,
+[data-lang="ta"] h1, [data-lang="ta"] h2, [data-lang="ta"] h3, [data-lang="ta"] h4 {
+  font-family: var(--font-tamil), var(--font-tamil-fallback), sans-serif;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.5;
+  font-size: 88%;
+  font-stretch: 100%;
 }
 
 :lang(ta) p, :lang(ta) span, [data-lang="ta"] p, [data-lang="ta"] span {
-  font-family: var(--font-tamil) !important;
-  text-transform: none !important;
-  letter-spacing: normal !important;
-  line-height: 1.75 !important;
+  font-family: var(--font-tamil), var(--font-tamil-fallback), sans-serif;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.75;
 }
 
 :lang(ta) .wordmark, :lang(ta) .eyebrow, [data-lang="ta"] .wordmark, [data-lang="ta"] .eyebrow {
-  text-transform: none !important;
-  letter-spacing: normal !important;
+  text-transform: none;
+  letter-spacing: normal;
+  font-stretch: 100%;
 }
 
 /* HUMAN-DESIGNED POSTER & FILM GRAIN UTILITIES */
@@ -83,17 +93,18 @@
   z-index: 1;
 }
 
-/* Photo Scrim Overlay (Single-Direction Linear Dark Overlay for Photo Legibility) */
+/* Photo Scrim Overlay (Single-Direction Linear Dark Overlay) */
 .photo-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(11, 11, 12, 0.2) 0%, rgba(11, 11, 12, 0.85) 100%);
+  background: linear-gradient(180deg, rgba(11, 11, 12, 0.25) 0%, rgba(11, 11, 12, 0.85) 100%);
   pointer-events: none;
 }
 
 /* Oversized outline-stroke background word */
 .outline-word {
   font-family: var(--font-display);
+  font-stretch: 72%;
   font-weight: 900;
   color: transparent;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
@@ -115,14 +126,15 @@
   width: 48px;
   height: 4px;
   background-color: var(--red);
-  border-radius: 0px; /* Hard Edged */
+  border-radius: 0px;
 }
 
 /* Vertical Rotated Text for Side Labels (Desktop Only) */
 .vertical-label {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  font-family: var(--font-wordmark);
+  font-family: var(--font-display);
+  font-stretch: 125%;
   letter-spacing: 0.35em;
   font-size: 0.7rem;
   text-transform: uppercase;

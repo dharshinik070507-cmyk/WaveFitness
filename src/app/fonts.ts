@@ -1,32 +1,19 @@
 import { Archivo, Hanken_Grotesk, Anek_Tamil, Noto_Sans_Tamil } from "next/font/google";
 
 /**
- * 1. DISPLAY FONT (Archivo Variable - Condensed Headline Stack)
- * Used for gritty, high-impact gym poster headlines.
+ * 1. DISPLAY & WORDMARK FONT (Single Archivo Variable Instance with width axis)
  */
-export const archivoDisplay = Archivo({
+export const archivo = Archivo({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-display",
-  weight: ["800", "900"],
+  axes: ["wdth"],
 });
 
 /**
- * 2. WORDMARK & LABELS FONT (Archivo Variable - Expanded Accent Stack)
- * Used for wide-tracked uppercase logos, index numbers (01/02), and eyebrows.
+ * 2. BODY FONT (Hanken Grotesk)
  */
-export const archivoWordmark = Archivo({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-wordmark",
-  weight: ["600", "700"],
-});
-
-/**
- * 3. BODY FONT (Hanken Grotesk)
- * Clean, humanistic sans-serif for high legibility at 16px+ mobile body text.
- */
-export const hankenBody = Hanken_Grotesk({
+export const hankenGrotesk = Hanken_Grotesk({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-body",
@@ -34,22 +21,26 @@ export const hankenBody = Hanken_Grotesk({
 });
 
 /**
- * 4. TAMIL PRIMARY FONT (Anek Tamil Variable)
- * Native Tamil typography with proper line-height spacing for upper & lower diacritics.
+ * 3. TAMIL PRIMARY FONT (Anek Tamil)
  */
 export const anekTamil = Anek_Tamil({
-  subsets: ["tamil", "latin"],
+  subsets: ["tamil"],
   display: "swap",
   variable: "--font-tamil",
-  weight: ["500", "700", "800"],
+  preload: false,
 });
 
 /**
- * 5. TAMIL FALLBACK FONT (Noto Sans Tamil)
+ * 4. TAMIL FALLBACK FONT (Noto Sans Tamil)
  */
-export const notoTamil = Noto_Sans_Tamil({
+export const notoSansTamil = Noto_Sans_Tamil({
   subsets: ["tamil"],
   display: "swap",
   variable: "--font-tamil-fallback",
-  weight: ["400", "700"],
+  preload: false,
 });
+
+/**
+ * Combined font variables class string to apply to <html>
+ */
+export const fontsClassString = `${archivo.variable} ${hankenGrotesk.variable} ${anekTamil.variable} ${notoSansTamil.variable}`;

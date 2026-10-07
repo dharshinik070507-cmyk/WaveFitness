@@ -7,6 +7,14 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      xs: "360px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1440px",
+    },
     extend: {
       colors: {
         bg: "var(--bg)",
@@ -30,7 +38,7 @@ const config: Config = {
       },
       fontFamily: {
         display: ["var(--font-display)", "sans-serif"],
-        wordmark: ["var(--font-wordmark)", "sans-serif"],
+        wordmark: ["var(--font-display)", "sans-serif"],
         body: ["var(--font-body)", "sans-serif"],
         tamil: ["var(--font-tamil)", "var(--font-tamil-fallback)", "sans-serif"],
       },
@@ -41,7 +49,11 @@ const config: Config = {
         h3: ["clamp(1.5rem, 3.5vw, 2.75rem)", { lineHeight: "1.02", letterSpacing: "-0.01em" }],
         price: ["clamp(4rem, 14vw, 10rem)", { lineHeight: "0.85", letterSpacing: "-0.03em" }],
         eyebrow: ["0.75rem", { lineHeight: "1.2", letterSpacing: "0.35em" }],
+        meta: ["11px", { lineHeight: "1.3", letterSpacing: "0.05em" }],
         "body-lg": ["clamp(1rem, 2vw, 1.125rem)", { lineHeight: "1.6" }],
+      },
+      maxWidth: {
+        prose: "62ch",
       },
       spacing: {
         "s-1": "var(--space-1)",
