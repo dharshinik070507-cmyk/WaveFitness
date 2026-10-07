@@ -7,9 +7,21 @@ import { useTrial } from "@/context/TrialContext";
 import { Star, Dumbbell, Phone, MessageCircle, HeartHandshake, ShieldCheck, Award } from "lucide-react";
 import { Button } from "@/components/ui";
 
-export const Hero: React.FC = () => {
+interface HeroProps {
+  onOpenTrial?: () => void;
+}
+
+export const Hero: React.FC<HeroProps> = ({ onOpenTrial }) => {
   const { lang } = useLanguage();
   const { openTrialModal } = useTrial();
+
+  const handleOpenModal = () => {
+    if (onOpenTrial) {
+      onOpenTrial();
+    } else {
+      openTrialModal();
+    }
+  };
 
   const headline = lang === "ta" 
     ? tamilDictionary.hero.headline 
@@ -70,7 +82,7 @@ export const Hero: React.FC = () => {
 
           {/* Action CTAs */}
           <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-            <Button variant="primary" size="lg" onClick={() => openTrialModal("Hero Pass")}>
+            <Button variant="primary" size="lg" onClick={() => onOpenTrial ? onOpenTrial() : openTrialModal("Hero Pass")}>
               <Dumbbell className="w-5 h-5 mr-2" /> Claim Free Trial Visit
             </Button>
 

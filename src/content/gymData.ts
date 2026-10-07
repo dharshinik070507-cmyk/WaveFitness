@@ -21,6 +21,7 @@ export interface GymBusinessFacts {
     lng: number;
   };
   mapsUrl: string;
+  mapEmbedUrl: string;
   contact: {
     phoneFormatted: string;
     phonePoster: string;
@@ -118,6 +119,7 @@ export const gymData: GymBusinessFacts = {
     lng: 80.1429674
   },
   mapsUrl: "https://www.google.com/maps/place/WAVE+FITNESS+UNISEX(GYM)/@12.9230144,80.1429674,17z/",
+  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.7566114516447!2d80.1429674!3d12.9230144!2m3!1f0!0f0!2f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525ee1fd49d007%3A0xee0a832b1979d175!2sWAVE%20FITNESS%20UNISEX(GYM)!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
   contact: {
     phoneFormatted: "07397 398 749",
     phonePoster: "739 739 8749",

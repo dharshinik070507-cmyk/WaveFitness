@@ -3,14 +3,24 @@
 import React, { useState } from "react";
 import { gymData, tamilDictionary } from "@/content/gymData";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTrial } from "@/context/TrialContext";
 import { Check, Star, Dumbbell, Sparkles, AlertCircle, Info } from "lucide-react";
 
 interface PricingSectionProps {
-  onOpenTrialWithPlan: (planName: string) => void;
+  onOpenTrialWithPlan?: (planName: string) => void;
 }
 
 export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithPlan }) => {
   const { lang } = useLanguage();
+  const { openTrialModal } = useTrial();
+
+  const handleClaimPlan = (planName: string) => {
+    if (onOpenTrialWithPlan) {
+      onOpenTrialWithPlan(planName);
+    } else {
+      openTrialModal(planName);
+    }
+  };
   const [calcMonths, setCalcMonths] = useState(3);
 
   const monthlyPrice = gymData.pricing.monthly.amount;
@@ -97,7 +107,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
             </div>
 
             <button
-              onClick={() => onOpenTrialWithPlan("Monthly Pass (₹999)")}
+              onClick={() => handleClaimPlan("Monthly Pass (₹999)")}
               className="mt-8 w-full py-3.5 bg-brand-dark border border-brand-border hover:border-slate-500 text-white font-wordmark font-bold uppercase text-xs tracking-poster rounded-xl transition-all"
             >
               Select Monthly Pass
@@ -150,7 +160,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
             </div>
 
             <button
-              onClick={() => onOpenTrialWithPlan("3-Month Quarterly Pass (₹2,499)")}
+              onClick={() => handleClaimPlan("3-Month Quarterly Pass (₹2,499)")}
               className="mt-8 w-full py-4 bg-brand-red hover:bg-brand-red-hover text-white font-wordmark font-bold uppercase text-xs tracking-poster rounded-xl shadow-lg shadow-brand-red/30 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
             >
               <Dumbbell className="w-4 h-4" /> Claim Free Trial for 3-Month Plan
@@ -179,7 +189,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
             </div>
 
             <button
-              onClick={() => onOpenTrialWithPlan("Custom Inquiry / PT Plan")}
+              onClick={() => handleClaimPlan("Custom Inquiry / PT Plan")}
               className="mt-8 w-full py-3.5 bg-brand-dark border border-slate-700 text-slate-300 hover:text-white font-wordmark font-bold uppercase text-xs tracking-poster rounded-xl transition-all"
             >
               Inquire at Reception

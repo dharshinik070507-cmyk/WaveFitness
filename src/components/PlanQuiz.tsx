@@ -5,7 +5,11 @@ import { useRouter } from "next/navigation";
 import { CheckCircle2, ArrowRight, RotateCcw, Dumbbell, AlertCircle } from "lucide-react";
 import { Button, Input, Card } from "@/components/ui";
 
-export const PlanQuiz: React.FC = () => {
+interface PlanQuizProps {
+  onOpenTrialWithData?: (data: any) => void;
+}
+
+export const PlanQuiz: React.FC<PlanQuizProps> = ({ onOpenTrialWithData }) => {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -248,7 +252,7 @@ export const PlanQuiz: React.FC = () => {
                   required
                   placeholder="e.g. Rahul Sharma"
                   value={answers.name}
-                  onChange={(e) => setAnswers({ ...answers, name: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAnswers({ ...answers, name: e.target.value })}
                 />
                 <Input
                   label="Mobile Number (WhatsApp) *"
@@ -256,7 +260,7 @@ export const PlanQuiz: React.FC = () => {
                   required
                   placeholder="e.g. 7397398749"
                   value={answers.mobile}
-                  onChange={(e) => setAnswers({ ...answers, mobile: e.target.value })}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAnswers({ ...answers, mobile: e.target.value })}
                 />
               </div>
 

@@ -2,13 +2,23 @@
 
 import React, { useState } from "react";
 import { Dumbbell, UserCheck, Flame, Heart, Shield, Sparkles, ArrowRight } from "lucide-react";
+import { useTrial } from "@/context/TrialContext";
 
 interface ProgramsGridProps {
-  onOpenTrial: () => void;
+  onOpenTrial?: () => void;
 }
 
 export const ProgramsGrid: React.FC<ProgramsGridProps> = ({ onOpenTrial }) => {
+  const { openTrialModal } = useTrial();
   const [activeModalProgram, setActiveModalProgram] = useState<any | null>(null);
+
+  const handleOpenTrial = () => {
+    if (onOpenTrial) {
+      onOpenTrial();
+    } else {
+      openTrialModal();
+    }
+  };
 
   const programs = [
     {
@@ -186,7 +196,7 @@ export const ProgramsGrid: React.FC<ProgramsGridProps> = ({ onOpenTrial }) => {
               <button
                 onClick={() => {
                   setActiveModalProgram(null);
-                  onOpenTrial();
+                  handleOpenTrial();
                 }}
                 className="flex-1 py-3 bg-brand-red text-white font-extrabold text-xs uppercase rounded-xl shadow-lg shadow-brand-red/30 flex items-center justify-center gap-2"
               >

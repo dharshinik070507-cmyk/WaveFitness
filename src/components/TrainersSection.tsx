@@ -3,12 +3,22 @@
 import React from "react";
 import { gymData } from "@/content/gymData";
 import { Award, CheckCircle2, Dumbbell, AlertTriangle } from "lucide-react";
+import { useTrial } from "@/context/TrialContext";
 
 interface TrainersSectionProps {
-  onOpenTrialWithTrainer: (trainerName: string) => void;
+  onOpenTrialWithTrainer?: (trainerName: string) => void;
 }
 
 export const TrainersSection: React.FC<TrainersSectionProps> = ({ onOpenTrialWithTrainer }) => {
+  const { openTrialModal } = useTrial();
+
+  const handleTrainerClick = (trainerName: string) => {
+    if (onOpenTrialWithTrainer) {
+      onOpenTrialWithTrainer(trainerName);
+    } else {
+      openTrialModal(undefined, { trainer: trainerName });
+    }
+  };
   return (
     <section id="trainers" className="py-20 bg-brand-dark relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -82,7 +92,7 @@ export const TrainersSection: React.FC<TrainersSectionProps> = ({ onOpenTrialWit
               {/* Action Button */}
               <div className="p-6 pt-0">
                 <button
-                  onClick={() => onOpenTrialWithTrainer(t.nickname)}
+                  onClick={() => handleTrainerClick(t.nickname)}
                   className="w-full py-3.5 bg-brand-red hover:bg-brand-red-hover text-white font-black uppercase text-xs rounded-xl shadow-lg shadow-brand-red/20 transition-all flex items-center justify-center gap-2"
                 >
                   <Dumbbell className="w-4 h-4" /> Train with {t.nickname.split('/')[0]}

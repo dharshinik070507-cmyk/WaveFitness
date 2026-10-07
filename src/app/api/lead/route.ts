@@ -9,7 +9,7 @@ const leadSchema = z.object({
   timing: z.string().optional(),
   gender: z.string().optional(),
   message: z.string().optional(),
-  consent: z.literal(true, { errorMap: () => ({ message: "Consent is required" }) }),
+  consent: z.boolean().refine((val) => val === true, { message: "Consent is required" }),
   honeypot: z.string().optional(),
 });
 
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
   } catch (err: any) {
     if (err instanceof z.ZodError) {
       return NextResponse.json(
-        { error: err.errors[0]?.message || "Invalid input data" },
+        { error: err.issues[0]?.message || "Invalid input data" },
         { status: 400 }
       );
     }
