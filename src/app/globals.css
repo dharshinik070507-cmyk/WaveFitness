@@ -53,34 +53,6 @@
   }
 }
 
-/* SCOPED TAMIL TYPOGRAPHY RULES */
-:lang(ta), [data-lang="ta"] {
-  font-family: var(--font-tamil), var(--font-tamil-fallback), sans-serif;
-}
-
-:lang(ta) h1, :lang(ta) h2, :lang(ta) h3, :lang(ta) h4,
-[data-lang="ta"] h1, [data-lang="ta"] h2, [data-lang="ta"] h3, [data-lang="ta"] h4 {
-  font-family: var(--font-tamil), var(--font-tamil-fallback), sans-serif;
-  text-transform: none;
-  letter-spacing: normal;
-  line-height: 1.5;
-  font-size: 88%;
-  font-stretch: 100%;
-}
-
-:lang(ta) p, :lang(ta) span, [data-lang="ta"] p, [data-lang="ta"] span {
-  font-family: var(--font-tamil), var(--font-tamil-fallback), sans-serif;
-  text-transform: none;
-  letter-spacing: normal;
-  line-height: 1.75;
-}
-
-:lang(ta) .wordmark, :lang(ta) .eyebrow, [data-lang="ta"] .wordmark, [data-lang="ta"] .eyebrow {
-  text-transform: none;
-  letter-spacing: normal;
-  font-stretch: 100%;
-}
-
 /* HUMAN-DESIGNED POSTER & FILM GRAIN UTILITIES */
 
 /* Static SVG Film-Grain Overlay (3-4% Opacity) */
@@ -129,17 +101,7 @@
   border-radius: 0px;
 }
 
-/* Vertical Rotated Text for Side Labels (Desktop Only) */
-.vertical-label {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-family: var(--font-display);
-  font-stretch: 125%;
-  letter-spacing: 0.35em;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
+
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {

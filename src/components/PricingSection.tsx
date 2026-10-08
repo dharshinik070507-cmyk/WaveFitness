@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { gymData, tamilDictionary } from "@/content/gymData";
+import { gymData } from "@/content/gymData";
+import { copy } from "@/content/copy";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTrial } from "@/context/TrialContext";
-import { Check, Star, Dumbbell, AlertCircle, Info } from "lucide-react";
-import { Button } from "@/components/ui";
+import { Check, Star, Info } from "lucide-react";
+import { Button, HeadingLockup, Container } from "@/components/ui";
 import { fadeInUpVariants, staggerContainerVariants, defaultViewport } from "@/lib/motion";
 
 interface PricingSectionProps {
@@ -16,6 +18,7 @@ interface PricingSectionProps {
 export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithPlan }) => {
   const { lang } = useLanguage();
   const { openTrialModal } = useTrial();
+  const textDeck = copy[lang].plans;
   const [calcMonths, setCalcMonths] = useState(3);
 
   const handleClaimPlan = (planName: string) => {
@@ -35,14 +38,14 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
   const calculatedSavings = totalCostMonthlyRoute - totalCostQuarterlyRoute;
 
   return (
-    <section id="plans" className="py-20 bg-bg border-b border-line relative overflow-hidden">
+    <section id="plans" className="py-[clamp(4rem,9vw,8rem)] bg-bg border-b border-line relative overflow-hidden" data-surface="ink">
       
       {/* Background Watermark */}
       <div className="absolute top-10 right-0 pointer-events-none select-none z-0">
-        <span className="outline-word text-[16vw] opacity-10 leading-none">PLANS</span>
+        <span className="font-display text-[16vw] opacity-[0.08] leading-none text-text">PLANS</span>
       </div>
 
-      <div className="relative max-w-[1280px] mx-auto px-[clamp(1rem,4vw,3rem)] z-10">
+      <Container className="relative z-10">
         
         {/* Section Header */}
         <motion.div
@@ -50,18 +53,16 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
           initial="hidden"
           whileInView="visible"
           viewport={defaultViewport}
-          className="text-left max-w-3xl mb-12"
+          className="text-left max-w-2xl mb-12"
         >
-          <span className="font-wordmark text-xs font-bold text-red uppercase tracking-poster block mb-2">
-            12 / MEMBERSHIP PLANS & PRICING
-          </span>
-          <h2 className="font-display text-h2 font-black text-text uppercase leading-none">
-            {lang === "ta" ? tamilDictionary.plans.title : "FEES THAT MAKE SENSE"}
-          </h2>
-          <p className="font-body text-body text-text-muted mt-3">
-            {lang === "ta" 
-              ? tamilDictionary.plans.subtitle 
-              : "No hidden traps. Simple, transparent pricing with personal trainer attention included on every pass."}
+          <HeadingLockup
+            as="h2"
+            eyebrow={textDeck.eyebrow}
+            lines={textDeck.lines}
+            onSurface="ink"
+          />
+          <p className="font-body text-[clamp(1rem,1.15vw,1.375rem)] text-text-muted mt-3 max-w-[34ch] line-clamp-2">
+            {textDeck.subline}
           </p>
         </motion.div>
 
@@ -75,20 +76,20 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
         >
           
           {/* Card 1: Monthly Pass */}
-          <motion.div variants={fadeInUpVariants} className="p-8 bg-surface-1 border border-line rounded-r-0 flex flex-col justify-between">
+          <motion.div variants={fadeInUpVariants} className="p-8 bg-surface-1 border border-line rounded-[14px] flex flex-col justify-between">
             <div>
-              <span className="font-wordmark text-xs font-bold text-text-muted uppercase tracking-poster block">STARTER PASS</span>
-              <h3 className="font-display text-2xl font-bold text-text uppercase mt-1">MONTHLY PASS</h3>
+              <span className="font-wordmark text-xs font-bold text-text-muted uppercase tracking-[0.02em] block">STARTER PASS</span>
+              <h3 className="font-display text-2xl font-extrabold text-text uppercase mt-1">MONTHLY PASS</h3>
               
-              {/* Poster Numerals Display */}
+              {/* Numerals Display */}
               <div className="mt-6 flex items-baseline font-display">
-                <span className="text-2xl font-bold text-red self-start mt-2">₹</span>
+                <span className="text-2xl font-bold text-text self-start mt-2">₹</span>
                 <span className="text-price font-black text-text tracking-tightest">999</span>
                 <span className="text-xl font-bold text-text-muted ml-1">/-</span>
                 <span className="font-body text-xs text-text-muted font-bold ml-2">/ month</span>
               </div>
 
-              <p className="mt-1 font-body text-xs text-red-text font-bold">
+              <p className="mt-1 font-body text-xs text-text-muted font-bold">
                 Just ~₹{gymData.pricing.monthly.perDay} / day
               </p>
               
@@ -96,16 +97,16 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
               
               <ul className="space-y-3 font-body text-xs text-text-muted">
                 <li className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-red shrink-0" /> Full Access to Gym Floor & Machines
+                  <Check className="w-4 h-4 text-blue shrink-0" /> Full Access to Gym Floor & Machines
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-red shrink-0" /> Cardio Suite & Free Weights Access
+                  <Check className="w-4 h-4 text-blue shrink-0" /> Cardio Suite & Free Weights Access
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-red shrink-0" /> Personal Form Checks by Sugu Master & Shimal
+                  <Check className="w-4 h-4 text-blue shrink-0" /> Personal Form Checks by Sugu Master & Shimal
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-red shrink-0" /> Clean Locker & Drinking Water
+                  <Check className="w-4 h-4 text-blue shrink-0" /> Clean Locker & Drinking Water
                 </li>
               </ul>
             </div>
@@ -117,48 +118,48 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
                 onClick={() => handleClaimPlan("Monthly Pass (₹999)")}
                 className="w-full"
               >
-                <Dumbbell className="w-4 h-4 mr-2" /> Claim Free Trial
+                Claim Free Trial
               </Button>
             </div>
           </motion.div>
 
-          {/* Card 2: Quarterly Pass (Featured / Most Popular) */}
-          <motion.div variants={fadeInUpVariants} className="relative p-8 bg-surface-1 border-2 border-red rounded-r-0 flex flex-col justify-between">
-            <span className="absolute -top-3 left-6 px-3 py-0.5 bg-red text-text font-wordmark font-bold text-[10px] uppercase tracking-poster flex items-center gap-1">
+          {/* Card 2: Quarterly Pass */}
+          <motion.div variants={fadeInUpVariants} className="relative p-8 bg-surface-1 border-2 border-red shadow-hard rounded-[14px] flex flex-col justify-between">
+            <span className="absolute -top-3 left-6 px-3 py-0.5 bg-red text-text font-wordmark font-bold text-caption uppercase tracking-[0.02em] flex items-center gap-1">
               <Star className="w-3 h-3 fill-text" /> MOST POPULAR
             </span>
 
             <div>
-              <span className="font-wordmark text-xs font-bold text-red uppercase tracking-poster block">90-DAY TRANSFORMATION</span>
-              <h3 className="font-display text-2xl font-bold text-text uppercase mt-1">3-MONTH QUARTERLY</h3>
+              <span className="font-wordmark text-xs font-bold text-text-muted uppercase tracking-[0.02em] block">90-DAY TRANSFORMATION</span>
+              <h3 className="font-display text-2xl font-extrabold text-text uppercase mt-1">3-MONTH QUARTERLY</h3>
               
-              {/* Poster Numerals Display */}
+              {/* Numerals Display */}
               <div className="mt-6 flex items-baseline font-display">
-                <span className="text-2xl font-bold text-red self-start mt-2">₹</span>
-                <span className="text-price font-black text-red tracking-tightest">2,499</span>
+                <span className="text-2xl font-bold text-text self-start mt-2">₹</span>
+                <span className="text-price font-black text-text tracking-tightest">2,499</span>
                 <span className="text-xl font-bold text-text-muted ml-1">/-</span>
                 <span className="font-body text-xs text-text-muted font-bold ml-2">/ 3 months</span>
               </div>
 
               <div className="mt-1 flex items-center justify-between font-body text-xs">
-                <span className="text-red-text font-bold">Just ~₹{gymData.pricing.quarterly.perDay} / day</span>
-                <span className="px-2 py-0.5 bg-surface-2 border border-line text-red-text font-bold">Saves ₹498!</span>
+                <span className="text-text-muted font-bold">Just ~₹{gymData.pricing.quarterly.perDay} / day</span>
+                <span className="px-2 py-0.5 bg-surface-2 border border-line text-text-muted font-bold">Saves ₹498</span>
               </div>
 
               <hr className="my-6 border-line" />
 
               <ul className="space-y-3 font-body text-xs text-text-muted">
                 <li className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-red shrink-0" /> Everything in Monthly Pass
+                  <Check className="w-4 h-4 text-blue shrink-0" /> Everything in Monthly Pass
                 </li>
                 <li className="flex items-center gap-2.5 font-semibold text-text">
-                  <Check className="w-4 h-4 text-red shrink-0" /> Ideal 90-Day Natural Transformation Window
+                  <Check className="w-4 h-4 text-blue shrink-0" /> Ideal 90-Day Natural Transformation Window
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-red shrink-0" /> Priority Form Correction by Coach Shimal
+                  <Check className="w-4 h-4 text-blue shrink-0" /> Priority Form Correction by Coach Shimal
                 </li>
-                <li className="flex items-center gap-2.5 text-red-text font-bold">
-                  <Check className="w-4 h-4 text-red shrink-0" /> Saves ₹498 vs paying 3 monthly passes
+                <li className="flex items-center gap-2.5 text-text-muted font-bold">
+                  <Check className="w-4 h-4 text-blue shrink-0" /> Saves ₹498 vs paying 3 monthly passes
                 </li>
               </ul>
             </div>
@@ -170,18 +171,18 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
                 onClick={() => handleClaimPlan("3-Month Quarterly Pass (₹2,499)")}
                 className="w-full"
               >
-                <Dumbbell className="w-4 h-4 mr-2" /> Claim Free Trial
+                Claim Free Trial
               </Button>
             </div>
           </motion.div>
 
-          {/* Card 3: Optional Placeholder Plan Card */}
-          <motion.div variants={fadeInUpVariants} className="p-8 bg-surface-1 border border-dashed border-line rounded-r-0 flex flex-col justify-between">
+          {/* Card 3: Custom / Special Inquiry Card */}
+          <motion.div variants={fadeInUpVariants} className="p-8 bg-surface-1 border border-dashed border-line rounded-[14px] flex flex-col justify-between">
             <div>
-              <span className="font-wordmark text-[10px] font-bold uppercase text-text-dim tracking-poster block">
+              <span className="font-wordmark text-caption font-bold uppercase text-text-dim tracking-[0.02em] block">
                 SPECIAL OFFERS
               </span>
-              <h3 className="font-display text-xl font-bold text-text-muted uppercase mt-2">
+              <h3 className="font-display text-xl font-extrabold text-text-muted uppercase mt-2">
                 PERSONAL TRAINING & ANNUAL
               </h3>
               
@@ -196,15 +197,12 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
               </ul>
             </div>
 
-            <div className="mt-8">
-              <Button
-                variant="secondary"
-                size="md"
-                onClick={() => handleClaimPlan("Custom Inquiry / PT Plan")}
-                className="w-full"
-              >
-                <Dumbbell className="w-4 h-4 mr-2" /> Claim Free Trial
-              </Button>
+            <div className="mt-8 flex flex-col gap-3">
+              <Link href="/pricing" className="w-full">
+                <Button variant="secondary" size="md" className="w-full">
+                  See Plans
+                </Button>
+              </Link>
             </div>
           </motion.div>
 
@@ -216,19 +214,19 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
           initial="hidden"
           whileInView="visible"
           viewport={defaultViewport}
-          className="mt-12 bg-surface-1 p-6 sm:p-8 border border-line rounded-r-0 max-w-3xl"
+          className="mt-12 bg-surface-1 p-6 sm:p-8 border border-line rounded-[14px] max-w-3xl"
         >
-          <div className="flex items-center gap-2 font-wordmark text-xs font-bold text-red uppercase tracking-poster mb-2">
-            <Info className="w-4 h-4" /> SAVINGS CALCULATOR
+          <div className="flex items-center gap-2 font-wordmark text-xs font-bold text-text-muted uppercase tracking-[0.02em] mb-2">
+            <Info className="w-4 h-4 text-blue" /> SAVINGS CALCULATOR
           </div>
-          <h4 className="font-display text-xl font-bold text-text uppercase">
-            MONTHLY VS. QUARTERLY SAVINGS BREAKDOWN
+          <h4 className="font-display text-xl font-extrabold text-text uppercase">
+            MONTHLY VS QUARTERLY SAVINGS BREAKDOWN
           </h4>
 
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
             <div>
-              <label className="block font-wordmark text-xs font-bold text-text-muted uppercase tracking-poster mb-2">
-                DURATION: <span className="text-red">{calcMonths} MONTHS</span>
+              <label className="block font-wordmark text-xs font-bold text-text-muted uppercase tracking-[0.02em] mb-2">
+                DURATION: <span className="text-text">{calcMonths} MONTHS</span>
               </label>
               <input
                 type="range"
@@ -237,20 +235,20 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onOpenTrialWithP
                 step="3"
                 value={calcMonths}
                 onChange={(e) => setCalcMonths(parseInt(e.target.value))}
-                className="w-full accent-red bg-surface-2 cursor-pointer"
+                className="w-full bg-surface-2 cursor-pointer"
               />
             </div>
 
-            <div className="p-4 bg-surface-2 border border-line text-center">
-              <span className="font-wordmark text-[10px] font-bold uppercase text-text-dim tracking-poster">TOTAL SAVINGS</span>
-              <div className="font-display text-3xl font-black text-red-text mt-1">
-                ₹{calculatedSavings > 0 ? calculatedSavings : 498} SAVED!
+            <div className="p-4 bg-surface-2 border border-line text-center rounded-badge">
+              <span className="font-wordmark text-caption font-bold uppercase text-text-dim tracking-[0.02em]">TOTAL SAVINGS</span>
+              <div className="font-display text-3xl font-black text-text mt-1">
+                ₹{calculatedSavings > 0 ? calculatedSavings : 498} SAVED
               </div>
             </div>
           </div>
         </motion.div>
 
-      </div>
+      </Container>
     </section>
   );
 };

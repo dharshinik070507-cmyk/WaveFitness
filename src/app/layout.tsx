@@ -4,6 +4,8 @@ import { fontsClassString } from "./fonts";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { TrialProvider } from "@/context/TrialContext";
 import { JsonLdSchema } from "@/components/JsonLdSchema";
+import { ChatWidget } from "@/components/ChatWidget";
+import { DemoMediaBadge } from "@/components/DemoMediaBadge";
 import { gymData } from "@/content/gymData";
 
 export const metadata: Metadata = {
@@ -41,11 +43,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-lang="en" className={fontsClassString}>
-      <body className="antialiased bg-bg text-text font-body selection:bg-red selection:text-white">
+      <body className="antialiased bg-bg text-text font-body selection:bg-blue selection:text-text">
         <LanguageProvider>
           <TrialProvider>
             <JsonLdSchema />
             {children}
+            <ChatWidget />
+            <DemoMediaBadge />
           </TrialProvider>
         </LanguageProvider>
       </body>

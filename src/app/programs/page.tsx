@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Section, Container, SectionHeading } from "@/components/ui";
+import { Section, Container, HeadingLockup } from "@/components/ui";
 import { gymData } from "@/content/gymData";
 import { ProgramsGrid } from "@/components/ProgramsGrid";
 
@@ -15,17 +15,21 @@ export default function ProgramsPage() {
       <Section variant="bg">
         <Container>
           <div className="mb-6">
-            <Link href="/" className="font-wordmark text-xs font-bold text-red-text uppercase tracking-poster hover:underline">
+            <Link href="/" className="font-wordmark text-xs font-bold text-text-muted uppercase tracking-button hover:underline">
               &larr; Back to Home
             </Link>
           </div>
 
-          <SectionHeading
-            indexTag="02"
-            eyebrow="TARGETED FITNESS PROGRAMS"
-            title="PROGRAMS ENGINEERED FOR REAL RESULTS"
-            subtitle="Personal coach guidance from Sugu Master & Coach Shimal included with every plan."
+          <HeadingLockup
+            eyebrow="02 / TARGETED FITNESS PROGRAMS"
+            lines={["PROGRAMS ENGINEERED FOR", "REAL RESULTS"]}
+            emphasisLine={1}
+            bar
           />
+
+          <p className="font-body text-body text-text-muted mt-4 max-w-2xl mb-8">
+            Personal coach guidance from Sugu Master & Coach Shimal included with every plan.
+          </p>
 
           <ProgramsGrid />
         </Container>

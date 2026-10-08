@@ -2,10 +2,12 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { gymData, tamilDictionary } from "@/content/gymData";
-import { useLanguage } from "@/context/LanguageContext";
+import { gymData } from "@/content/gymData";
 import { MapPin, Phone, MessageCircle, Navigation, Send, AlertCircle } from "lucide-react";
 import { Button, Input, Card } from "@/components/ui";
+
+import { useLanguage } from "@/context/LanguageContext";
+import { copy } from "@/content/copy";
 
 export const LocationContact: React.FC = () => {
   const { lang } = useLanguage();
@@ -75,7 +77,7 @@ export const LocationContact: React.FC = () => {
               
               {/* Address */}
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-surface-2 border border-line text-red shrink-0">
+                <div className="p-3 bg-surface-2 border border-line text-blue shrink-0">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
@@ -83,7 +85,7 @@ export const LocationContact: React.FC = () => {
                   <p className="font-body text-xs text-text-muted mt-1 leading-relaxed">
                     {gymData.address.line1}, {gymData.address.line2}, {gymData.address.suburb}, {gymData.address.area}, {gymData.address.city}, {gymData.address.state} - {gymData.address.pincode}
                   </p>
-                  <span className="inline-block mt-2 font-wordmark text-[11px] font-bold uppercase text-red-text tracking-poster">
+                  <span className="inline-block mt-2 font-wordmark text-meta font-bold uppercase text-text-muted tracking-button">
                     Poster Line: {gymData.address.posterShort}
                   </span>
                 </div>
@@ -103,7 +105,7 @@ export const LocationContact: React.FC = () => {
                     href={gymData.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-body text-xs font-bold text-text hover:text-red-text mt-2 underline"
+                    className="inline-flex items-center gap-1 font-body text-xs font-bold text-text hover:text-blue mt-2 underline"
                   >
                     Get Directions on Google Maps &rarr;
                   </a>
@@ -122,7 +124,7 @@ export const LocationContact: React.FC = () => {
                   </p>
                   <div className="mt-3 flex gap-2">
                     <a href={`tel:${gymData.contact.phoneTel}`}>
-                      <Button variant="secondary" size="sm">Call Now</Button>
+                      <Button variant="secondary" size="sm">{copy[lang].nav.callNowLabel}</Button>
                     </a>
                     <a href={gymData.contact.whatsappLink} target="_blank" rel="noopener noreferrer">
                       <Button variant="secondary" size="sm" className="border-success/40 text-success hover:bg-success hover:text-bg">
@@ -138,14 +140,14 @@ export const LocationContact: React.FC = () => {
 
           {/* Nearby Areas Served */}
           <Card>
-            <h4 className="font-wordmark text-xs font-bold uppercase tracking-poster text-text-muted mb-3">
+            <h4 className="font-wordmark text-xs font-bold uppercase tracking-button text-text-muted mb-3">
               NEARBY AREAS SERVED:
             </h4>
             <div className="flex flex-wrap gap-1.5">
               {gymData.nearbyAreas.map((area, idx) => (
                 <span
                   key={idx}
-                  className="px-2.5 py-1 bg-surface-2 border border-line font-body text-text-muted text-[11px] font-semibold"
+                  className="px-2.5 py-1 bg-surface-2 border border-line font-body text-text-muted text-meta font-semibold"
                 >
                   📍 {area}
                 </span>
@@ -201,7 +203,7 @@ export const LocationContact: React.FC = () => {
               </div>
 
               <div>
-                <label className="block font-wordmark text-xs font-bold text-text-muted uppercase tracking-poster mb-1">
+                <label className="block font-wordmark text-xs font-bold text-text-muted uppercase tracking-button mb-1">
                   Interested Program
                 </label>
                 <select
@@ -217,7 +219,7 @@ export const LocationContact: React.FC = () => {
               </div>
 
               <div>
-                <label className="block font-wordmark text-xs font-bold text-text-muted uppercase tracking-poster mb-1">
+                <label className="block font-wordmark text-xs font-bold text-text-muted uppercase tracking-button mb-1">
                   Message / Inquiry
                 </label>
                 <textarea

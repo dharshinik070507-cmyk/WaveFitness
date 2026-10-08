@@ -1,27 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import Link from "next/link";
 import { gymData } from "@/content/gymData";
-import { useTrial } from "@/context/TrialContext";
-import { Dumbbell } from "lucide-react";
 
 export const AnnouncementBar: React.FC = () => {
-  const { openTrialModal } = useTrial();
-  const [isVisible] = useState(true);
+  const promoEndDate = (gymData.pricing as { promoEndDate?: string }).promoEndDate;
 
-  if (!isVisible) return null;
+  // Render ONLY when gymData.pricing.promoEndDate exists and has not passed
+  if (!promoEndDate) return null;
+
+  const isExpired = new Date(promoEndDate).getTime() < Date.now();
+  if (!isNaN(new Date(promoEndDate).getTime()) && isExpired) return null;
 
   return (
-    <div className="bg-red text-white py-2 px-4 text-center font-wordmark text-[11px] font-bold tracking-poster uppercase">
+    <Link
+      href="/pricing"
+      className="block bg-surface-2 border-b border-line text-text py-2.5 px-4 text-center font-body text-xs font-semibold hover:bg-surface-3 transition-colors select-none"
+    >
       <span>
-        🔥 SPECIAL PROMO OFFER: {gymData.pricing.quarterly.promoWording} FOR ₹{gymData.pricing.quarterly.amount}/- (OFFER TILL {gymData.pricing.promoEndDate.toUpperCase()})
+        Pay today, get 3 months for ₹{gymData.pricing.quarterly.amount.toLocaleString()}. Ends {promoEndDate}.
       </span>
-      <button
-        onClick={() => openTrialModal("Special Festival Promo")}
-        className="ml-3 underline text-white font-black hover:opacity-90"
-      >
-        CLAIM FREE TRIAL NOW
-      </button>
-    </div>
+    </Link>
   );
 };

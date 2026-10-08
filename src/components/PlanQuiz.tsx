@@ -1,308 +1,70 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { CheckCircle2, ArrowRight, RotateCcw, Dumbbell, AlertCircle } from "lucide-react";
-import { Button, Input, Card } from "@/components/ui";
+import React from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { copy } from "@/content/copy";
+import { useLanguage } from "@/context/LanguageContext";
+import { Button, HeadingLockup, Container } from "@/components/ui";
+import { ProgramCollage } from "@/components/ProgramCollage";
+import { gymImages } from "@/content/gymImages";
 
-interface PlanQuizProps {
-  onOpenTrialWithData?: (data: any) => void;
-}
+export const PlanQuiz: React.FC = () => {
+  const { lang } = useLanguage();
+  const textDeck = copy[lang].quiz;
 
-export const PlanQuiz: React.FC<PlanQuizProps> = ({ onOpenTrialWithData }) => {
-  const router = useRouter();
-  const [step, setStep] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  // Check if collage has at least 4 active images
+  const collageItems = ["program-cutout-1", "program-cutout-2", "program-cutout-3", "program-cutout-4", "program-cutout-5", "program-cutout-6"];
+  const activeCount = collageItems.filter((key) => {
+    const entry = gymImages[key];
+    return entry && (entry.status === "demo" || entry.status === "real") && entry.desktopSrc;
+  }).length;
 
-  const [answers, setAnswers] = useState({
-    goal: "Weight Loss & Fat Burn",
-    experience: "Complete Beginner",
-    timing: "Morning (6 AM - 10 AM)",
-    name: "",
-    mobile: "",
-    consent: true,
-    honeypot: "",
-  });
-
-  const handleSelect = (key: string, value: string) => {
-    setAnswers((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleNext = () => {
-    if (step < 4) {
-      setStep(step + 1);
-    }
-  };
-
-  const handleReset = () => {
-    setStep(1);
-    setErrorMsg("");
-  };
-
-  const getRecommendation = () => {
-    if (answers.goal.includes("Muscle") || answers.goal.includes("Personal")) {
-      return {
-        planName: "3-Month Quarterly Pass (₹2,499)",
-        program: "Custom Personal Transformation Plan",
-        reason: "Best value for dedicated 90-day consistency under Sugu Master & Coach Shimal.",
-        perDay: "₹28/day (Saves ₹498)"
-      };
-    }
-    return {
-      planName: "Monthly Pass (₹999)",
-      program: answers.goal,
-      reason: "Perfect flexible start for fitness beginners on Camp Road, Tambaram East.",
-      perDay: "₹33/day"
-    };
-  };
-
-  const rec = getRecommendation();
-
-  const handleQuizSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMsg("");
-
-    const cleanMobile = answers.mobile.replace(/\D/g, "");
-    if (!/^[6-9]\d{9}$/.test(cleanMobile)) {
-      setErrorMsg("Please enter a valid 10-digit Indian phone number starting with 6-9.");
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const res = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: answers.name,
-          mobile: cleanMobile,
-          goal: `${rec.planName} - Quiz Goal: ${answers.goal} (${answers.experience})`,
-          timing: answers.timing,
-          consent: answers.consent,
-          honeypot: answers.honeypot,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setErrorMsg(data.error || "Failed to submit quiz lead.");
-        setLoading(false);
-        return;
-      }
-
-      if (data.whatsappUrl) {
-        localStorage.setItem("last_lead_whatsapp", data.whatsappUrl);
-      }
-
-      router.push("/thank-you");
-    } catch {
-      setErrorMsg("Network error. Please try again.");
-      setLoading(false);
-    }
-  };
+  const hasCollage = activeCount >= 4;
 
   return (
-    <div id="quiz" className="my-8">
-      {/* Quiz Progress Bar */}
-      <div className="w-full bg-surface-2 h-2 rounded-r-0 mb-8 overflow-hidden border border-line">
-        <div
-          className="bg-red h-full transition-all duration-ui"
-          style={{ width: `${(step / 4) * 100}%` }}
-        ></div>
-      </div>
-
-      <Card>
-        {step === 1 && (
-          <div>
-            <span className="font-wordmark text-xs font-bold text-text-dim uppercase tracking-poster">STEP 1 OF 4</span>
-            <h3 className="font-display text-xl sm:text-2xl font-bold text-text uppercase mt-1 mb-6">
-              What is your primary fitness goal?
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                "Weight Loss & Fat Burn",
-                "Muscle Gain (100% Natural)",
-                "Strength & Body Conditioning",
-                "Beginner Fitness & Form Guidance"
-              ].map((opt) => (
-                <button
-                  key={opt}
-                  onClick={() => {
-                    handleSelect("goal", opt);
-                    handleNext();
-                  }}
-                  className={`p-4 rounded-r-0 border text-left font-wordmark uppercase text-xs tracking-poster transition-all flex items-center justify-between ${
-                    answers.goal === opt
-                      ? "border-red bg-red/10 text-text"
-                      : "border-line bg-surface-2 text-text-muted hover:border-surface-3 hover:text-text"
-                  }`}
-                >
-                  <span>{opt}</span>
-                  {answers.goal === opt && <CheckCircle2 className="w-5 h-5 text-red" />}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {step === 2 && (
-          <div>
-            <span className="font-wordmark text-xs font-bold text-text-dim uppercase tracking-poster">STEP 2 OF 4</span>
-            <h3 className="font-display text-xl sm:text-2xl font-bold text-text uppercase mt-1 mb-6">
-              What is your gym experience level?
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                "Complete Beginner (Need form help)",
-                "Intermediate (Trained before)",
-                "Advanced / Natural Bodybuilder",
-                "Returning After Gap"
-              ].map((opt) => (
-                <button
-                  key={opt}
-                  onClick={() => {
-                    handleSelect("experience", opt);
-                    handleNext();
-                  }}
-                  className={`p-4 rounded-r-0 border text-left font-wordmark uppercase text-xs tracking-poster transition-all flex items-center justify-between ${
-                    answers.experience === opt
-                      ? "border-red bg-red/10 text-text"
-                      : "border-line bg-surface-2 text-text-muted hover:border-surface-3 hover:text-text"
-                  }`}
-                >
-                  <span>{opt}</span>
-                  {answers.experience === opt && <CheckCircle2 className="w-5 h-5 text-red" />}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {step === 3 && (
-          <div>
-            <span className="font-wordmark text-xs font-bold text-text-dim uppercase tracking-poster">STEP 3 OF 4</span>
-            <h3 className="font-display text-xl sm:text-2xl font-bold text-text uppercase mt-1 mb-6">
-              Preferred workout timing at Camp Road?
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                "Early Morning (6 AM - 9 AM)",
-                "Late Morning (9 AM - 12 PM)",
-                "Evening (5 PM - 8 PM)",
-                "Night (8 PM - 9:30 PM)"
-              ].map((opt) => (
-                <button
-                  key={opt}
-                  onClick={() => {
-                    handleSelect("timing", opt);
-                    handleNext();
-                  }}
-                  className={`p-4 rounded-r-0 border text-left font-wordmark uppercase text-xs tracking-poster transition-all flex items-center justify-between ${
-                    answers.timing === opt
-                      ? "border-red bg-red/10 text-text"
-                      : "border-line bg-surface-2 text-text-muted hover:border-surface-3 hover:text-text"
-                  }`}
-                >
-                  <span>{opt}</span>
-                  {answers.timing === opt && <CheckCircle2 className="w-5 h-5 text-red" />}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {step === 4 && (
-          <div>
-            <span className="font-wordmark text-xs font-bold text-success uppercase tracking-poster block mb-2">
-              ✓ QUIZ COMPLETED! RECOMMENDED PLAN:
-            </span>
-            
-            <div className="p-6 rounded-r-0 bg-bg border border-red/40 mb-6">
-              <h4 className="font-display text-2xl font-bold text-text uppercase">
-                {rec.planName}
-              </h4>
-              <div className="font-wordmark text-xs font-bold text-red uppercase tracking-poster mt-1">
-                Program: {rec.program} ({rec.perDay})
-              </div>
-              <p className="font-body text-xs text-text-muted mt-3">{rec.reason}</p>
-            </div>
-
-            {errorMsg && (
-              <div className="mb-4 p-3 bg-error/10 border border-error/30 text-error font-body text-xs flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>{errorMsg}</span>
-              </div>
-            )}
-
-            <form onSubmit={handleQuizSubmit} className="space-y-4 font-body">
-              {/* Honeypot */}
-              <input
-                type="text"
-                className="hidden"
-                value={answers.honeypot}
-                onChange={(e) => setAnswers({ ...answers, honeypot: e.target.value })}
-              />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input
-                  label="Your Full Name *"
-                  required
-                  placeholder="e.g. Rahul Sharma"
-                  value={answers.name}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAnswers({ ...answers, name: e.target.value })}
-                />
-                <Input
-                  label="Mobile Number (WhatsApp) *"
-                  type="tel"
-                  required
-                  placeholder="e.g. 7397398749"
-                  value={answers.mobile}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAnswers({ ...answers, mobile: e.target.value })}
-                />
-              </div>
-
-              <div className="flex items-center gap-2 text-xs text-text-muted">
-                <input
-                  type="checkbox"
-                  required
-                  checked={answers.consent}
-                  onChange={(e) => setAnswers({ ...answers, consent: e.target.checked })}
-                  className="accent-red"
-                />
-                <span>I consent to contact for trial confirmation under DPDP Act.</span>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Button type="submit" variant="primary" disabled={loading} className="flex-1">
-                  <Dumbbell className="w-5 h-5 mr-2" />
-                  {loading ? "Registering..." : "Book Free Trial For This Plan"}
-                </Button>
-                <Button type="button" variant="secondary" onClick={handleReset}>
-                  <RotateCcw className="w-4 h-4 mr-2" /> Retake Quiz
-                </Button>
-              </div>
-            </form>
-          </div>
-        )}
-
-        {step < 4 && (
-          <div className="mt-8 flex justify-between items-center pt-4 border-t border-line font-wordmark text-xs font-bold uppercase tracking-poster">
-            <button
-              disabled={step === 1}
-              onClick={() => setStep(step - 1)}
-              className={step === 1 ? "text-text-dim cursor-not-allowed" : "text-text-muted hover:text-text"}
+    <section id="quiz" className="relative min-h-[100vh] bg-[#0b0b0c] border-b border-line overflow-hidden flex flex-col justify-end" data-surface="ink">
+      <Container className="w-full h-full flex flex-col justify-end py-12 lg:py-0">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end min-h-[calc(100vh-80px)]">
+          
+          {/* Left Text Column (40% Desktop / Cols 1-5) */}
+          <div className={`lg:col-span-5 pb-[4rem] text-left z-10 max-w-2xl ${!hasCollage ? "lg:col-span-12" : ""}`}>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3 }}
             >
-              ← Back
-            </button>
-            <Button variant="primary" size="sm" onClick={handleNext}>
-              Next Step <ArrowRight className="w-4 h-4 ml-1" />
-            </Button>
+              <HeadingLockup
+                as="h2"
+                lead={textDeck.lines[0]}
+                lines={[textDeck.lines[1]]}
+                onSurface="ink"
+              />
+            </motion.div>
+
+            <p className="font-body text-[clamp(1rem,1.15vw,1.375rem)] text-text-muted leading-relaxed mt-4 max-w-[34ch] line-clamp-2">
+              {textDeck.subline}
+            </p>
+
+            <div className="mt-8">
+              <Link href="/quiz">
+                <Button variant="primary" size="md">
+                  Find Your Plan
+                </Button>
+              </Link>
+            </div>
           </div>
-        )}
-      </Card>
-    </div>
+
+          {/* Right Media Column (60% Desktop / Cols 6-12) bleeding off right, top & bottom */}
+          {hasCollage && (
+            <div className="lg:col-span-7 h-full w-full min-h-[500px] lg:min-h-[100vh] overflow-hidden lg:-mr-[clamp(1.25rem,3vw,3.75rem)]">
+              <ProgramCollage />
+            </div>
+          )}
+
+        </div>
+      </Container>
+    </section>
   );
 };

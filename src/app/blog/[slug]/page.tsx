@@ -64,16 +64,16 @@ export default function BlogPostPage({ params }: Props) {
       <Section variant="bg">
         <Container className="max-w-3xl">
           <div className="mb-6">
-            <Link href="/blog" className="font-wordmark text-xs font-bold text-red-text uppercase tracking-poster hover:underline flex items-center gap-1">
+            <Link href="/blog" className="font-wordmark text-xs font-bold text-text-muted uppercase tracking-button hover:underline flex items-center gap-1">
               <ArrowLeft className="w-4 h-4" /> Back to All Articles
             </Link>
           </div>
 
-          <div className="flex items-center gap-3 text-[11px] font-wordmark uppercase tracking-poster mb-3">
-            <span className="text-red-text font-bold">{post.category}</span>
+          <div className="flex items-center gap-3 text-meta font-wordmark uppercase tracking-button mb-3">
+            <span className="text-blue font-bold">{post.category}</span>
             <span className="text-text-dim">•</span>
             <span className="text-text-muted flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5 text-red" /> {post.readTime}
+              <Clock className="w-3.5 h-3.5 text-blue" /> {post.readTime}
             </span>
           </div>
 

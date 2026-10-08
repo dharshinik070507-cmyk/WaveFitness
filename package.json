@@ -6,9 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "copy:lint": "tsx scripts/copy-lint.ts",
+    "optimize:images": "tsx scripts/optimize-images.ts",
+    "audit": "bash scripts/audit.sh",
+    "visual": "tsx scripts/visual-check.ts",
+    "prebuild": "tsx scripts/generate-brand-assets.ts && npm run copy:lint"
   },
   "dependencies": {
+    "@fontsource/archivo": "^5.3.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.10",
     "lucide-react": "^0.453.0",
@@ -22,9 +28,15 @@
     "@types/node": "^20.17.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@types/sharp": "^0.31.1",
     "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.15",
+    "playwright": "^1.64.0",
     "postcss": "^8.4.47",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.14",
+    "tsx": "^4.19.1",
     "typescript": "^5.6.3"
   }
 }

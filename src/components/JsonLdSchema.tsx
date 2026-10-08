@@ -2,6 +2,8 @@ import React from "react";
 import { gymData, faqList } from "@/content/gymData";
 
 export const JsonLdSchema: React.FC = () => {
+  const priceRangeStr = `₹${gymData.pricing.monthly.amount} - ₹${gymData.pricing.quarterly.amount}`;
+
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": ["HealthClub", "SportsActivityLocation", "LocalBusiness"],
@@ -9,8 +11,10 @@ export const JsonLdSchema: React.FC = () => {
     "alternateName": [gymData.shortBrand, "Wave Fitness Tambaram"],
     "description": gymData.positioning,
     "url": "https://wavefitnesstambaram.in",
+    "logo": "https://wavefitnesstambaram.in/brand/logo-wf-clean.png",
+    "image": "https://wavefitnesstambaram.in/brand/logo-wf-clean.png",
     "telephone": gymData.contact.phoneTel,
-    "priceRange": "₹999 - ₹2499",
+    "priceRange": priceRangeStr,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": `${gymData.address.line1}, ${gymData.address.line2}`,
@@ -24,14 +28,6 @@ export const JsonLdSchema: React.FC = () => {
       "latitude": gymData.coordinates.lat,
       "longitude": gymData.coordinates.lng
     },
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "opens": "06:00",
-        "closes": "22:00"
-      }
-    ],
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": gymData.rating.stars,
@@ -42,7 +38,7 @@ export const JsonLdSchema: React.FC = () => {
     "sameAs": [
       gymData.social.instagram.url,
       gymData.social.youtube.url,
-      "https://maps.app.goo.gl/w4fv65tambaram"
+      gymData.mapsUrl
     ]
   };
 

@@ -1,8 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Section, Container, SectionHeading, Button } from "@/components/ui";
+import { Section, Container, HeadingLockup, Button } from "@/components/ui";
 import { gymData } from "@/content/gymData";
-import { ShieldCheck, HeartHandshake, Award } from "lucide-react";
 
 export const metadata = {
   title: `About ${gymData.name} | Natural Fitness Gym Tambaram`,
@@ -15,21 +14,25 @@ export default function AboutPage() {
       <Section variant="bg">
         <Container>
           <div className="mb-6">
-            <Link href="/" className="font-wordmark text-xs font-bold text-red-text uppercase tracking-poster hover:underline">
+            <Link href="/" className="font-wordmark text-xs font-bold text-text-muted uppercase tracking-button hover:underline">
               &larr; Back to Home
             </Link>
           </div>
 
-          <SectionHeading
-            indexTag="01"
-            eyebrow="OUR STORY & PHILOSOPHY"
-            title="SMALL FLOOR. BIG ATTENTION."
-            subtitle={gymData.positioning}
+          <HeadingLockup
+            eyebrow="01 / OUR STORY & PHILOSOPHY"
+            lines={["SMALL FLOOR.", "BIG ATTENTION."]}
+            emphasisLine={1}
+            bar
           />
 
+          <p className="font-body text-body text-text-muted mt-4 max-w-2xl">
+            {gymData.positioning}
+          </p>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
-            <div className="p-8 bg-surface-1 border border-line rounded-r-0 space-y-4">
-              <span className="font-wordmark text-xs font-bold text-red uppercase tracking-poster">100% NATURAL MOTTO</span>
+            <div className="p-8 bg-surface-1 border border-line rounded-none space-y-4">
+              <span className="font-wordmark text-xs font-bold text-blue uppercase tracking-button">100% NATURAL MOTTO</span>
               <h3 className="font-display text-2xl font-bold uppercase text-text">
                 &ldquo;{gymData.naturalPhilosophy}&rdquo;
               </h3>
@@ -38,8 +41,8 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="p-8 bg-surface-1 border border-line rounded-r-0 space-y-4">
-              <span className="font-wordmark text-xs font-bold text-blue uppercase tracking-poster">TAMBARAM COMMUNITY</span>
+            <div className="p-8 bg-surface-1 border border-line rounded-none space-y-4">
+              <span className="font-wordmark text-xs font-bold text-blue uppercase tracking-button">TAMBARAM COMMUNITY</span>
               <h3 className="font-display text-2xl font-bold uppercase text-text">
                 Clean, Friendly Unisex Environment
               </h3>

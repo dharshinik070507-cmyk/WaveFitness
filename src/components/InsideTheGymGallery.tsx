@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { gymData } from "@/content/gymData";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { HeadingLockup } from "@/components/ui";
+import { fadeInUpVariants, defaultViewport } from "@/lib/motion";
 
 export const InsideTheGymGallery: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -12,42 +15,48 @@ export const InsideTheGymGallery: React.FC = () => {
       name: "Free Weights & Dumbbells Rack",
       category: "weights",
       desc: "Dumbbell sets, EZ curl bars, and Olympic barbells.",
-      label: "[PHOTO: Free Weights Area]"
+      label: "[PHOTO: Free Weights Area]",
+      src: "/images/free-weights.jpg",
     },
     {
       id: "f2",
       name: "Commercial Treadmill & Cardio Suite",
       category: "cardio",
       desc: "Shock-absorbing treadmills and spin bikes.",
-      label: "[PHOTO: Commercial Treadmills]"
+      label: "[PHOTO: Commercial Treadmills]",
+      src: "/images/cardio-suite.jpg",
     },
     {
       id: "f3",
       name: "Power Squat Racks & Bench Press",
       category: "weights",
       desc: "Heavy-duty squat racks and press benches.",
-      label: "[PHOTO: Squat Racks & Platforms]"
+      label: "[PHOTO: Squat Racks & Platforms]",
+      src: "/images/free-weights.jpg",
     },
     {
       id: "f4",
       name: "Functional Turf & Battle Ropes Area",
       category: "functional",
       desc: "Kettlebells, battle ropes, and agility mats.",
-      label: "[PHOTO: Functional Turf Area]"
+      label: "[PHOTO: Functional Turf Area]",
+      src: "/images/hero-gym.jpg",
     },
     {
       id: "f5",
       name: "Clean Lockers & Changing Rooms",
       category: "amenities",
       desc: "Dedicated hygienic locker storage and water station.",
-      label: "[PHOTO: Locker & Changing Rooms]"
+      label: "[PHOTO: Locker & Changing Rooms]",
+      src: "/images/cardio-suite.jpg",
     },
     {
       id: "f6",
       name: "Lenin Complex Parking & Security",
       category: "amenities",
       desc: "24/7 CCTV surveillance and two-wheeler parking.",
-      label: "[PHOTO: Parking & Security]"
+      label: "[PHOTO: Parking & Security]",
+      src: "/images/hero-gym.jpg",
     }
   ];
 
@@ -56,54 +65,91 @@ export const InsideTheGymGallery: React.FC = () => {
     : inventory.filter((item) => item.category === activeCategory);
 
   return (
-    <div id="facilities" className="my-8">
-      <div className="flex flex-wrap gap-2 mb-8">
-        {[
-          { key: "all", label: "ALL" },
-          { key: "weights", label: "FREE WEIGHTS" },
-          { key: "cardio", label: "CARDIO SUITE" },
-          { key: "functional", label: "TURF & FUNCTIONAL" },
-          { key: "amenities", label: "LOCKERS & SAFETY" }
-        ].map((cat) => (
-          <button
-            key={cat.key}
-            onClick={() => setActiveCategory(cat.key)}
-            className={`px-3 py-1.5 rounded-r-1 font-wordmark text-[11px] font-bold uppercase tracking-poster transition-colors ${
-              activeCategory === cat.key
-                ? "bg-red text-white"
-                : "bg-surface-2 text-text-muted hover:text-text border border-line"
-            }`}
-          >
-            {cat.label}
-          </button>
-        ))}
-      </div>
+    <section id="facilities" className="py-[clamp(4rem,9vw,8rem)] bg-paper border-b border-line-paper text-text-paper">
+      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,4vw,3rem)]">
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((item) => (
-          <div
-            key={item.id}
-            className="bg-surface-1 border border-line rounded-r-0 overflow-hidden"
-          >
-            {/* Flat Neutral Placeholder Box */}
-            <div className="h-48 bg-surface-2 border-b border-line relative flex items-center justify-center p-4">
-              <span className="font-wordmark text-xs font-bold text-text-dim tracking-poster">
-                {item.label}
-              </span>
-              <div className="photo-scrim"></div>
-            </div>
+        {/* Section Header */}
+        <motion.div
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="text-left max-w-3xl mb-12"
+        >
+          <HeadingLockup
+            as="h2"
+            lead="INSIDE THE GYM"
+            lines={["EQUIPMENT &", "FACILITIES"]}
+            emphasisLine={1}
+            bar={false}
+            onSurface="paper"
+          />
+          <p className="font-body text-body text-text-muted-paper mt-3">
+            Well-maintained equipment, heavy-duty racks, and clean amenities at Lenin Complex, Camp Road.
+          </p>
+        </motion.div>
 
-            <div className="p-5">
-              <h4 className="font-display text-lg font-bold text-text uppercase">
-                {item.name}
-              </h4>
-              <p className="font-body text-xs text-text-muted mt-1">
-                {item.desc}
-              </p>
+        {/* Category Pills */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {[
+            { key: "all", label: "ALL" },
+            { key: "weights", label: "FREE WEIGHTS" },
+            { key: "cardio", label: "CARDIO SUITE" },
+            { key: "functional", label: "TURF & FUNCTIONAL" },
+            { key: "amenities", label: "LOCKERS & SAFETY" }
+          ].map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setActiveCategory(cat.key)}
+              className={`px-4 py-2 rounded-pill font-wordmark text-meta font-bold uppercase tracking-button transition-colors ${
+                activeCategory === cat.key
+                  ? "bg-paper-card text-text-paper"
+                  : "bg-paper-card text-text-muted-paper hover:text-text-paper border border-line-paper"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Gallery Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filtered.map((item) => (
+            <div
+              key={item.id}
+              className="bg-paper-card border border-line-paper rounded-card overflow-hidden"
+            >
+              {/* Photo Box */}
+              <div className="h-48 bg-paper border-b border-line-paper relative flex items-center justify-center p-4">
+                {item.src ? (
+                  <Image
+                    src={item.src}
+                    alt={item.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                ) : (
+                  <span className="font-wordmark text-xs font-bold text-text-muted-paper tracking-button">
+                    {item.label}
+                  </span>
+                )}
+                <div className="photo-scrim" />
+              </div>
+
+              <div className="p-5">
+                <h4 className="font-display text-lg font-bold text-text-paper uppercase">
+                  {item.name}
+                </h4>
+                <p className="font-body text-xs text-text-muted-paper mt-1">
+                  {item.desc}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
       </div>
-    </div>
+    </section>
   );
 };

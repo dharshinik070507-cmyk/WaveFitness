@@ -2,12 +2,13 @@
 
 import React, { useState } from "react";
 import { Calculator, AlertTriangle, MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui";
 
 export const BmiCalculator: React.FC = () => {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [goal, setGoal] = useState("lose");
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<{ bmi: string; calories: number; advice: string } | null>(null);
 
   const calculate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,18 +38,18 @@ export const BmiCalculator: React.FC = () => {
   };
 
   return (
-    <section className="py-16 bg-brand-dark relative border-b border-brand-border">
+    <section className="py-16 bg-bg relative border-b border-line">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="bg-brand-card p-6 sm:p-8 rounded-3xl border border-brand-border">
+        <div className="bg-surface-1 p-6 sm:p-8 rounded-sm border border-line">
           <div className="text-center mb-6">
-            <span className="text-xs font-bold uppercase tracking-widest text-brand-red mb-1 block flex items-center justify-center gap-1">
+            <span className="text-xs font-bold uppercase tracking-button text-blue mb-1 flex items-center justify-center gap-1 font-wordmark">
               <Calculator className="w-4 h-4" /> Quick Fitness Tool
             </span>
-            <h3 className="font-display text-2xl font-black text-white uppercase">
+            <h3 className="font-display text-2xl font-black text-text uppercase">
               BMI & Daily Calorie Calculator
             </h3>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-text-muted mt-1 font-body">
               Get an instant estimation of your body mass index and daily caloric needs.
             </p>
           </div>
@@ -56,35 +57,35 @@ export const BmiCalculator: React.FC = () => {
           <form onSubmit={calculate} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1">Height (cm)</label>
+                <label className="block text-meta font-bold text-text-muted uppercase mb-1 font-wordmark">Height (cm)</label>
                 <input
                   type="number"
                   required
                   placeholder="e.g. 170"
                   value={height}
                   onChange={(e) => setHeight(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-brand-dark border border-brand-border text-white text-xs focus:outline-none focus:border-brand-red"
+                  className="w-full px-4 py-2.5 rounded-sm bg-surface-2 border border-line text-text text-xs focus:outline-none focus:border-blue"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1">Weight (kg)</label>
+                <label className="block text-meta font-bold text-text-muted uppercase mb-1 font-wordmark">Weight (kg)</label>
                 <input
                   type="number"
                   required
                   placeholder="e.g. 68"
                   value={weight}
                   onChange={(e) => setWeight(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-brand-dark border border-brand-border text-white text-xs focus:outline-none focus:border-brand-red"
+                  className="w-full px-4 py-2.5 rounded-sm bg-surface-2 border border-line text-text text-xs focus:outline-none focus:border-blue"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1">Primary Goal</label>
+                <label className="block text-meta font-bold text-text-muted uppercase mb-1 font-wordmark">Primary Goal</label>
                 <select
                   value={goal}
                   onChange={(e) => setGoal(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-brand-dark border border-brand-border text-white text-xs focus:outline-none focus:border-brand-red"
+                  className="w-full px-4 py-2.5 rounded-sm bg-surface-2 border border-line text-text text-xs focus:outline-none focus:border-blue"
                 >
                   <option value="lose">Fat Loss</option>
                   <option value="muscle">Muscle Gain</option>
@@ -93,41 +94,38 @@ export const BmiCalculator: React.FC = () => {
               </div>
             </div>
 
-            <button
-              type="submit"
-              className="w-full py-3 bg-brand-red hover:bg-brand-red-hover text-white font-extrabold uppercase text-xs rounded-xl shadow-lg"
-            >
+            <Button type="submit" variant="primary" className="w-full">
               Calculate Score
-            </button>
+            </Button>
           </form>
 
           {result && (
-            <div className="mt-6 p-4 rounded-2xl bg-brand-dark border border-brand-red/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="mt-6 p-4 rounded-sm bg-surface-2 border border-line flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <span className="text-[10px] font-bold uppercase text-slate-400">Calculated BMI Score</span>
-                <div className="text-3xl font-black text-brand-red">{result.bmi}</div>
+                <span className="text-caption font-bold uppercase text-text-muted font-wordmark">Calculated BMI Score</span>
+                <div className="text-3xl font-black text-text font-display">{result.bmi}</div>
               </div>
               <div className="text-center sm:text-right">
-                <span className="text-[10px] font-bold uppercase text-slate-400">Target Daily Calories</span>
-                <div className="text-2xl font-black text-emerald-400">{result.calories} kcal</div>
-                <span className="text-[10px] text-slate-300 block">{result.advice}</span>
+                <span className="text-caption font-bold uppercase text-text-muted font-wordmark">Target Daily Calories</span>
+                <div className="text-2xl font-black text-success font-display">{result.calories} kcal</div>
+                <span className="text-caption text-text-muted block font-body">{result.advice}</span>
               </div>
             </div>
           )}
 
           {/* Non-Medical Disclaimer */}
-          <div className="mt-4 pt-3 border-t border-brand-border text-[10px] text-slate-500 italic flex items-center justify-between">
+          <div className="mt-4 pt-3 border-t border-line text-caption text-text-muted italic flex flex-col sm:flex-row items-center justify-between gap-2 font-body">
             <span>
-              <AlertTriangle className="w-3 h-3 text-amber-400 inline mr-1" />
+              <AlertTriangle className="w-3 h-3 text-blue inline mr-1" />
               Non-medical estimate only. Speak with Sugu Master or Coach Shimal for accurate assessment.
             </span>
             <a
               href="https://wa.me/917397398749?text=Hi%20Sugu%20Master!%20I%20want%20diet%20guidance."
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-red font-bold underline flex items-center gap-1 shrink-0"
+              className="text-text font-bold underline flex items-center gap-1 shrink-0"
             >
-              <MessageCircle className="w-3 h-3" /> Talk To A Trainer
+              <MessageCircle className="w-3 h-3 text-blue" /> Talk To A Trainer
             </a>
           </div>
         </div>

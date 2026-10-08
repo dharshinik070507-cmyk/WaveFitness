@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Section, Container, SectionHeading } from "@/components/ui";
+import { Section, Container, HeadingLockup } from "@/components/ui";
 import { gymData } from "@/content/gymData";
 import { BmiCalculator } from "@/components/BmiCalculator";
 
@@ -15,17 +15,21 @@ export default function BmiPage() {
       <Section variant="bg">
         <Container>
           <div className="mb-6">
-            <Link href="/" className="font-wordmark text-xs font-bold text-red-text uppercase tracking-poster hover:underline">
+            <Link href="/" className="font-wordmark text-xs font-bold text-text-muted uppercase tracking-button hover:underline">
               &larr; Back to Home
             </Link>
           </div>
 
-          <SectionHeading
-            indexTag="06"
-            eyebrow="HEALTH TOOL"
-            title="BMI & DAILY CALORIE CALCULATOR"
-            subtitle="Get instant estimations of your caloric needs for fat burn or lean muscle gain."
+          <HeadingLockup
+            eyebrow="06 / HEALTH TOOL"
+            lines={["BMI & DAILY CALORIE", "CALCULATOR"]}
+            emphasisLine={1}
+            bar
           />
+
+          <p className="font-body text-body text-text-muted mt-4 max-w-2xl mb-8">
+            Get instant estimations of your caloric needs for fat burn or lean muscle gain.
+          </p>
 
           <BmiCalculator />
         </Container>

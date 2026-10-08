@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { gymData } from "@/content/gymData";
-import { Youtube, Instagram, MapPin, Phone, QrCode } from "lucide-react";
+import { Youtube, Instagram, QrCode } from "lucide-react";
 import Link from "next/link";
 import { StickyMobileBar } from "./StickyMobileBar";
 
@@ -16,12 +17,16 @@ export const Footer: React.FC = () => {
             
             {/* Brand Col */}
             <div className="space-y-4 md:col-span-2">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-r-0 bg-surface-1 border border-blue flex items-center justify-center font-bold text-blue">
-                  WF
-                </div>
-                <span className="font-wordmark text-lg font-bold text-text uppercase tracking-poster">
-                  W A V E / F I T N E S S
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/brand/logo-wf-clean.png"
+                  alt="Wave Fitness Logo"
+                  width={32}
+                  height={32}
+                  className="object-contain w-8 h-8"
+                />
+                <span className="font-wordmark text-lg font-bold text-text uppercase tracking-button">
+                  WAVE FITNESS
                 </span>
               </div>
               <p className="font-body text-xs text-text-muted leading-relaxed max-w-md">
@@ -34,7 +39,7 @@ export const Footer: React.FC = () => {
                   href={gymData.social.instagram.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 bg-surface-1 border border-line text-text hover:text-red transition-all"
+                  className="p-2.5 bg-surface-1 border border-line text-text hover:text-blue transition-colors"
                   title="Instagram @team_wave_fitness"
                 >
                   <Instagram className="w-4 h-4" />
@@ -43,7 +48,7 @@ export const Footer: React.FC = () => {
                   href={gymData.social.youtube.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 bg-surface-1 border border-line text-text hover:text-red transition-all"
+                  className="p-2.5 bg-surface-1 border border-line text-text hover:text-blue transition-colors"
                   title="YouTube WAVE FITNESS"
                 >
                   <Youtube className="w-4 h-4" />
@@ -51,44 +56,47 @@ export const Footer: React.FC = () => {
               </div>
             </div>
 
-            {/* Navigation & Programs */}
+            {/* Page Navigation */}
             <div className="space-y-2">
-              <h4 className="font-wordmark font-bold text-text uppercase text-xs tracking-poster mb-3">
-                Navigation & Programs
+              <h4 className="font-wordmark font-bold text-text uppercase text-xs tracking-button mb-3">
+                Pages & Links
               </h4>
               <ul className="space-y-2 text-text-muted font-body">
-                <li><a href="#about" className="hover:text-text">About & Story</a></li>
-                <li><a href="#week" className="hover:text-text">Workout Split</a></li>
-                <li><a href="#coaches" className="hover:text-text">Coaches (Sugu Master)</a></li>
-                <li><a href="#programs" className="hover:text-text">Training Programs</a></li>
-                <li><a href="#plans" className="hover:text-text">Pricing (₹999/mo)</a></li>
-                <li><a href="#reviews" className="hover:text-text">4.9★ Reviews</a></li>
-                <li><a href="#faq" className="hover:text-text">FAQ</a></li>
+                <li><Link href="/about" className="hover:text-text">About & Story</Link></li>
+                <li><Link href="/programs" className="hover:text-text">Training Programs</Link></li>
+                <li><Link href="/pricing" className="hover:text-text">Pricing (₹999/mo)</Link></li>
+                <li><Link href="/trainers" className="hover:text-text">Coaches (Sugu Master)</Link></li>
+                <li><Link href="/quiz" className="hover:text-text">Membership Quiz</Link></li>
+                <li><Link href="/contact" className="hover:text-text">Contact & Location</Link></li>
               </ul>
             </div>
 
-            {/* Tools & Local Articles */}
+            {/* Programs List */}
             <div className="space-y-2">
-              <h4 className="font-wordmark font-bold text-text uppercase text-xs tracking-poster mb-3">
-                Tools & Articles
+              <h4 className="font-wordmark font-bold text-text uppercase text-xs tracking-button mb-3">
+                All Training Programs
               </h4>
               <ul className="space-y-2 text-text-muted font-body">
-                <li><Link href="/tools/bmi" className="hover:text-text">BMI Calculator Tool</Link></li>
-                <li><Link href="/blog" className="hover:text-text">Local Fitness Guide Blog</Link></li>
-                <li><Link href="/blog/best-gym-in-tambaram-east-camp-road" className="hover:text-text">Best Gym in Tambaram East</Link></li>
+                {gymData.programs.map((p) => (
+                  <li key={p.id}>
+                    <Link href={`/programs/${p.id}`} className="hover:text-text">
+                      {p.title}
+                    </Link>
+                  </li>
+                ))}
               </ul>
 
               {/* Poster Scan QR Code Block */}
               <div className="pt-4 border-t border-line/40 mt-4">
                 <div className="p-3 bg-surface-1 border border-line flex items-center gap-3">
                   <div className="w-10 h-10 bg-surface-2 border border-line flex items-center justify-center shrink-0">
-                    <QrCode className="w-6 h-6 text-red" />
+                    <QrCode className="w-6 h-6 text-text" />
                   </div>
                   <div>
-                    <span className="font-wordmark text-[10px] font-bold text-text uppercase tracking-poster block">
+                    <span className="font-wordmark text-caption font-bold text-text uppercase tracking-button block">
                       Poster QR Code
                     </span>
-                    <span className="font-body text-[10px] text-text-dim">
+                    <span className="font-body text-caption text-text-dim">
                       Scan to visit site & claim trial
                     </span>
                   </div>
@@ -98,7 +106,7 @@ export const Footer: React.FC = () => {
 
             {/* Legal Links */}
             <div className="space-y-2">
-              <h4 className="font-wordmark font-bold text-text uppercase text-xs tracking-poster mb-3">
+              <h4 className="font-wordmark font-bold text-text uppercase text-xs tracking-button mb-3">
                 Legal & Compliance
               </h4>
               <ul className="space-y-2 text-text-muted font-body">
@@ -112,7 +120,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Footer Copyright Bar */}
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-text-dim font-body">
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-meta text-text-dim font-body">
             <p>© 2026 WAVE FITNESS UNISEX (GYM). All Rights Reserved.</p>
             <p>No.2 Bharathi Lenin Complex, Camp Road Junction, Tambaram East CH-73</p>
           </div>

@@ -45,7 +45,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
       )}
 
       <div>
-        <span className="font-wordmark text-[11px] font-bold text-text-muted uppercase tracking-poster block">
+        <span className="font-wordmark text-meta font-bold text-text-muted uppercase tracking-button block">
           {subtitle}
         </span>
         <h3 className="font-display text-2xl font-bold text-text uppercase mt-1">
@@ -65,7 +65,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
         <div className="mt-1 flex items-center justify-between font-body text-xs">
           <span className="text-success font-bold">{perDayText}</span>
           {savingsText && (
-            <span className="px-2 py-0.5 bg-success/10 text-success font-extrabold rounded-r-2">
+            <span className="px-2 py-0.5 bg-success/10 text-success font-extrabold rounded-sm">
               {savingsText}
             </span>
           )}

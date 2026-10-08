@@ -1,11 +1,14 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { gymData } from "@/content/gymData";
+import { copy } from "@/content/copy";
+import { useLanguage } from "@/context/LanguageContext";
 import { useTrial } from "@/context/TrialContext";
-import { Dumbbell, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui";
+import { Dumbbell } from "lucide-react";
+import { Button, HeadingLockup, Photo, Container } from "@/components/ui";
 import { fadeInUpVariants, defaultViewport } from "@/lib/motion";
 
 interface ProgramsRowProps {
@@ -13,7 +16,9 @@ interface ProgramsRowProps {
 }
 
 export const ProgramsRow: React.FC<ProgramsRowProps> = ({ onOpenTrial }) => {
+  const { lang } = useLanguage();
   const { openTrialModal } = useTrial();
+  const textDeck = copy[lang].programs;
 
   const handleClaimTrial = () => {
     if (onOpenTrial) {
@@ -24,47 +29,49 @@ export const ProgramsRow: React.FC<ProgramsRowProps> = ({ onOpenTrial }) => {
   };
 
   const programs = gymData.programs;
-  // Duplicate array for infinite seamless marquee loop
   const marqueeItems = [...programs, ...programs, ...programs];
 
+  const getProgramSlot = (id: string) => {
+    if (id === "weight-loss") return "program_weight_loss";
+    if (id === "natural-bodybuilding") return "program_bodybuilding";
+    if (id === "beginner-fitness") return "program_beginner";
+    return "program_strength";
+  };
+
   return (
-    <section id="programs" className="py-20 bg-bg border-b border-line overflow-hidden">
-      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,4vw,3rem)] mb-10">
+    <section id="programs" className="py-[clamp(4rem,9vw,8rem)] bg-bg border-b border-line overflow-hidden">
+      <Container className="mb-10">
         <motion.div
           variants={fadeInUpVariants}
           initial="hidden"
           whileInView="visible"
           viewport={defaultViewport}
-          className="text-left max-w-3xl"
+          className="text-left max-w-2xl"
         >
-          <span className="font-wordmark text-xs font-bold uppercase tracking-poster text-red block mb-2">
-            09 / TRAINING PROGRAMS
-          </span>
-          <h2 className="font-display text-h2 font-black text-text uppercase leading-none">
-            SPECIFIC PROGRAMS FOR EVERY GOAL
-          </h2>
-          <p className="font-body text-body text-text-muted mt-3">
-            Designed for real results in Tambaram. Pause on hover to inspect any program.
+          <HeadingLockup
+            as="h2"
+            eyebrow={textDeck.eyebrow}
+            lines={textDeck.lines}
+            onSurface="ink"
+          />
+          <p className="font-body text-[clamp(1rem,1.15vw,1.375rem)] text-text-muted leading-relaxed mt-3 max-w-[34ch] line-clamp-2">
+            {textDeck.subline}
           </p>
         </motion.div>
-      </div>
+      </Container>
 
-      {/* DESKTOP AUTO-SCROLLING MARQUEE TRACK (55s linear loop, pauses on hover) */}
+      {/* DESKTOP AUTO-SCROLLING MARQUEE TRACK (55s linear loop, pauses on hover and focus-within) */}
       <div className="hidden md:block overflow-hidden py-4 border-y border-line bg-surface-1">
-        <div className="animate-marquee hover:[animation-play-state:paused] flex gap-6">
+        <div className="animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] flex gap-6">
           {marqueeItems.map((prog, index) => (
-            <div
+            <Link
               key={`${prog.id}-${index}`}
-              className="w-80 shrink-0 bg-bg border border-line rounded-r-0 overflow-hidden flex flex-col justify-between"
+              href={`/programs/${prog.id}`}
+              className="w-80 shrink-0 bg-bg border border-line rounded-r-0 overflow-hidden flex flex-col justify-between group hover:border-surface-3 transition-colors"
             >
-              <div className="h-44 relative bg-surface-2 overflow-hidden border-b border-line">
-                <img
-                  src={prog.imgUrl}
-                  alt={prog.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="photo-scrim" />
-                <span className="absolute bottom-3 left-3 px-2 py-0.5 bg-bg/90 border border-line text-red font-wordmark text-[10px] font-bold uppercase tracking-poster">
+              <div className="relative">
+                <Photo slotKey={getProgramSlot(prog.id)} variant="card" />
+                <span className="absolute bottom-3 left-3 px-2 py-0.5 bg-bg/90 border border-line text-text-muted font-wordmark text-caption font-bold uppercase tracking-button z-20">
                   {prog.trainer}
                 </span>
               </div>
@@ -76,7 +83,7 @@ export const ProgramsRow: React.FC<ProgramsRowProps> = ({ onOpenTrial }) => {
                   {prog.description}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -84,18 +91,14 @@ export const ProgramsRow: React.FC<ProgramsRowProps> = ({ onOpenTrial }) => {
       {/* MOBILE TOUCH SCROLL-SNAP ROW */}
       <div className="md:hidden flex gap-4 overflow-x-auto px-4 pb-4 snap-x snap-mandatory no-scrollbar">
         {programs.map((prog) => (
-          <div
+          <Link
             key={prog.id}
+            href={`/programs/${prog.id}`}
             className="snap-center shrink-0 w-72 bg-surface-1 border border-line rounded-r-0 overflow-hidden flex flex-col justify-between"
           >
-            <div className="h-40 relative bg-surface-2 overflow-hidden border-b border-line">
-              <img
-                src={prog.imgUrl}
-                alt={prog.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="photo-scrim" />
-              <span className="absolute bottom-3 left-3 px-2 py-0.5 bg-bg/90 border border-line text-red font-wordmark text-[10px] font-bold uppercase tracking-poster">
+            <div className="relative">
+              <Photo slotKey={getProgramSlot(prog.id)} variant="card" />
+              <span className="absolute bottom-3 left-3 px-2 py-0.5 bg-bg/90 border border-line text-text-muted font-wordmark text-caption font-bold uppercase tracking-button z-20">
                 {prog.trainer}
               </span>
             </div>
@@ -107,16 +110,16 @@ export const ProgramsRow: React.FC<ProgramsRowProps> = ({ onOpenTrial }) => {
                 {prog.description}
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
       {/* Standard Single CTA per Section */}
-      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,4vw,3rem)] mt-8">
+      <Container className="mt-8">
         <Button variant="primary" size="md" onClick={handleClaimTrial}>
-          <Dumbbell className="w-4 h-4 mr-2" /> Claim Free Trial
+          {textDeck.cta}
         </Button>
-      </div>
+      </Container>
     </section>
   );
 };

@@ -3,9 +3,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { gymData } from "@/content/gymData";
+import { copy } from "@/content/copy";
+import { useLanguage } from "@/context/LanguageContext";
 import { useTrial } from "@/context/TrialContext";
-import { ShieldAlert, Youtube, ArrowUpRight, Award, CheckCircle2, Dumbbell, Utensils } from "lucide-react";
-import { Button } from "@/components/ui";
+import { Youtube, ArrowUpRight, CheckCircle2, Dumbbell, Utensils } from "lucide-react";
+import { Button, HeadingLockup, Photo } from "@/components/ui";
 import { fadeInUpVariants, staggerContainerVariants, defaultViewport } from "@/lib/motion";
 
 interface NaturalTransformationsProps {
@@ -13,7 +15,9 @@ interface NaturalTransformationsProps {
 }
 
 export const NaturalTransformations: React.FC<NaturalTransformationsProps> = ({ onOpenTrial }) => {
+  const { lang } = useLanguage();
   const { openTrialModal } = useTrial();
+  const textDeck = copy[lang].progress;
   const { showTransformations, showDietGuidance, consentFlag, items } = gymData.transformations;
 
   const handleClaimTrial = () => {
@@ -27,7 +31,7 @@ export const NaturalTransformations: React.FC<NaturalTransformationsProps> = ({ 
   if (!showTransformations) return null;
 
   return (
-    <section id="progress" className="py-20 bg-bg border-b border-line relative">
+    <section id="progress" className="py-[clamp(4rem,9vw,8rem)] bg-bg border-b border-line relative">
       <div className="max-w-[1280px] mx-auto px-[clamp(1rem,4vw,3rem)]">
         
         {/* Section Header */}
@@ -38,14 +42,15 @@ export const NaturalTransformations: React.FC<NaturalTransformationsProps> = ({ 
           viewport={defaultViewport}
           className="text-left max-w-3xl mb-12"
         >
-          <span className="font-wordmark text-xs font-bold uppercase tracking-poster text-red block mb-2">
-            08 / NATURAL MEMBER PROGRESS
-          </span>
-          <h2 className="font-display text-h2 font-black text-text uppercase leading-none">
-            REAL NATURAL TRANSFORMATIONS
-          </h2>
+          <HeadingLockup
+            as="h2"
+            eyebrow={textDeck.eyebrow}
+            lines={textDeck.lines}
+            emphasisLine={1}
+            bar={false}
+          />
           <p className="font-body text-body text-text-muted mt-3">
-            Built through progressive strength, consistent attendance, and clean Indian nutrition without dangerous shortcuts.
+            {textDeck.subline}
           </p>
         </motion.div>
 
@@ -57,7 +62,7 @@ export const NaturalTransformations: React.FC<NaturalTransformationsProps> = ({ 
           viewport={defaultViewport}
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
         >
-          {items.map((item) => (
+          {items.map((item, idx) => (
             <motion.div
               key={item.id}
               variants={fadeInUpVariants}
@@ -69,13 +74,19 @@ export const NaturalTransformations: React.FC<NaturalTransformationsProps> = ({ 
                     <h3 className="font-display text-xl font-bold text-text uppercase">
                       {item.name}
                     </h3>
-                    <span className="font-wordmark text-xs text-red font-bold uppercase block">
+                    <span className="font-wordmark text-xs text-text-muted font-bold uppercase block">
                       {item.duration}
                     </span>
                   </div>
-                  <span className="px-2.5 py-1 bg-surface-2 border border-line text-red-text font-wordmark text-[10px] font-bold uppercase tracking-poster">
-                    Verified Consent ✓
-                  </span>
+                  {item.consentOnRecord && (
+                    <span className="px-2.5 py-1 bg-surface-2 border border-line text-text-muted font-wordmark text-caption font-bold uppercase tracking-button">
+                      Consent on file
+                    </span>
+                  )}
+                </div>
+
+                <div className="mb-4">
+                  <Photo slotKey={idx === 0 ? "progress_1" : "progress_2"} variant="portrait" />
                 </div>
 
                 <div className="p-3 bg-surface-2 border border-line mb-4 font-body text-xs font-bold text-text">
@@ -107,16 +118,16 @@ export const NaturalTransformations: React.FC<NaturalTransformationsProps> = ({ 
           className="mt-8 p-4 bg-surface-1 border border-line text-xs text-text-muted flex items-center justify-between flex-wrap gap-2"
         >
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-red shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-blue shrink-0" />
             <span className="font-bold text-text">{consentFlag}</span>
           </div>
           <a
             href={gymData.social.youtube.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-blue hover:underline font-wordmark font-bold uppercase tracking-poster flex items-center gap-1"
+            className="text-xs text-blue hover:underline font-wordmark font-bold uppercase tracking-button flex items-center gap-1"
           >
-            <Youtube className="w-4 h-4 text-red" /> Watch Workout Vlogs on YouTube <ArrowUpRight className="w-3.5 h-3.5" />
+            <Youtube className="w-4 h-4 text-blue" /> Watch Workout Vlogs on YouTube <ArrowUpRight className="w-3.5 h-3.5" />
           </a>
         </motion.div>
 
@@ -129,7 +140,7 @@ export const NaturalTransformations: React.FC<NaturalTransformationsProps> = ({ 
           className="mt-8"
         >
           <Button variant="primary" size="md" onClick={handleClaimTrial}>
-            <Dumbbell className="w-4 h-4 mr-2" /> Claim Free Trial
+            <Dumbbell className="w-4 h-4 mr-2" /> {textDeck.cta}
           </Button>
         </motion.div>
 

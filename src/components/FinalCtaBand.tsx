@@ -3,10 +3,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useTrial } from "@/context/TrialContext";
-import { Button } from "@/components/ui";
-import { Dumbbell, MapPin, Phone, MessageCircle } from "lucide-react";
-import { gymData } from "@/content/gymData";
-import { fadeInUpVariants, defaultViewport } from "@/lib/motion";
+import { Button, HeadingLockup, Container } from "@/components/ui";
+import { CommunityRings } from "@/components/CommunityRings";
+import { gymImages } from "@/content/gymImages";
 
 interface FinalCtaBandProps {
   onOpenTrial?: () => void;
@@ -23,99 +22,56 @@ export const FinalCtaBand: React.FC<FinalCtaBandProps> = ({ onOpenTrial }) => {
     }
   };
 
+  // Check if rings have at least 6 active images
+  const memberKeys = ["member-01", "member-02", "member-03", "member-04", "member-05", "member-06", "member-07", "member-08", "member-09", "member-10"];
+  const activeCount = memberKeys.filter((key) => {
+    const entry = gymImages[key];
+    return entry && (entry.status === "demo" || entry.status === "real") && entry.desktopSrc;
+  }).length;
+
+  const hasRings = activeCount >= 6;
+
   return (
-    <section id="location" className="py-20 bg-surface-1 border-t border-b border-line text-center relative overflow-hidden">
-      {/* Background Watermark */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-10 z-0">
-        <span className="outline-word text-[14vw]">TEAM WAVE</span>
-      </div>
-
-      <div className="relative z-10 max-w-[1280px] mx-auto px-[clamp(1rem,4vw,3rem)] flex flex-col items-center">
-        
-        <motion.div
-          variants={fadeInUpVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={defaultViewport}
-          className="max-w-2xl mx-auto"
-        >
-          <span className="font-wordmark text-xs font-bold text-red uppercase tracking-poster block mb-2">
-            14 / JOIN TEAM WAVE
-          </span>
-
-          <h2 className="font-display text-h1 font-black uppercase text-text mb-4">
-            JOIN TEAM WAVE
-          </h2>
-
-          <p className="font-body text-body-lg text-text-muted mb-8">
-            Start your natural fitness transformation today at Camp Road, Tambaram East. Experience our clean floor & personal trainer guidance with zero obligation.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={handleClaimTrial}
+    <section id="community" className="relative min-h-[100vh] bg-[#fafafa] border-t border-b border-[#e2e2e5] overflow-hidden flex flex-col justify-center" data-surface="paper">
+      <Container className="w-full h-full flex flex-col justify-center py-12 lg:py-0">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[calc(100vh-80px)]">
+          
+          {/* Left Text Column (40% Desktop / Cols 1-5) */}
+          <div className={`lg:col-span-5 text-left z-10 max-w-2xl ${!hasRings ? "lg:col-span-12" : ""}`}>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3 }}
             >
-              <Dumbbell className="w-5 h-5 mr-2" /> Claim Free Trial
-            </Button>
+              <HeadingLockup
+                as="h2"
+                lead="Join a community"
+                lines={["that shares", "your passion"]}
+                onSurface="paper"
+              />
+            </motion.div>
 
-            <a href={`tel:${gymData.contact.phoneTel}`}>
-              <Button variant="secondary" size="lg">
-                <Phone className="w-4 h-4 text-blue mr-2" /> Call {gymData.contact.phonePoster}
-              </Button>
-            </a>
-
-            <a href={gymData.contact.whatsappLink} target="_blank" rel="noopener noreferrer">
-              <Button variant="secondary" size="lg">
-                <MessageCircle className="w-4 h-4 text-red mr-2" /> WhatsApp Us
-              </Button>
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Map & Address Block Under It */}
-        <motion.div
-          variants={fadeInUpVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={defaultViewport}
-          className="w-full max-w-4xl bg-bg border border-line p-6 sm:p-8 rounded-r-0 text-left grid grid-cols-1 md:grid-cols-2 gap-6 items-center"
-        >
-          {/* Address Details */}
-          <div>
-            <div className="flex items-center gap-2 font-wordmark text-xs font-bold text-red uppercase tracking-poster mb-2">
-              <MapPin className="w-4 h-4" /> VISIT OUR GYM
-            </div>
-            <h3 className="font-display text-xl font-bold text-text uppercase mb-2">
-              {gymData.name}
-            </h3>
-            <p className="font-body text-xs text-text-muted leading-relaxed mb-4">
-              {gymData.address.line1}, {gymData.address.line2}, {gymData.address.area}, {gymData.address.suburb}, {gymData.address.city}, {gymData.address.state} - {gymData.address.pincode}
+            <p className="font-body text-[clamp(1rem,1.15vw,1.375rem)] text-[#55555b] leading-relaxed mt-4 max-w-[34ch] line-clamp-2">
+              Walk in, meet the trainers, train free once.
             </p>
 
-            <div className="space-y-1 font-body text-xs text-text-dim">
-              <p>Plus Code: <strong className="text-text">{gymData.googlePlusCode}</strong></p>
-              <p>Timing: <strong className="text-text">{gymData.hours.weekday}</strong></p>
+            <div className="mt-8">
+              <Button variant="primary" size="md" onSurface="paper" onClick={handleClaimTrial}>
+                Claim Free Trial
+              </Button>
             </div>
           </div>
 
-          {/* Embedded Google Map Frame */}
-          <div className="h-60 border border-line rounded-r-0 overflow-hidden bg-surface-2 relative">
-            <iframe
-              title="WAVE FITNESS UNISEX (GYM) Map"
-              src={gymData.mapEmbedUrl}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen={false}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-        </motion.div>
+          {/* Right Media Column (60% Desktop / Cols 6-12) bleeding off right & bottom */}
+          {hasRings && (
+            <div className="lg:col-span-7 h-full w-full min-h-[520px] lg:min-h-[100vh] overflow-hidden lg:-mr-[clamp(1.25rem,3vw,3.75rem)]">
+              <CommunityRings />
+            </div>
+          )}
 
-      </div>
+        </div>
+      </Container>
     </section>
   );
 };

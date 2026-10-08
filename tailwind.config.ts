@@ -18,12 +18,19 @@ const config: Config = {
     extend: {
       colors: {
         bg: "var(--bg)",
+        ink: "var(--ink)",
+        paper: "var(--paper)",
+        "paper-card": "var(--paper-card)",
+        "panel-blue": "var(--panel-blue)",
         "surface-1": "var(--surface-1)",
         "surface-2": "var(--surface-2)",
         "surface-3": "var(--surface-3)",
         line: "var(--line)",
+        "line-paper": "var(--line-paper)",
         text: "var(--text)",
+        "text-paper": "var(--text-paper)",
         "text-muted": "var(--text-muted)",
+        "text-muted-paper": "var(--text-muted-paper)",
         "text-dim": "var(--text-dim)",
         red: {
           DEFAULT: "var(--red)",
@@ -45,12 +52,19 @@ const config: Config = {
       fontSize: {
         hero: ["clamp(3.25rem, 11vw, 9rem)", { lineHeight: "0.88", letterSpacing: "-0.02em" }],
         h1: ["clamp(2.5rem, 7vw, 5.5rem)", { lineHeight: "0.92", letterSpacing: "-0.02em" }],
-        h2: ["clamp(2rem, 5vw, 4rem)", { lineHeight: "0.95", letterSpacing: "-0.02em" }],
+        h2: ["clamp(2.5rem, 4.5vw, 5.25rem)", { lineHeight: "0.98", letterSpacing: "-0.02em" }],
         h3: ["clamp(1.5rem, 3.5vw, 2.75rem)", { lineHeight: "1.02", letterSpacing: "-0.01em" }],
         price: ["clamp(4rem, 14vw, 10rem)", { lineHeight: "0.85", letterSpacing: "-0.03em" }],
-        eyebrow: ["0.75rem", { lineHeight: "1.2", letterSpacing: "0.35em" }],
+        eyebrow: ["0.75rem", { lineHeight: "1.2", letterSpacing: "0.3em" }],
         meta: ["11px", { lineHeight: "1.3", letterSpacing: "0.05em" }],
+        caption: ["10px", { lineHeight: "1.2", letterSpacing: "0.05em" }],
+        micro: ["9px", { lineHeight: "1.2", letterSpacing: "0.05em" }],
         "body-lg": ["clamp(1rem, 2vw, 1.125rem)", { lineHeight: "1.6" }],
+      },
+      letterSpacing: {
+        eyebrow: "0.3em",
+        button: "0.12em",
+        display: "-0.02em",
       },
       maxWidth: {
         prose: "62ch",
@@ -70,11 +84,14 @@ const config: Config = {
       },
       borderRadius: {
         "r-0": "var(--radius-0)",
-        "r-1": "var(--radius-1)",
-        "r-2": "var(--radius-2)",
+        badge: "var(--radius-badge)",
+        input: "var(--radius-input)",
+        card: "var(--radius-card)",
+        pill: "var(--radius-pill)",
       },
       boxShadow: {
         hard: "var(--shadow-hard)",
+        soft: "var(--shadow-soft)",
       },
       zIndex: {
         header: "40",

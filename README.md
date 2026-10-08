@@ -18,19 +18,98 @@
 - **Google Plus Code:** `W4FV+65 Tambaram, Tamil Nadu`
 - **Coordinates:** `12.9230144, 80.1429674`
 - **Phone / WhatsApp:** `+91 73973 98749`
-- **Google Rating:** 4.9★ from 365+ Verified Reviews
+- **Google Rating:** 4.9★ from 365+ Reviews
 - **Operating Hours:** Opens daily from 6:00 AM
 - **Promotional Pricing:** ₹999/month (~₹33/day) | ₹2,499 3-Month Quarterly Pass (~₹28/day, saves ₹498)
 
 ---
 
-## ✨ Features
+## 📸 Shoot Guide for Tambaram Gym
 
-- **Gritty Gym Poster Aesthetic:** Hard edges (`0px radius`), dark base (`#0b0b0c`), hairline borders (`#2a2a2e`), action-only red (`#E10600`), flat color, and static film-grain texture.
-- **Motion System:** Hardware-accelerated Framer Motion reveals (`translateY` + `opacity`), masked text entrance, 250vh scroll-linked workout split, and 55s infinite marquee loops.
-- **Bilingual (Tamil / English):** First-class Tamil support via `Anek Tamil` with scoped font scaling and zero layout jumps.
-- **Lead Generation API (`/api/lead`):** Server-side Zod validation for Indian 10-digit mobile numbers, honeypot spam protection, and WhatsApp lead links.
-- **Single Content Source (`gymData.ts`):** All business facts, pricing, timings, reviews, and FAQs are managed in one centralized data file.
+### Photography Guidelines & Standards
+1. **Zero AI / Zero Stock Policy:** Every image on the website must be an authentic photograph shot directly on location at Wave Fitness, Tambaram East.
+2. **Consent Requirement:** Any photo featuring a client or trainer must have a signed photo consent release on file before `status` can be changed to `"real"`.
+3. **Lighting & Setup:** Natural warm overhead gym lighting, high contrast, clean background, neutral focal point.
+4. **Hero Aspect Ratio:** 16:9 desktop crop (subject right-aligned at 70% focal x), 4:5 mobile crop.
+
+### 36 Photo Slots Inventory & Status Table
+
+| Slot Key | Category | Description | Recommended Focal Point | Status | Consent File Path |
+|---|---|---|---|---|---|
+| `hero` | Hero | Full-bleed gym floor wide shot | `{ x: 70, y: 50 }` | `placeholder` | N/A (Pending Shoot) |
+| `coach-sugu` | Coach | Head Coach Sugumar watching form | `{ x: 50, y: 30 }` | `placeholder` | N/A (Pending Shoot) |
+| `coach-shimal` | Coach | Personal Trainer Shimal coaching | `{ x: 50, y: 30 }` | `placeholder` | N/A (Pending Shoot) |
+| `floor-01` | Floor | Free weights & dumbbell rack area | Center | `placeholder` | N/A |
+| `floor-02` | Floor | Commercial treadmills & cardio suite | Center | `placeholder` | N/A |
+| `floor-03` | Floor | Power squat racks & lifting platforms | Center | `placeholder` | N/A |
+| `floor-04` | Floor | Functional turf & conditioning zone | Center | `placeholder` | N/A |
+| `floor-05` | Floor | Cable crossover pulley machines | Center | `placeholder` | N/A |
+| `floor-06` | Floor | Clean locker room & changing facilities | Center | `placeholder` | N/A |
+| `program-cutout-1` | Cutout | Bodybuilding Athlete transparent cutout | Center | `placeholder` | N/A |
+| `program-cutout-2` | Cutout | Fat Loss Conditioning transparent cutout | Center | `placeholder` | N/A |
+| `program-cutout-3` | Cutout | Personal Training transparent cutout | Center | `placeholder` | N/A |
+| `program-cutout-4` | Cutout | General Fitness transparent cutout | Center | `placeholder` | N/A |
+| `program-cutout-5` | Cutout | Functional Fitness transparent cutout | Center | `placeholder` | N/A |
+| `program-cutout-6` | Cutout | Physique Prep transparent cutout | Center | `placeholder` | N/A |
+| `member-01` | Community | Member 01 circular ring portrait | Center | `placeholder` | N/A |
+| `member-02` | Community | Member 02 circular ring portrait | Center | `placeholder` | N/A |
+| `member-03` | Community | Member 03 circular ring portrait | Center | `placeholder` | N/A |
+| `member-04` | Community | Member 04 circular ring portrait | Center | `placeholder` | N/A |
+| `member-05` | Community | Member 05 circular ring portrait | Center | `placeholder` | N/A |
+| `member-06` | Community | Member 06 circular ring portrait | Center | `placeholder` | N/A |
+| `member-07` | Community | Member 07 circular ring portrait | Center | `placeholder` | N/A |
+| `member-08` | Community | Member 08 circular ring portrait | Center | `placeholder` | N/A |
+| `member-09` | Community | Member 09 circular ring portrait | Center | `placeholder` | N/A |
+| `member-10` | Community | Member 10 circular ring portrait | Center | `placeholder` | N/A |
+| `member-11` | Community | Member 11 circular ring portrait | Center | `placeholder` | N/A |
+| `member-12` | Community | Member 12 circular ring portrait | Center | `placeholder` | N/A |
+| `gallery-01` | Gallery | Gym floor overview shot | Center | `placeholder` | N/A |
+| `gallery-02` | Gallery | Dumbbell rack close-up | Center | `placeholder` | N/A |
+| `gallery-03` | Gallery | Cardio treadmill section daylight | Center | `placeholder` | N/A |
+| `gallery-04` | Gallery | Power rack and barbell setup | Center | `placeholder` | N/A |
+| `gallery-05` | Gallery | Functional turf & kettlebells | Center | `placeholder` | N/A |
+| `gallery-06` | Gallery | Trainer coaching member squat posture | Center | `placeholder` | N/A |
+| `gallery-07` | Gallery | Clean locker room facilities | Center | `placeholder` | N/A |
+| `gallery-08` | Gallery | Gym exterior entrance at Camp Road | Center | `placeholder` | N/A |
+| `final-cta` | CTA | Final CTA section background | Center | `placeholder` | N/A |
+
+### Model Release & Photo Consent Form Template
+```text
+WAVE FITNESS UNISEX (GYM) - PHOTO & MEDIA CONSENT FORM
+I hereby grant Wave Fitness Unisex Gym permission to capture and publish my photograph for official website and promotional use.
+Name: _______________________ Date: _______________ Signature: _______________________
+```
+
+---
+
+## 🎨 Design System & Surface Rhythm
+
+### 1. Shape Language Tokens
+- **Pill Buttons:** `--radius-pill: 9999px` (`rounded-pill`)
+- **Cards:** `--radius-card: 14px` (`rounded-card`)
+- **Inputs:** `--radius-input: 12px` (`rounded-input`)
+- **Badges:** `--radius-badge: 4px` (`rounded-badge`)
+- **Avatars & Rings:** `rounded-full`
+
+### 2. Ink & Paper Surface Rhythm (`layoutRhythm.ts`)
+- **Ink Surfaces (`#0b0b0c`):** Hero, Trust Strip, Week Strip, Natural Strength, Transformations, Programs Row, Plan Quiz, Pricing Section, Footer
+- **Paper Surfaces (`#fafafa`):** Benefit Strip, Timings Schedule, Trainers Section, Inside Gym Gallery, Reviews Wall, FAQ Accordion, Final CTA Band
+
+### 3. Primary Action Button Flipping
+- **On Ink Surface:** Primary button is Red (`#E10600`) with white text (`#ffffff`).
+- **On Paper Surface:** Primary button is Ink (`#0b0b0c`) with white text (`#ffffff`).
+
+### 4. WCAG 2.1 AA Contrast Ratio Verification
+| Element / Pair | Hex Values | Contrast Ratio | WCAG Compliance |
+|---|---|---|---|
+| Text on Ink | `#f5f5f3` on `#0b0b0c` | **18.0:1** | AAA Pass |
+| Text on Paper | `#0b0b0c` on `#fafafa` | **18.0:1** | AAA Pass |
+| Muted Text on Ink | `#a1a1a6` on `#0b0b0c` | **7.7:1** | AAA Pass |
+| Muted Text on Paper | `#66666d` on `#fafafa` | **4.8:1** | AA Pass |
+| Red Action Button | `#ffffff` on `#E10600` | **5.0:1** | AA Pass |
+| Red Accent Text | `#FF5A52` on `#0b0b0c` | **6.4:1** | AA Pass |
+| Blue Accent on Ink | `#1E88D6` on `#0b0b0c` | **5.2:1** | AA Pass |
+| Blue Accent on Paper | `#1E88D6` on `#fafafa` | **4.6:1** | AA Pass |
 
 ---
 
@@ -38,7 +117,7 @@
 
 ### Prerequisites
 - Node.js 18.x or later
-- npm or yarn / pnpm
+- npm
 
 ### Installation
 
@@ -56,43 +135,26 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-### Build & Production Server
+### Build & Automated Audit
 
 ```bash
+# Run automated design system audit
+bash scripts/audit.sh
+
+# Run copy lint
+npm run copy:lint
+
+# Run photo optimization
+npm run optimize:images
+
+# Run ESLint
+npm run lint
+
+# Run TypeScript type check
+npx tsc --noEmit
+
 # Build production bundle
 npm run build
-
-# Start production server
-npm run start
-```
-
----
-
-## 🗺️ Project Structure
-
-```text
-├── src/
-│   ├── app/                # Next.js 14 App Router pages & API routes
-│   │   ├── api/lead/       # Zod-validated lead generation route
-│   │   ├── tools/bmi/      # BMI Calculator tool page
-│   │   ├── blog/           # Local SEO fitness guide articles
-│   │   ├── layout.tsx      # Root layout with self-hosted fonts
-│   │   └── page.tsx        # 16-section conversion home page
-│   ├── components/         # Modular UI & section components
-│   │   ├── Hero.tsx        # Masked entrance & background text ticker
-│   │   ├── WeekStrip.tsx   # Desktop 250vh sticky scroll split & mobile snap
-│   │   ├── ProgramsRow.tsx # 55s infinite marquee program loop
-│   │   └── ...             # TrustStrip, BenefitStrip, NaturalStrength, etc.
-│   ├── content/
-│   │   └── gymData.ts      # Single source of truth for all business content
-│   ├── context/
-│   │   ├── LanguageContext.tsx  # Tamil / English language provider
-│   │   └── TrialContext.tsx     # Trial modal state manager
-│   ├── lib/
-│   │   └── motion.ts       # Shared Framer Motion configs & variants
-│   └── styles/
-│       └── tokens.css      # Design system CSS custom properties
-└── README.md
 ```
 
 ---

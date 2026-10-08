@@ -1,12 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { Section, Container, SectionHeading } from "@/components/ui";
+import { Section, Container, HeadingLockup } from "@/components/ui";
 import { gymData } from "@/content/gymData";
 import { PricingSection } from "@/components/PricingSection";
 
 export const metadata = {
   title: `Membership Fees | Monthly ₹${gymData.pricing.monthly.amount} | ${gymData.name}`,
-  description: `Transparent pricing: Monthly ₹${gymData.pricing.monthly.amount} (~₹${gymData.pricing.monthly.perDay}/day) & 3-Month Quarterly ₹${gymData.pricing.quarterly.amount} (~₹${gymData.pricing.quarterly.perDay}/day). No hidden traps.`,
+  description: `Transparent pricing: Monthly ₹${gymData.pricing.monthly.amount} (~₹${gymData.pricing.monthly.perDay}/day) & 3-Month Quarterly ₹${gymData.pricing.quarterly.amount} (~₹${gymData.pricing.quarterly.perDay}/day).`,
 };
 
 export default function PricingPage() {
@@ -15,17 +15,20 @@ export default function PricingPage() {
       <Section variant="bg">
         <Container>
           <div className="mb-6">
-            <Link href="/" className="font-wordmark text-xs font-bold text-red-text uppercase tracking-poster hover:underline">
+            <Link href="/" className="font-wordmark text-xs font-bold text-text-muted uppercase tracking-button hover:underline">
               &larr; Back to Home
             </Link>
           </div>
 
-          <SectionHeading
-            indexTag="03"
-            eyebrow="TRANSPARENT FEES"
-            title="MEMBERSHIP PLANS & RATES"
-            subtitle="Fees that make sense. Pay monthly or save with our 3-Month Quarterly Pass."
+          <HeadingLockup
+            eyebrow="03 / TRANSPARENT FEES"
+            lines={["MEMBERSHIP PLANS & RATES"]}
+            bar
           />
+
+          <p className="font-body text-body text-text-muted mt-4 max-w-2xl mb-8">
+            Fees that make sense. Pay monthly or save with our 3-Month Quarterly Pass.
+          </p>
 
           <PricingSection />
         </Container>

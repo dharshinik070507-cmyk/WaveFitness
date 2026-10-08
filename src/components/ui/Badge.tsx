@@ -6,14 +6,14 @@ export interface BadgeProps {
 }
 
 export const Badge: React.FC<BadgeProps> = ({ variant = "red", children }) => {
-  let styles = "inline-flex items-center px-2.5 py-1 rounded-r-2 font-wordmark text-[10px] font-bold uppercase tracking-poster";
+  let styles = "inline-flex items-center px-2.5 py-1 rounded-badge font-wordmark text-caption font-bold uppercase tracking-button";
 
   if (variant === "red") {
-    styles += " bg-red text-white";
+    styles += " bg-surface-2 text-text border border-line";
   } else if (variant === "dark") {
     styles += " bg-surface-2 text-text border border-line";
   } else if (variant === "outline") {
-    styles += " bg-transparent text-red-text border border-line";
+    styles += " bg-transparent text-text border border-line";
   } else if (variant === "green") {
     styles += " bg-success/10 text-success border border-success/30";
   }

@@ -29,16 +29,16 @@ export const Accordion: React.FC<AccordionProps> = ({ items }) => {
           <div key={idx} className="py-6">
             <button
               onClick={() => toggle(idx)}
-              className="w-full text-left flex items-start justify-between gap-4 font-display text-lg sm:text-xl font-bold uppercase text-text hover:text-red-text transition-colors"
+              className="w-full text-left flex items-start justify-between gap-4 font-display text-lg sm:text-xl font-bold uppercase text-text hover:text-blue transition-colors"
             >
               <div className="flex items-start gap-4">
-                <span className="font-wordmark text-xs font-bold text-text-dim tracking-poster mt-1">
+                <span className="font-wordmark text-xs font-bold text-text-dim tracking-button mt-1">
                   {indexNum}
                 </span>
                 <span>{item.q}</span>
               </div>
               {isOpen ? (
-                <Minus className="w-5 h-5 text-red shrink-0 mt-1" />
+                <Minus className="w-5 h-5 text-blue shrink-0 mt-1" />
               ) : (
                 <Plus className="w-5 h-5 text-text-muted shrink-0 mt-1" />
               )}

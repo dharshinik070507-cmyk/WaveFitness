@@ -37,7 +37,7 @@ export const NaturalStrength: React.FC<NaturalStrengthProps> = ({ onOpenTrial })
           viewport={defaultViewport}
           className="text-left max-w-3xl mb-12"
         >
-          <span className="font-wordmark text-xs font-bold uppercase tracking-poster text-red block mb-2">
+          <span className="font-wordmark text-xs font-bold uppercase tracking-button text-blue block mb-2">
             06 / NATURAL FITNESS PHILOSOPHY
           </span>
           <h2 className="font-display text-h2 font-black text-text uppercase leading-none">
@@ -62,15 +62,13 @@ export const NaturalStrength: React.FC<NaturalStrengthProps> = ({ onOpenTrial })
               variants={fadeInUpVariants}
               className="bg-surface-1 border border-line rounded-r-0 overflow-hidden flex flex-col justify-between"
             >
-              {/* Media Container (Short muted looping clip or photo) */}
-              <div className="relative h-56 bg-surface-2 overflow-hidden border-b border-line">
-                <img
-                  src={feat.mediaUrl}
-                  alt={feat.title}
-                  className="w-full h-full object-cover object-center"
-                />
+              {/* Media Container */}
+              <div className="relative h-56 bg-surface-2 overflow-hidden border-b border-line flex items-center justify-center p-4">
+                <span className="font-wordmark text-xs font-bold text-text-dim tracking-button uppercase">
+                  [PHOTO: {feat.title}]
+                </span>
                 <div className="photo-scrim" />
-                <span className="absolute bottom-3 left-3 px-2.5 py-1 bg-bg/90 border border-line text-text font-wordmark text-[10px] font-bold uppercase tracking-poster">
+                <span className="absolute bottom-3 left-3 px-2.5 py-1 bg-bg/90 border border-line text-text font-wordmark text-caption font-bold uppercase tracking-button">
                   100% REAL FLOOR
                 </span>
               </div>

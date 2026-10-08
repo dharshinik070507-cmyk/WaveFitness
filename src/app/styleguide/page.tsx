@@ -2,44 +2,47 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Globe, Grid, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Grid } from "lucide-react";
 import {
   Button,
-  Card,
   PlanCard,
   Badge,
   Input,
   Accordion,
-  SectionHeading,
+  HeadingLockup,
 } from "@/components/ui";
+import { ProgramCollage } from "@/components/ProgramCollage";
+import { CommunityRings } from "@/components/CommunityRings";
+import { ChatWidget } from "@/components/ChatWidget";
 
 export default function StyleguidePage() {
-  const [lang, setLang] = useState<"en" | "ta">("en");
   const [showGrid, setShowGrid] = useState(false);
 
   const colorSwatches = [
-    { name: "--bg (Page)", hex: "#0b0b0c", usage: "Default Page Background", ratio: "Base (17.8:1 text contrast)" },
-    { name: "--surface-1 (Cards)", hex: "#121214", usage: "Cards & Elevated Panels", ratio: "16.1:1 text contrast" },
-    { name: "--surface-2 (Inputs)", hex: "#1a1a1d", usage: "Hover States & Form Inputs", ratio: "Surface Accent" },
-    { name: "--line (Borders)", hex: "#2a2a2e", usage: "Hairline Borders (1px)", ratio: "Structural Line" },
-    { name: "--text", hex: "#f5f5f3", usage: "Primary Warm Off-White Body", ratio: "17.8:1 AAA Pass" },
-    { name: "--text-muted", hex: "#a1a1a6", usage: "Secondary Labels & Descriptions", ratio: "7.4:1 AAA Pass" },
-    { name: "--red", hex: "#E10600", usage: "ACTION ONLY: Primary Buttons & Headlines", ratio: "5.2:1 (White text on Red)" },
-    { name: "--red-text", hex: "#FF5A52", usage: "Small Red Text & Links (<18px bold)", ratio: "5.8:1 AA Pass" },
-    { name: "--blue", hex: "#1E88D6", usage: "Logo Emblem & Focus Ring Accents", ratio: "4.8:1 AA Pass" },
+    { name: "--bg / --ink", hex: "#0b0b0c", usage: "Default Ink Surface Background", ratio: "Base (18.0:1 text contrast)" },
+    { name: "--paper", hex: "#fafafa", usage: "Alternating Paper Band Surface", ratio: "18.0:1 text-paper contrast" },
+    { name: "--paper-card", hex: "#ffffff", usage: "Cards on Paper Bands", ratio: "18.0:1 text contrast" },
+    { name: "--panel-blue", hex: "#101822", usage: "Quiz Teaser Dark Panel", ratio: "15.4:1 contrast" },
+    { name: "--surface-1", hex: "#121214", usage: "Cards & Panels on Ink", ratio: "16.1:1 text contrast" },
+    { name: "--surface-2", hex: "#1a1a1d", usage: "Hover States & Form Inputs", ratio: "Surface Accent" },
+    { name: "--line", hex: "#2a2a2e", usage: "Hairline Borders on Ink (1px)", ratio: "Structural Line" },
+    { name: "--line-paper", hex: "#e2e2e5", usage: "Hairline Borders on Paper (1px)", ratio: "Structural Line" },
+    { name: "--text", hex: "#f5f5f3", usage: "Primary Off-White Body Text on Ink", ratio: "18.0:1 AAA Pass" },
+    { name: "--text-paper", hex: "#0b0b0c", usage: "Primary Text on Paper Surface", ratio: "18.0:1 AAA Pass" },
+    { name: "--text-muted", hex: "#a1a1a6", usage: "Muted Text on Ink Surface", ratio: "7.7:1 AAA Pass" },
+    { name: "--text-muted-paper", hex: "#66666d", usage: "Muted Text on Paper Surface", ratio: "4.8:1 AA Pass" },
+    { name: "--red", hex: "#E10600", usage: "ACTION ONLY: Primary CTA on Ink & Price Numerals", ratio: "5.0:1 (White text on Red)" },
+    { name: "--red-text", hex: "#FF5A52", usage: "Header Trial Link Accent Word (<18px)", ratio: "6.4:1 AA Pass" },
+    { name: "--blue", hex: "#1E88D6", usage: "Progress Rings, Accents & Links", ratio: "5.2:1 (Ink) / 4.6:1 (Paper)" },
   ];
 
   return (
-    <main
-      data-lang={lang}
-      lang={lang}
-      className="min-h-screen bg-bg text-text p-6 sm:p-12 font-body relative"
-    >
+    <main className="min-h-screen bg-bg text-text p-6 sm:p-12 font-body relative">
       {/* 12-Column Grid Overlay Toggle */}
       {showGrid && (
         <div className="fixed inset-0 pointer-events-none z-50 max-w-[1280px] mx-auto px-4 grid grid-cols-4 sm:grid-cols-12 gap-4 opacity-10">
           {[...Array(12)].map((_, i) => (
-            <div key={i} className="bg-red h-full border-x border-red"></div>
+            <div key={i} className="bg-text h-full border-x border-text"></div>
           ))}
         </div>
       )}
@@ -51,7 +54,7 @@ export default function StyleguidePage() {
           <div>
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 font-wordmark text-xs font-bold uppercase text-red-text mb-2 hover:underline tracking-poster"
+              className="inline-flex items-center gap-1.5 font-wordmark text-xs font-bold uppercase text-blue mb-2 hover:underline tracking-button"
             >
               <ArrowLeft className="w-4 h-4" /> Back to Live Gym Website
             </Link>
@@ -66,44 +69,38 @@ export default function StyleguidePage() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowGrid(!showGrid)}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-r-1 text-xs font-wordmark font-bold uppercase border transition-all ${
-                showGrid ? "bg-red text-white border-red" : "bg-surface-2 text-text border-line"
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-pill text-xs font-wordmark font-bold uppercase border transition-all ${
+                showGrid ? "bg-text text-bg border-text" : "bg-surface-2 text-text border-line"
               }`}
             >
               <Grid className="w-4 h-4" /> Grid Overlay
-            </button>
-
-            <button
-              onClick={() => setLang(lang === "en" ? "ta" : "en")}
-              className="flex items-center gap-2 px-4 py-2 rounded-r-1 bg-surface-2 border border-line text-text font-wordmark font-bold text-xs uppercase hover:border-red transition-all"
-            >
-              <Globe className="w-4 h-4 text-blue" />
-              <span>Language: {lang === "en" ? "English" : "தமிழ் (Tamil)"}</span>
             </button>
           </div>
         </div>
 
         {/* 1. COLOR TOKENS & CONTRAST VERIFICATION RATIOS */}
         <section className="space-y-6">
-          <SectionHeading
-            indexTag="01"
-            eyebrow="COLOR TOKENS & CONTRAST TABLE"
-            title="WCAG 2.1 AA Verified Color Palette"
-            subtitle="Red is strictly reserved for primary actions (5-8% viewport coverage). Small red text uses --red-text (#FF5A52) to pass 4.5:1 AA contrast."
+          <HeadingLockup
+            lead="01 / COLOR TOKENS & CONTRAST TABLE"
+            lines={["WCAG 2.1 AA COLOR PALETTE"]}
+            bar
           />
+          <p className="font-body text-xs text-text-muted">
+            Red is strictly reserved for primary actions on ink (#E10600) and price numerals. On paper, buttons flip to solid black (#0b0b0c).
+          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {colorSwatches.map((swatch, idx) => (
-              <div key={idx} className="p-4 bg-surface-1 border border-line rounded-r-0 space-y-2">
+              <div key={idx} className="p-4 bg-surface-1 border border-line rounded-card space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="font-wordmark text-xs font-bold text-text uppercase">{swatch.name}</span>
                   <span className="font-mono text-xs text-text-muted">{swatch.hex}</span>
                 </div>
                 <div
-                  className="h-10 w-full border border-line"
+                  className="h-10 w-full border border-line rounded-badge"
                   style={{ backgroundColor: swatch.hex }}
                 ></div>
-                <div className="text-[11px] text-text-muted font-body leading-tight">
+                <div className="text-meta text-text-muted font-body leading-tight">
                   <div>{swatch.usage}</div>
                   <div className="text-success font-bold mt-0.5">✓ {swatch.ratio}</div>
                 </div>
@@ -112,69 +109,114 @@ export default function StyleguidePage() {
           </div>
         </section>
 
-        {/* 2. SPACING SCALE (4px Base Tokenized) */}
+        {/* 2. TWO-TIER HEADINGS PREVIEW */}
         <section className="space-y-6">
-          <SectionHeading
-            indexTag="02"
-            eyebrow="SPACING SCALE (4PX BASE)"
-            title="Tokenized Spacing Scale"
-            subtitle="No arbitrary margin or padding values. Strict base-4 spacing token tokens s-1 through s-11."
+          <HeadingLockup
+            lead="02 / TWO-TIER HEADINGS"
+            lines={["HEADING LOCKUP VARIANTS"]}
+            bar
           />
 
-          <div className="p-6 bg-surface-1 border border-line rounded-r-0 space-y-3 font-mono text-xs">
-            {[
-              { token: "--space-1 (s-1)", px: "4px" },
-              { token: "--space-2 (s-2)", px: "8px" },
-              { token: "--space-3 (s-3)", px: "12px" },
-              { token: "--space-4 (s-4)", px: "16px" },
-              { token: "--space-5 (s-5)", px: "24px" },
-              { token: "--space-6 (s-6)", px: "32px" },
-              { token: "--space-7 (s-7)", px: "48px" },
-              { token: "--space-8 (s-8)", px: "64px" },
-            ].map((sp, idx) => (
-              <div key={idx} className="flex items-center gap-4">
-                <span className="w-36 text-text font-bold">{sp.token}</span>
-                <div className="h-4 bg-red" style={{ width: sp.px }}></div>
-                <span className="text-text-muted">{sp.px}</span>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-8 bg-bg border border-line rounded-card space-y-4">
+              <span className="font-wordmark text-caption font-bold text-text-muted uppercase tracking-button block">
+                [INK SURFACE]
+              </span>
+              <HeadingLockup
+                lead="365+ REVIEWS ON GOOGLE"
+                lines={["RATED 4.9 STARS", "IN TAMBARAM EAST"]}
+                onSurface="ink"
+                bar
+              />
+            </div>
+
+            <div className="p-8 bg-paper border border-line-paper rounded-card space-y-4 text-text-paper">
+              <span className="font-wordmark text-caption font-bold text-text-muted-paper uppercase tracking-button block">
+                [PAPER SURFACE]
+              </span>
+              <HeadingLockup
+                lead="CLEAN, FRIENDLY, DISCIPLINED"
+                lines={["TRAIN WITH PURPOSE", "EVERY SINGLE DAY"]}
+                onSurface="paper"
+                bar
+              />
+            </div>
           </div>
         </section>
 
-        {/* 3. COMPONENT STATES & HARD-EDGED SURFACES */}
+        {/* 3. BUTTONS & SURFACES */}
         <section className="space-y-6">
-          <SectionHeading
-            indexTag="03"
-            eyebrow="UI COMPONENTS & STATES"
-            title="Buttons, Badges, Cards & Form Inputs"
-            subtitle="Hard edges, flat surfaces, hairline 1px borders, press translateY(1px) feedback."
+          <HeadingLockup
+            lead="03 / PILL BUTTONS & SURFACE FLIPPING"
+            lines={["INK VS PAPER BUTTONS"]}
+            bar
           />
 
-          {/* Buttons */}
-          <div className="p-6 bg-surface-1 border border-line space-y-4">
-            <h4 className="font-wordmark text-xs font-bold text-text uppercase tracking-poster">Button Variants</h4>
-            <div className="flex flex-wrap gap-4 items-center">
-              <Button variant="primary">Primary Red Button</Button>
-              <Button variant="secondary">Secondary Line Button</Button>
-              <Button variant="ghost">Ghost Underline Link</Button>
-              <Button variant="primary" disabled>Disabled State</Button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-6 bg-bg border border-line rounded-card space-y-4">
+              <h4 className="font-wordmark text-xs font-bold text-text uppercase tracking-button">Buttons on Ink Surface</h4>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Button variant="primary" onSurface="ink">Primary Red (#E10600)</Button>
+                <Button variant="secondary" onSurface="ink">Secondary Line</Button>
+                <Button variant="ghost" onSurface="ink">Ghost Underline</Button>
+              </div>
+            </div>
+
+            <div className="p-6 bg-paper border border-line-paper rounded-card space-y-4">
+              <h4 className="font-wordmark text-xs font-bold text-text-paper uppercase tracking-button">Buttons on Paper Surface</h4>
+              <div className="flex flex-wrap gap-4 items-center">
+                <Button variant="primary" onSurface="paper">Primary Black (#0b0b0c)</Button>
+                <Button variant="secondary" onSurface="paper">Secondary Line</Button>
+                <Button variant="ghost" onSurface="paper">Ghost Underline</Button>
+              </div>
             </div>
           </div>
+        </section>
 
-          {/* Badges */}
-          <div className="p-6 bg-surface-1 border border-line space-y-4">
-            <h4 className="font-wordmark text-xs font-bold text-text uppercase tracking-poster">Badge Variants</h4>
+        {/* 4. PROGRAM COLLAGE PREVIEW */}
+        <section className="space-y-6">
+          <HeadingLockup
+            lead="04 / OFFSET PROGRAM COLLAGE"
+            lines={["CUT-OUT ATHLETE MOCKUP"]}
+            bar
+          />
+          <div className="w-full">
+            <ProgramCollage />
+          </div>
+        </section>
+
+        {/* 5. COMMUNITY RINGS PREVIEW */}
+        <section className="space-y-6">
+          <HeadingLockup
+            lead="05 / MEMBER PROGRESS RINGS"
+            lines={["SCATTERED INITIAL RINGS"]}
+            bar
+          />
+          <div className="w-full">
+            <CommunityRings />
+          </div>
+        </section>
+
+        {/* 6. FORM INPUTS & BADGES */}
+        <section className="space-y-6">
+          <HeadingLockup
+            lead="06 / UI COMPONENTS & STATES"
+            lines={["BADGES & FORM INPUTS"]}
+            bar
+          />
+
+          <div className="p-6 bg-surface-1 border border-line rounded-card space-y-4">
+            <h4 className="font-wordmark text-xs font-bold text-text uppercase tracking-button">Badge Variants (4px Radius)</h4>
             <div className="flex flex-wrap gap-3">
               <Badge variant="red">MOST POPULAR</Badge>
               <Badge variant="dark">100% NATURAL</Badge>
-              <Badge variant="outline">VERIFIED GOOGLE 4.9★</Badge>
+              <Badge variant="outline">GOOGLE 4.9★</Badge>
               <Badge variant="green">SAVE ₹498</Badge>
             </div>
           </div>
 
-          {/* Form Inputs */}
-          <div className="p-6 bg-surface-1 border border-line space-y-4 max-w-xl">
-            <h4 className="font-wordmark text-xs font-bold text-text uppercase tracking-poster">Form Inputs (56px Min-Height)</h4>
+          <div className="p-6 bg-surface-1 border border-line rounded-card space-y-4 max-w-xl">
+            <h4 className="font-wordmark text-xs font-bold text-text uppercase tracking-button">Form Inputs (12px Radius, 56px Height)</h4>
             <Input label="Your Name (Default State)" placeholder="e.g. Sugumar Master" />
             <Input label="Mobile Number (Error State)" placeholder="e.g. 7397398749" error="Please enter a valid 10-digit phone number" />
           </div>
@@ -202,7 +244,7 @@ export default function StyleguidePage() {
 
           {/* Accordion */}
           <div className="max-w-2xl">
-            <h4 className="font-wordmark text-xs font-bold text-text uppercase tracking-poster mb-4">Hairline Divider Accordion</h4>
+            <h4 className="font-wordmark text-xs font-bold text-text uppercase tracking-button mb-4">Hairline Divider Accordion</h4>
             <Accordion
               items={[
                 { q: "What are the exact gym timings?", a: "Monday-Friday (6:00 AM - 9:30 PM), Saturday (6:30 AM - 9:30 PM), Sunday (5:00 AM - 9:00 PM)." },

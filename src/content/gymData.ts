@@ -120,7 +120,7 @@ export interface GymBusinessFacts {
       quote: string;
       beforeImg: string;
       afterImg: string;
-      consentVerified: boolean;
+      consentOnRecord: boolean;
     }>;
   };
   programs: Array<{
@@ -168,12 +168,12 @@ export const gymData: GymBusinessFacts = {
     weekday: "6:00 AM – 9:30 PM (Mon – Fri)",
     saturday: "6:30 AM – 9:30 PM (Saturday)",
     sunday: "5:00 AM – 9:00 PM (Sunday)",
-    note: "Verified Google Maps Business Hours. Open daily for early morning & evening workouts."
+    note: "Google Maps Business Hours. Open daily for early morning & evening workouts."
   },
   rating: {
     stars: 4.9,
     reviewCount: 365,
-    lastUpdated: "October 2026 (Verified Google Maps)"
+    lastUpdated: "October 2026 (Google Maps)"
   },
   pricing: {
     monthly: {
@@ -209,7 +209,7 @@ export const gymData: GymBusinessFacts = {
       name: "Sugumar",
       nickname: "Sugu Master / Sugumar Anna",
       role: "Head Fitness Coach & Personal Trainer",
-      photoUrl: "https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=600&q=80",
+      photoUrl: "/images/trainer-sugumar.jpg",
       specialties: ["Personal Form Watching", "Natural Bodybuilding", "Beginner Strength Progression", "Weight Loss Guidance"],
       quote: "Discipline comes first. I ensure every member gets personal guidance on every set without taking shortcuts.",
       status: "Featured Coach (Confirmed in member reviews)"
@@ -219,7 +219,7 @@ export const gymData: GymBusinessFacts = {
       name: "Shimal",
       nickname: "Trainer Shimal",
       role: "Senior Unisex Fitness Trainer",
-      photoUrl: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=600&q=80",
+      photoUrl: "/images/trainer-shimal.jpg",
       specialties: ["Posture & Form Correction", "Functional Fitness", "Cardio Conditioning", "Women's Comfort & Safety"],
       quote: "Whether you are stepping into a gym for the first time or looking for consistent motivation, we guide you step-by-step.",
       status: "Featured Coach (Confirmed in member reviews)"
@@ -262,28 +262,28 @@ export const gymData: GymBusinessFacts = {
       id: "form-checks",
       title: "1-on-1 Personal Form Checks",
       description: "Coaches watch every set. No uncontrolled ego lifting or posture mistakes.",
-      mediaUrl: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80",
+      mediaUrl: "/images/form-checks.jpg",
       isVideo: false
     },
     {
       id: "personal-attention",
       title: "Personal Trainer Attention for Beginners",
-      description: "No member gets left behind. Sugu Master & Shimal guide your daily routine.",
-      mediaUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80",
+      description: "Guided daily routines by Sugu Master & Shimal for all new members.",
+      mediaUrl: "/images/personal-attention.jpg",
       isVideo: false
     },
     {
       id: "clean-floor",
       title: "Clean Floor & Well-Maintained Machines",
-      description: "Spotless gym floor, disinfected weights, and smooth cable pulleys.",
-      mediaUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80",
+      description: "Clean gym floor, well-maintained weights, and organized cable pulleys.",
+      mediaUrl: "/images/clean-floor.jpg",
       isVideo: false
     }
   ],
   transformations: {
     showTransformations: true,
     showDietGuidance: true,
-    consentFlag: "100% Verified Member Transformations (Consent on file)",
+    consentFlag: "Member Transformations (Consent on file)",
     items: [
       {
         id: "t1",
@@ -291,9 +291,9 @@ export const gymData: GymBusinessFacts = {
         duration: "90 Days (Quarterly Pass)",
         achievement: "-8 kg Fat Loss & Improved Posture",
         quote: "Sugu Master corrected my bench form and put me on a clean Indian diet. Natural results without any supplements.",
-        beforeImg: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=400&q=80",
-        afterImg: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=400&q=80",
-        consentVerified: true
+        beforeImg: "/images/transform-before-1.jpg",
+        afterImg: "/images/transform-after-1.jpg",
+        consentOnRecord: true
       },
       {
         id: "t2",
@@ -301,9 +301,9 @@ export const gymData: GymBusinessFacts = {
         duration: "60 Days",
         achievement: "+3 kg Lean Muscle & Peak Energy",
         quote: "Coach Shimal and Sugu Master made me comfortable lifting weights as a woman. Super confident now!",
-        beforeImg: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80",
-        afterImg: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80",
-        consentVerified: true
+        beforeImg: "/images/transform-before-2.jpg",
+        afterImg: "/images/transform-after-2.jpg",
+        consentOnRecord: true
       }
     ]
   },
@@ -313,33 +313,33 @@ export const gymData: GymBusinessFacts = {
       title: "Weight Loss & Fat Burn",
       trainer: "Coach Shimal & Coach Sugumar",
       description: "High-energy cardio circuits, progressive weights & simple Indian meal calorie guides.",
-      imgUrl: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80"
+      imgUrl: "/images/program-weight-loss.jpg"
     },
     {
       id: "natural-bodybuilding",
       title: "Natural Bodybuilding & Muscle Gain",
       trainer: "Sugu Master",
       description: "100% steroid-free progressive hypertrophy and compound strength progression.",
-      imgUrl: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80"
+      imgUrl: "/images/program-natural-bodybuilding.jpg"
     },
     {
       id: "beginner-fitness",
       title: "Beginner Strength & Posture",
       trainer: "Coach Shimal",
       description: "Zero-intimidating foundation course to build habit, correct posture & master basic movements.",
-      imgUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80"
+      imgUrl: "/images/program-beginner-fitness.jpg"
     },
     {
       id: "general-conditioning",
       title: "General Fitness & Stamina",
       trainer: "Coach Sugumar",
       description: "Maintain peak energy, joint health, and daily stamina for working professionals & students.",
-      imgUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80"
+      imgUrl: "/images/program-general-conditioning.jpg"
     }
   ]
 };
 
-// Seed Reviews from verified Google Reviews
+// Seed Reviews from Google Reviews
 export interface SeedReview {
   id: string;
   author: string;
@@ -356,7 +356,7 @@ export const seedReviews: SeedReview[] = [
     author: "Gunasundari U.",
     badge: "Local Guide",
     rating: 5,
-    date: "Verified Google Review",
+    date: "Google Review",
     content: "Friendly staff, super clean, wonderful energy! It's genuinely the best place for both men and women to train in East Tambaram.",
     highlight: "Best place for both men and women to train"
   },
@@ -364,7 +364,7 @@ export const seedReviews: SeedReview[] = [
     id: "r2",
     author: "Monisha C.",
     rating: 5,
-    date: "Verified Google Review",
+    date: "Google Review",
     content: "Sugumar Anna and Shimal are extremely dedicated and supportive coaches. I feel so much more active and confident now. Highly recommended for beginners!",
     highlight: "Dedicated coaches Sugumar Anna & Shimal"
   },
@@ -372,7 +372,7 @@ export const seedReviews: SeedReview[] = [
     id: "r3",
     author: "Siva Krishna",
     rating: 5,
-    date: "Verified Google Review",
+    date: "Google Review",
     content: "Equipment is in top condition and gym is very clean. Trainers are super helpful for beginners and personally watch your workouts and form.",
     highlight: "Trainers personally watch your workouts"
   },
@@ -389,7 +389,7 @@ export const seedReviews: SeedReview[] = [
     id: "r5",
     author: "Husvarthan",
     rating: 5,
-    date: "Verified Google Review",
+    date: "Google Review",
     content: "Friendly environment with hardcore workouts and disciplined trainers. Perfect vibe if you want real results.",
     highlight: "Friendly environment & hardcore workouts"
   },
@@ -397,7 +397,7 @@ export const seedReviews: SeedReview[] = [
     id: "r6",
     author: "Anu Shree",
     rating: 4,
-    date: "Verified Member",
+    date: "Member",
     content: "Good, well-maintained equipment. Not a very big gym, but super clean, cozy, comfortable, and very reasonable fee structure.",
     highlight: "Clean, cozy, comfortable & reasonable fee"
   },
@@ -405,7 +405,7 @@ export const seedReviews: SeedReview[] = [
     id: "r7",
     author: "Sindhuja R.",
     rating: 5,
-    date: "Verified Google Review",
+    date: "Google Review",
     content: "Friendly masters, good guidance, positive atmosphere, and well-maintained machinery. Feels very comfortable training here.",
     highlight: "Positive atmosphere & friendly masters"
   },
@@ -501,28 +501,3 @@ No hidden traps! Get started with our monthly pass at **₹999/month** or save m
     `
   }
 ];
-
-export const tamilDictionary = {
-  hero: {
-    headline: "வேவ் ஃபிட்னஸ் - உங்கள் உடலை இயற்கை முறையில் மாற்றுங்கள்",
-    subhead: "தாம்பரம் கேம்ப் ரோடில் அமைந்துள்ள சுத்தமான, கட்டமைப்புமிக்க யுனிசெக்ஸ் ஜிம். மாதக் கட்டணம் ₹999 மட்டுமே!",
-    ctaFreeTrial: "இலவச டிரையல் பெறுக",
-    ctaCall: "அழைக்க: 73973 98749",
-    reassurance: "4.9★ கூகுள் ரேட்டிங் • 365+ விமர்சனங்கள் • காலை 6 மணி முதல் திறக்கும்"
-  },
-  plans: {
-    title: "உறுப்பினர் திட்டங்கள்",
-    subtitle: "மறைமுகக் கட்டணங்கள் இல்லாத வெளிப்படையான விலைகள்",
-    monthlyLabel: "மாதாந்திர பாஸ் (₹999)",
-    quarterlyLabel: "3 மாத பாஸ் (₹2,499 - ₹498 சேமிப்பு!)",
-    perDay: "/நாள்"
-  },
-  contact: {
-    title: "தொடர்பு கொள்க",
-    subtitle: "கேம்ப் ரோடு சந்திப்பு, லெனின் காம்ப்ளக்ஸ், தாம்பரம் கிழக்கு",
-    whatsappBtn: "வாட்ஸ்அப்பில் சேட் செய்ய"
-  },
-  faq: {
-    title: "அடிக்கடி கேட்கப்படும் கேள்விகள்"
-  }
-};

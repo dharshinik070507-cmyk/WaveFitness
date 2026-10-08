@@ -37,7 +37,6 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
     }
   }, [prefilledPlan]);
 
-  // Handle Escape key to close modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
@@ -54,7 +53,6 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
     e.preventDefault();
     setErrorMsg("");
 
-    // Indian mobile number validation starting with 6-9
     const cleanMobile = formData.mobile.replace(/\D/g, "");
     if (!/^[6-9]\d{9}$/.test(cleanMobile)) {
       setErrorMsg("Please enter a valid 10-digit Indian phone number starting with 6-9.");
@@ -97,7 +95,7 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-modal bg-[#0b0b0c]/85 flex items-center justify-center p-4"
+      className="fixed inset-0 z-modal bg-bg/85 flex items-center justify-center p-4"
     >
       <div className="bg-surface-1 border border-line rounded-r-0 max-w-md w-full p-6 sm:p-8 relative shadow-hard">
         
@@ -110,7 +108,7 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
         </button>
 
         <div className="text-left mb-6">
-          <span className="font-wordmark text-xs font-bold text-red uppercase tracking-poster block mb-1">
+          <span className="font-wordmark text-xs font-bold text-text-muted uppercase tracking-button block mb-1">
             01 / FREE TRIAL PASS
           </span>
           <h3 className="font-display text-2xl font-black text-text uppercase">
@@ -122,7 +120,7 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
         </div>
 
         {errorMsg && (
-          <div className="mb-4 p-3 bg-error/10 border border-error/30 text-error font-body text-xs flex items-center gap-2">
+          <div className="mb-4 p-3 bg-surface-2 border border-line text-error font-body text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{errorMsg}</span>
           </div>
@@ -156,7 +154,7 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-wordmark text-xs font-bold text-text-muted uppercase tracking-poster mb-1">
+              <label className="block font-wordmark text-xs font-bold text-text-muted uppercase tracking-button mb-1">
                 Preferred Timing
               </label>
               <select
@@ -171,7 +169,7 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
             </div>
 
             <div>
-              <label className="block font-wordmark text-xs font-bold text-text-muted uppercase tracking-poster mb-1">
+              <label className="block font-wordmark text-xs font-bold text-text-muted uppercase tracking-button mb-1">
                 Gender (Optional)
               </label>
               <select
@@ -200,9 +198,9 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
               required
               checked={formData.consent}
               onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-              className="accent-red"
+              className="accent-blue"
             />
-            <span>I consent to contact for trial confirmation under DPDP Act.</span>
+            <span>I consent to contact for trial confirmation.</span>
           </div>
 
           <Button

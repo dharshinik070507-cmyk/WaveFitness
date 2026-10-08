@@ -1,35 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-// Zod Schema for Lead Validation
 const leadSchema = z.object({
   name: z.string().min(2, "Name is too short"),
-  mobile: z.string().regex(/^[6-9]\d{9}$/, "Must be a valid 10-digit Indian mobile number starting with 6-9"),
+  phone: z.string().optional(),
+  mobile: z.string().optional(),
   goal: z.string().optional().default("General Free Trial Visit"),
   timing: z.string().optional(),
   gender: z.string().optional(),
+  note: z.string().optional(),
   message: z.string().optional(),
-  consent: z.boolean().refine((val) => val === true, { message: "Consent is required" }),
+  consent: z.boolean().optional().default(true),
   honeypot: z.string().optional(),
 });
 
-// Simple In-Memory IP Rate Limiter
-const ipStore = new Map<string, number>();
+// Sliding-window IP Rate Limiter (5 requests per 10 minutes)
+interface RateRecord {
+  timestamps: number[];
+}
+const rateStore = new Map<string, RateRecord>();
 
 export async function POST(req: NextRequest) {
   try {
-    const ip = req.headers.get("x-forwarded-for") || "127.0.0.1";
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0] || "127.0.0.1";
     const now = Date.now();
-    const lastRequest = ipStore.get(ip) || 0;
+    const windowMs = 10 * 60 * 1000; // 10 minutes
 
-    // Rate limit: 1 request per 10 seconds per IP
-    if (now - lastRequest < 10000) {
+    const record = rateStore.get(ip) || { timestamps: [] };
+    record.timestamps = record.timestamps.filter((t) => now - t < windowMs);
+
+    if (record.timestamps.length >= 5) {
       return NextResponse.json(
-        { error: "Too many requests. Please wait a moment before trying again." },
+        { error: "Too many lead requests from your IP. Please try again in 10 minutes." },
         { status: 429 }
       );
     }
-    ipStore.set(ip, now);
+
+    record.timestamps.push(now);
+    rateStore.set(ip, record);
 
     const body = await req.json();
 
@@ -38,32 +46,73 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true, leadId: "sp_ignored" });
     }
 
-    // Validate Schema
-    const validatedData = leadSchema.parse(body);
+    const validated = leadSchema.parse(body);
+    const phoneNumber = validated.mobile || validated.phone || "7397398749";
 
-    const leadId = `lead_${Date.now()}`;
+    const leadId = `lead_${now}`;
+    const leadRecord = {
+      lead_id: leadId,
+      name: validated.name,
+      phone: phoneNumber,
+      goal: validated.goal,
+      timing: validated.timing || null,
+      note: validated.note || validated.message || null,
+      created_at: new Date(now).toISOString(),
+    };
 
-    // --- TODO: Database Store Integration (Supabase / Google Sheets) ---
+    // Supabase Store Integration
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
     if (supabaseUrl && supabaseKey) {
-      // In production: await supabase.from('leads').insert([validatedData])
-      console.log(`[STORE] Lead ${leadId} stored to Supabase.`);
+      try {
+        await fetch(`${supabaseUrl}/rest/v1/leads`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            apikey: supabaseKey,
+            Authorization: `Bearer ${supabaseKey}`,
+          },
+          body: JSON.stringify(leadRecord),
+        });
+      } catch (err) {
+        console.warn("[LEAD API] Supabase insert error:", err);
+      }
     } else {
-      console.log(`[STORE TODO] Lead ${leadId} received:`, validatedData);
+      if (process.env.NODE_ENV === "development") {
+        console.warn("[LEAD API DEV WARN] SUPABASE_URL/SUPABASE_ANON_KEY missing. Fallback log:", leadRecord);
+      }
     }
 
-    // --- TODO: Resend / Email Alert Notification ---
+    // Resend Email Alert Integration
     const resendKey = process.env.RESEND_API_KEY;
     if (resendKey) {
-      // In production: resend.emails.send({ from: 'Wave Fitness <noreply@wavefitness.in>', to: process.env.OWNER_EMAIL })
-      console.log(`[EMAIL] Alert sent to gym owner for lead ${leadId}.`);
+      try {
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${resendKey}`,
+          },
+          body: JSON.stringify({
+            from: "Wave Fitness Leads <leads@wavefitnesstambaram.in>",
+            to: process.env.OWNER_EMAIL || "dharshinik070507@gmail.com",
+            subject: `New Lead: ${validated.name} (${phoneNumber})`,
+            text: `New trial request:\nName: ${validated.name}\nPhone: ${phoneNumber}\nGoal: ${validated.goal}\nNote: ${validated.note || 'N/A'}`,
+          }),
+        });
+      } catch (err) {
+        console.warn("[LEAD API] Resend email error:", err);
+      }
+    } else {
+      if (process.env.NODE_ENV === "development") {
+        console.warn("[LEAD API DEV WARN] RESEND_API_KEY missing. Email skipped for lead:", leadId);
+      }
     }
 
-    // Format WhatsApp Link
+    // WhatsApp Direct Link
     const waText = encodeURIComponent(
-      `Hi Wave Fitness! Lead Claimed:\nName: ${validatedData.name}\nMobile: ${validatedData.mobile}\nGoal/Plan: ${validatedData.goal}\nTiming: ${validatedData.timing || 'N/A'}`
+      `Hi Wave Fitness! Lead Claimed:\nName: ${validated.name}\nPhone: ${phoneNumber}\nGoal: ${validated.goal}`
     );
     const whatsappUrl = `https://wa.me/917397398749?text=${waText}`;
 
