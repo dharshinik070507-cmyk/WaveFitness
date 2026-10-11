@@ -12,7 +12,7 @@ function Reveal({children,className=''}:{children:React.ReactNode,className?:str
 function Btn({href,children,outline=false,external=false}:{href:string,children:React.ReactNode,outline?:boolean,external?:boolean}){return external?<a className={`btn ${outline?'outline':'primary'}`} href={href} target="_blank" rel="noopener noreferrer">{children}<ArrowUpRight size={17}/></a>:<Link className={`btn ${outline?'outline':'primary'}`} href={href}>{children}<ArrowUpRight size={17}/></Link>}
 function Eyebrow({children}:{children:React.ReactNode}){return <span className="eyebrow"><span className="redDot"/>{children}</span>}
 function Head({eyebrow,title,accent,desc}:{eyebrow:string,title:string,accent?:string,desc?:string}){return <Reveal className="sectionHead"><Eyebrow>{eyebrow}</Eyebrow><h2 className="display">{title} {accent&&<em>{accent}</em>}</h2>{desc&&<p className="muted lead">{desc}</p>}</Reveal>}
-export function SiteShell({children}:{children:React.ReactNode}){const path=usePathname();const [open,setOpen]=useState(false);const [scrolled,setScrolled]=useState(false);const {scrollYProgress}=useScroll();const scaleX=useSpring(scrollYProgress,{stiffness:100,damping:30,restDelta:.001});useEffect(()=>{const fn=()=>setScrolled(window.scrollY>35);fn();window.addEventListener('scroll',fn);return()=>window.removeEventListener('scroll',fn)},[]);useEffect(()=>setOpen(false),[path]);useEffect(()=>{if(!open)return;const onKey=(e:KeyboardEvent)=>{if(e.key==='Escape')setOpen(false)};window.addEventListener('keydown',onKey);return()=>window.removeEventListener('keydown',onKey)},[open]);return <><PointerGlow/><a href="#main-content" className="skip-link">Skip to content</a><motion.div className="progress" style={{scaleX}}/><header className={`header ${scrolled?'solid':''}`}><Link href="/" className="logo" aria-label="Wave Fitness home"><span className="logoMark">W<span>∿</span></span><span>WAVE<span className="logoSub">FITNESS</span></span></Link><nav className="desktopNav" aria-label="Main navigation">{nav.map(([label,href])=><Link key={href} className={path===href?'active':''} href={href}>{label}</Link>)}</nav><div className="navActions"><a className="navPhone" href={`tel:${brand.phone}`} aria-label="Call Wave Fitness"><Phone size={17}/></a><Btn href={trial} external>FREE TRIAL</Btn><button className="menuButton" onClick={()=>setOpen(v=>!v)} aria-label={open?"Close navigation menu":"Open navigation menu"} aria-expanded={open} aria-controls="wave-mobile-navigation">{open?<X/>:<Menu/>}</button></div></header><AnimatePresence>{open&&<motion.nav initial={{opacity:0,height:0}} animate={{opacity:1,height:'auto'}} exit={{opacity:0,height:0}} id="wave-mobile-navigation" aria-label="Mobile navigation" className="mobileNav">{nav.map(([label,href])=><Link href={href} key={href}>{label}<ArrowUpRight size={18}/></Link>)}</motion.nav>}</AnimatePresence><main id="main-content" key={path} className="page-enter">{children}</main><Footer/><a className="floatWhats" href={trial} target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp"><MessageCircle size={25}/></a></>}
+export function SiteShell({children}:{children:React.ReactNode}){const path=usePathname();const [open,setOpen]=useState(false);const [scrolled,setScrolled]=useState(false);const {scrollYProgress}=useScroll();const scaleX=useSpring(scrollYProgress,{stiffness:100,damping:30,restDelta:.001});useEffect(()=>{const fn=()=>setScrolled(window.scrollY>35);fn();window.addEventListener('scroll',fn);return()=>window.removeEventListener('scroll',fn)},[]);useEffect(()=>setOpen(false),[path]);useEffect(()=>{if(!open)return;const onKey=(e:KeyboardEvent)=>{if(e.key==='Escape')setOpen(false)};window.addEventListener('keydown',onKey);return()=>window.removeEventListener('keydown',onKey)},[open]);return <><CustomCursor/><a href="#main-content" className="skip-link">Skip to content</a><motion.div className="progress" style={{scaleX}}/><header className={`header ${scrolled?'solid':''}`}><Link href="/" className="logo" aria-label="Wave Fitness home"><span className="logoMark">W<span>∿</span></span><span>WAVE<span className="logoSub">FITNESS</span></span></Link><nav className="desktopNav" aria-label="Main navigation">{nav.map(([label,href])=><Link key={href} className={path===href?'active':''} href={href}>{label}</Link>)}</nav><div className="navActions"><a className="navPhone" href={`tel:${brand.phone}`} aria-label="Call Wave Fitness"><Phone size={17}/></a><Btn href={trial} external>FREE TRIAL</Btn><button className="menuButton" onClick={()=>setOpen(v=>!v)} aria-label={open?"Close navigation menu":"Open navigation menu"} aria-expanded={open} aria-controls="wave-mobile-navigation">{open?<X/>:<Menu/>}</button></div></header><AnimatePresence>{open&&<motion.nav initial={{opacity:0,height:0}} animate={{opacity:1,height:'auto'}} exit={{opacity:0,height:0}} id="wave-mobile-navigation" aria-label="Mobile navigation" className="mobileNav">{nav.map(([label,href])=><Link href={href} key={href}>{label}<ArrowUpRight size={18}/></Link>)}</motion.nav>}</AnimatePresence><main id="main-content" key={path} className="page-enter">{children}</main><Footer/><a className="floatWhats" href={trial} target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp"><MessageCircle size={25}/></a></>}
 function Footer(){return <footer className="footer"><div className="container"><div className="footerTop"><div><Eyebrow>THE NEXT REP STARTS HERE</Eyebrow><h2 className="display">READY TO<br/><em>MAKE WAVES?</em></h2><Btn href={trial} external>START YOUR JOURNEY</Btn></div><div className="footerSide"><h3>VISIT THE GYM</h3><p>{brand.address}</p><a href={`tel:${brand.phone}`}>{brand.displayPhone}</a><a href={brand.maps} target="_blank" rel="noopener noreferrer">GET DIRECTIONS ↗</a></div></div><div className="footerBottom"><span>© {new Date().getFullYear()} WAVE FITNESS · TAMBARAM EAST</span><div><a href={brand.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={20}/></a><a href={brand.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={20}/></a><a href={brand.maps} target="_blank" rel="noopener noreferrer" aria-label="Google Maps"><MapPin size={20}/></a></div><span>TRAIN NATURAL. MOVE DIFFERENT.</span></div></div></footer>}
 const pageMedia:Record<string,{image:string,number:string,caption:string}>={
  programs:{image:'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=2000&q=85',number:'01',caption:'FIND YOUR MOVEMENT'},
@@ -26,7 +26,86 @@ function CinematicPhoto({src,alt,className=''}:{src:string,alt:string,className?
  const ref=useRef<HTMLDivElement>(null);const reduce=useReducedMotion();const {scrollYProgress}=useScroll({target:ref,offset:['start end','end start']});const y=useTransform(scrollYProgress,[0,1],['-9%','9%']);
  return <div ref={ref} className={`cinematic-photo ${className}`} role="img" aria-label={alt}><motion.div className="cinematic-photo-image" style={{backgroundImage:`url("${src}")`,y:reduce?0:y}}/><motion.div className="cinematic-photo-mask" initial={reduce?false:{scaleY:1}} whileInView={{scaleY:0}} viewport={{once:true,amount:.2}} transition={{duration:1.1,ease:[.76,0,.24,1]}}/><span className="photo-corner">WAVE / TRAIN NATURAL <ArrowUpRight size={17}/></span></div>
 }
-function PointerGlow(){const x=useMotionValue(-200),y=useMotionValue(-200);const reduce=useReducedMotion();useEffect(()=>{if(reduce||!window.matchMedia('(pointer:fine)').matches)return;const f=(e:PointerEvent)=>{x.set(e.clientX);y.set(e.clientY)};window.addEventListener('pointermove',f);return()=>window.removeEventListener('pointermove',f)},[x,y,reduce]);if(reduce)return null;return <motion.div aria-hidden="true" className="pointer-glow" style={{x,y}}/>}
+function CustomCursor(){
+  const [mounted,setMounted]=useState(false);
+  const [visible,setVisible]=useState(false);
+  const [clicked,setClicked]=useState(false);
+  const [hoverType,setHoverType]=useState<'default'|'link'|'media'|'input'>('default');
+  const [cursorText,setCursorText]=useState('');
+  const mouseX=useMotionValue(-200);
+  const mouseY=useMotionValue(-200);
+  const ringX=useSpring(mouseX,{stiffness:360,damping:28});
+  const ringY=useSpring(mouseY,{stiffness:360,damping:28});
+  const dotX=useSpring(mouseX,{stiffness:1400,damping:45});
+  const dotY=useSpring(mouseY,{stiffness:1400,damping:45});
+  const reduce=useReducedMotion();
+
+  useEffect(()=>{
+    setMounted(true);
+    if(reduce||typeof window==='undefined'||!window.matchMedia('(pointer:fine)').matches)return;
+    document.body.classList.add('has-custom-cursor');
+    const onMove=(e:PointerEvent)=>{
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+      setVisible(true);
+      const target=e.target as HTMLElement|null;
+      if(!target)return;
+      const mediaEl=target.closest('.galleryImage,.programCard,.cinematic-photo,.hero-portrait');
+      const interactiveEl=target.closest('a,button,[role="button"],.faqItem button,.menuButton,.circleArrow,.btn');
+      const inputEl=target.closest('input,textarea,select');
+      if(mediaEl){
+        setHoverType('media');
+        setCursorText(mediaEl.classList.contains('galleryImage')?'VIEW':'EXPLORE');
+      }else if(interactiveEl){
+        setHoverType('link');
+        setCursorText('');
+      }else if(inputEl){
+        setHoverType('input');
+        setCursorText('');
+      }else{
+        setHoverType('default');
+        setCursorText('');
+      }
+    };
+    const onDown=()=>setClicked(true);
+    const onUp=()=>setClicked(false);
+    const onLeave=()=>{
+      setVisible(false);
+      document.body.classList.remove('has-custom-cursor');
+    };
+    const onEnter=()=>{
+      setVisible(true);
+      document.body.classList.add('has-custom-cursor');
+    };
+
+    window.addEventListener('pointermove',onMove,{passive:true});
+    window.addEventListener('pointerdown',onDown);
+    window.addEventListener('pointerup',onUp);
+    document.addEventListener('mouseleave',onLeave);
+    document.addEventListener('mouseenter',onEnter);
+
+    return()=>{
+      document.body.classList.remove('has-custom-cursor');
+      window.removeEventListener('pointermove',onMove);
+      window.removeEventListener('pointerdown',onDown);
+      window.removeEventListener('pointerup',onUp);
+      document.removeEventListener('mouseleave',onLeave);
+      document.removeEventListener('mouseenter',onEnter);
+    };
+  },[mouseX,mouseY,reduce]);
+
+  if(!mounted||reduce)return null;
+
+  return (
+    <div className={`cursor-root ${visible?'cursor-visible':''}`} aria-hidden="true">
+      <motion.div className="pointer-glow" style={{x:ringX,y:ringY}}/>
+      <motion.div className={`custom-cursor-ring ring-${hoverType} ${clicked?'ring-clicked':''}`} style={{x:ringX,y:ringY}}>
+        {cursorText&&<span className="cursor-label">{cursorText}</span>}
+      </motion.div>
+      <motion.div className={`custom-cursor-dot ${clicked?'dot-clicked':''} ${hoverType!=='default'?'dot-hover':''}`} style={{x:dotX,y:dotY}}/>
+    </div>
+  );
+}
 function SectionIndex({number,label}:{number:string,label:string}){return <div className="section-index"><span>{number} / 06</span><span>{label}</span><span>↗</span></div>}
 function MotionRail(){return <div className="motion-rail" aria-label="Train natural. Move different."><div className="motion-rail-inner" aria-hidden="true">{Array.from({length:8},(_,i)=><span key={i}>TRAIN NATURAL <b>✳</b> MOVE DIFFERENT <b>✳</b> REAL STRENGTH <b>✳</b></span>)}</div></div>}
 function MotionStats(){return <div className="container motion-stat-grid"><div className="motion-stat"><strong>₹999</strong><span>Monthly pass · from</span></div><div className="motion-stat"><strong>₹2,499</strong><span>Three-month pass</span></div><div className="motion-stat"><strong>7</strong><span>Dedicated website sections</span></div></div>}
