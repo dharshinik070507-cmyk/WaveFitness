@@ -1,10 +1,11 @@
 export const brand = {
-  name:'WAVE FITNESS',phone:'+917397398749',displayPhone:'07397 398 749',
+  name:'WAVE FITNESS',legalName:'[YOUR_COMPANY_LEGAL_NAME]',phone:'+917397398749',displayPhone:'07397 398 749',
   address:'No.2, Bharathi, Lenin Complex, School St, Camp Road Junction, Selaiyur, Tambaram East, Chennai, Tamil Nadu 600073',
   maps:'https://maps.app.goo.gl/xD3ho8yRSgXBXWC4A',
-  instagram:'https://www.instagram.com/team_wave_fitness?stkn=MWtlNW94YWR4ajdsdw==',
+  instagram:'https://www.instagram.com/team_wave_fitness',
   youtube:'https://www.youtube.com/@wavefitnessnaturalfitness7400',
-  whatsapp:'https://wa.me/917397398749',email:undefined
+  whatsapp:'https://wa.me/917397398749',email:'[YOUR_CONTACT_EMAIL]',
+  siteUrl:process.env.NEXT_PUBLIC_SITE_URL||'https://wavefitnesstambaram.in'
 };
 export const nav=[['Home','/'],['Programs','/programs'],['Coaching','/coaching'],['Membership','/membership'],['Gallery','/gallery'],['Our Story','/about'],['Contact','/contact']] as const;
 export const plans=[{name:'MONTHLY PASS',eyebrow:'STARTER PASS',price:999,period:'/ month',features:['Full access to gym floor & machines','Cardio suite & free weights access','Ask about form guidance','Ask about available amenities'],popular:false},{name:'3-MONTH QUARTERLY',eyebrow:'90-DAY TRANSFORMATION',price:2499,period:'/ 3 months',features:['Everything in monthly pass','90-day training window','Ask about coaching availability','Save ₹498 compared with three monthly passes'],popular:true},{name:'PERSONAL TRAINING & ANNUAL',eyebrow:'SPECIAL OFFERS',price:null,period:'',features:['1-on-1 personal training enquiries','Student & couple discount enquiries','Half-yearly and annual passes','Ask the gym for current rates'],popular:false}];

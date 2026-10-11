@@ -78,3 +78,26 @@ html{scroll-padding-top:96px}body{min-width:0}main,.container,.section,.page-her
 .custom-cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;margin-top:-18px;margin-left:-18px;border-radius:50%;border:1.5px solid rgba(242,59,48,0.65);pointer-events:none;will-change:transform}
 .custom-cursor-dot{position:fixed;top:0;left:0;width:8px;height:8px;margin-top:-4px;margin-left:-4px;border-radius:50%;pointer-events:none;will-change:transform}
 @media(pointer:coarse),(max-width:768px),(prefers-reduced-motion:reduce){.custom-cursor-wrapper{display:none!important}}
+
+/* COOKIE BANNER & LEGAL STYLING */
+.cookieBanner{position:fixed;bottom:24px;left:24px;right:24px;max-width:760px;margin:0 auto;z-index:95;background:#111216f5;backdrop-filter:blur(16px);border:1px solid #33343b;box-shadow:0 25px 70px #000c;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-radius:4px}
+.cookieContent{max-width:480px}
+.cookieHeader{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.16em;color:#eae8e5;font-weight:900;margin-bottom:8px}
+.cookieContent p{margin:0;font-size:13px;line-height:1.6;color:#aaaab0}
+.cookieLink{color:var(--white);text-decoration:underline;font-weight:700}
+.cookieLink:hover{color:var(--red)}
+.cookieActions{display:flex;gap:10px;flex-shrink:0}
+.cookieBtn{padding:12px 18px!important;min-height:42px!important;font-size:11px!important}
+@media(max-width:760px){.cookieBanner{flex-direction:column;align-items:stretch;bottom:16px;left:16px;right:16px;padding:20px;gap:18px}.cookieActions{flex-direction:column;width:100%}.cookieBtn{width:100%}}
+.footerLegal{display:flex;gap:16px;align-items:center;font-size:11px;letter-spacing:.08em;color:#888}
+.footerLegal a,.cookieTrigger{color:#aaa;background:transparent;border:0;padding:0;font:inherit;cursor:pointer;transition:color .2s}
+.footerLegal a:hover,.cookieTrigger:hover{color:var(--red)}
+.legalDoc{max-width:860px;margin:auto;line-height:1.8;color:#d5d5d8;padding:20px 0 60px}
+.legalDoc h2{font-family:'Barlow Condensed',sans-serif;font-size:36px;color:var(--white);margin:40px 0 16px;text-transform:uppercase;letter-spacing:.02em}
+.legalDoc h3{font-family:'Barlow Condensed',sans-serif;font-size:24px;color:var(--white);margin:24px 0 10px;text-transform:uppercase}
+.legalDoc p{margin:0 0 18px;font-size:15px;color:#c2c0c3}
+.legalDoc ul{margin:0 0 20px;padding-left:24px}
+.legalDoc li{margin-bottom:8px;font-size:15px;color:#c2c0c3}
+.legalDoc strong{color:var(--white)}
+.legalDoc .placeholderNote{border-left:3px solid var(--red);padding:14px 18px;background:#15161a;margin:25px 0;font-size:13px;color:#aaa}
+.legalDoc code{background:#222328;padding:2px 6px;border-radius:3px;color:var(--red);font-size:12px}
