@@ -1,56 +1,37 @@
-# 🏋️ Wave Fitness Unisex Gym
+# Wave Fitness — QA Enhanced Next.js
 
-Official website for **Wave Fitness Unisex Gym** in Tambaram East (Camp Road Junction), Chennai.
+This is a complete Next.js App Router source project.
 
----
+## Start
 
-## 🚀 Quick Start
-
-Follow these steps to run the website locally on your computer:
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/dharshinik070507-cmyk/WaveFitness.git
-
-# 2. Go into the project directory
-cd WaveFitness
-
-# 3. Install dependencies
+```powershell
 npm install
-
-# 4. Start the development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Visit http://localhost:3000.
 
----
+## QA
 
-## 🛠️ Commands & Scripts
+```powershell
+npm run typecheck
+npm run build
+npm audit
+npx playwright install chromium
+npm run test:e2e
+```
 
-- **`npm run dev`** – Starts the local development server.
-- **`npm run build`** – Builds the project for production.
-- **`npm run start`** – Starts the production server.
-- **`npm run audit`** – Runs the automated system & design check.
-- **`npm run visual`** – Runs automated Playwright visual tests across screen sizes.
-- **`npm run lint`** – Checks code quality with ESLint.
+The Playwright test checks all seven routes at 320, 360, 375, 390, 414, 768 and 1024 pixels. Browser installation and npm registry access are required.
 
----
+## Changes
 
-## 📍 Gym Location & Contact Information
+- Fixed flex alignment compatibility warnings.
+- Added explicit viewport metadata and security headers.
+- Improved mobile typography, overflow containment, touch targets, form input types and reduced-motion fallbacks.
+- Added gallery lightbox Escape-key close, close-button focus, scroll lock and focus restoration.
+- Added mobile menu Escape-key close and aria-controls.
+- Added responsive smoke tests.
 
-- **Name:** Wave Fitness Unisex Gym
-- **Address:** No.2 Lenin Complex, School St, Camp Road Junction, Selaiyur, Tambaram East, Chennai, Tamil Nadu 600073
-- **Phone / WhatsApp:** +91 73973 98749
-- **Rating:** 4.9★ on Google (365+ Reviews)
-- **Hours:** Open daily from 6:00 AM
+## Launch caveats
 
----
-
-## 📄 Tech Stack
-
-- **Framework:** Next.js 14 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS + Vanilla CSS Tokens
-- **Animations:** Framer Motion
-- **Testing:** Playwright Visual Checks
+This is a source-level improvement, not a certified production build. Replace external illustrative photos with approved gym assets; confirm pricing and trial terms; run all QA commands and test on real iOS/Android browsers before deployment. Contact submissions open WhatsApp rather than being stored in a backend.
